@@ -1,10 +1,117 @@
 <html>
 	<head>
-		<title>CSA</title>
-		
-		<link rel="stylesheet" href="/assets/style.css" type="text/css" />
+		<title>CSA</title>		
+		<link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css" />
+		<script src="/assets/js/jquery-2.2.2.min.js"></script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+		<script src="/assets/js/script.js"></script>
 	</head>
 	<body>
-		<h1>CSA</h1>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="window-header">
+					<div class="close">&times;</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 nopadding">
+					<div class="top-tabs">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#fam" aria-controls="fam" role="tab" data-toggle="tab">Functional Architecture model</a>
+							</li>
+							<li role="presentation">
+								<a href="#classdiagram" aria-controls="classdiagram" role="tab" data-toggle="tab">Class diagram</a>
+							</li>
+							<li role="presentation">
+								<a href="#petrinet" aria-controls="petrinet" role="tab" data-toggle="tab">Petri net</a>
+							</li>
+							<li role="presentation">
+								<a href="#sequencediagram" aria-controls="sequencediagram" role="tab" data-toggle="tab">Sequence diagram</a>
+							</li>
+							<li role="presentation">
+								<a href="#statediagram" aria-controls="statediagram" role="tab" data-toggle="tab">State diagram</a>
+							</li>
+							<li role="presentation">
+								<a href="#sourcecode" aria-controls="sourcecode" role="tab" data-toggle="tab">Source code</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 nopadding">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="fam">elementen</div>
+						<div role="tabpanel" class="tab-pane" id="classdiagram">elementen</div>
+						<div role="tabpanel" class="tab-pane" id="petrinet">elementen</div>
+						<div role="tabpanel" class="tab-pane" id="sequencediagram">elementen</div>
+						<div role="tabpanel" class="tab-pane" id="statediagram">elementen</div>
+						<div role="tabpanel" class="tab-pane" id="sourcecode">elementen</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2 nopadding">
+					<div class="left-tabs">
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingOne">
+							  <h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								  User stories (34)
+								</a>
+							  </h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							  <div class="panel-body">
+								
+							  </div>
+							</div>
+						  </div>
+						  <div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingTwo">
+							  <h4 class="panel-title">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								  Viewpoints (7)
+								</a>
+							  </h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							  <div class="panel-body">
+								Functional<br/>
+								Information<br/>
+								Concurrency<br/>
+								Operational<br/>
+								Development<br/>
+								Deployment<br/>
+								Context<br/>
+							  </div>
+							</div>
+						  </div>
+						  <div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingThree">
+							  <h4 class="panel-title">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Perspectives (16)
+								</a>
+							  </h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+							  <div class="panel-body">
+								
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-10 nopadding">
+					Canvas
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
