@@ -17,9 +17,13 @@ body { background-color: #ccc; }
 .left-tabs .panel {box-shadow: none; }
 .left-tabs .panel-group .panel{ border-radius: 0px; border: 0px; }
 .left-tabs .panel-group .panel+.panel { margin-top: 2px; }
+.left-tabs .panel-heading { padding: 0px; }
 .left-tabs .panel-default>.panel-heading { background-color: rgb(91,155,213); color: #fff; border-radius: 0px; } 
 .left-tabs .panel-collapse { background-color: #fbfbfb; }
-.left-tabs .panel-heading { padding: 0px; }
+.left-tabs .panel-collapse .tree { list-style-type: none; position: relative; padding: 0px;}
+.left-tabs .panel-collapse .tree:before, .tree ul:before { content: ""; display: block; width: 0; position: absolute; top: 0; bottom: 0; left: 0; border-left: 1px solid; }
+.left-tabs .panel-collapse .tree li { position: relative; padding: 0 1.5em; }
+.left-tabs .panel-collapse .tree li:before { content: ""; display: block; width: 10px; height: 0; border-top: 1px solid; margin-top: -1px; position: absolute; top: 12px; left: 0;	}
 .left-tabs a,
 .left-tabs a:hover,
 .left-tabs a:focus { text-decoration: none; }
