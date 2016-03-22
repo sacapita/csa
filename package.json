@@ -1,39 +1,27 @@
 {
   "name": "csa",
   "version": "0.0.1",
-  "description": "CSA frontend base repository",
+  "description": "Continuous Software Architecting",
   "main": "dist/csa.js",
-  "typings": "dist/csa",
   "scripts": {
-    "test": "cd dist && mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sacapita/csa.git"
+    "url": "git+https://github.com/sacapita/csa.git"
   },
   "keywords": [
-    "csa",
-    "frontend"
+    "csa"
   ],
-  "contributors": [
-    "Bart Smolders <bartsmolders111@gmail.com>",
-    "Rico de Feijter <rico557@hotmail.com>"
-  ],
+  "author": "frontend",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sacapita/csa/issues"
   },
-  "homepage": "https://github.com/sacapita/csa/wiki",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.4.4",
-    "node-debug": "^0.1.0",
-    "typedoc": "^0.3.12",
-    "typescript": "^1.7.5",
-    "typings": "^0.6.2"
-  },
+  "homepage": "https://github.com/sacapita/csa#readme",
   "dependencies": {
-	"cubitt-graph": "~0.6.1"
-	"cubitt-commands": "~0.6.0"
+    "express": "^4.13.4",
+	"cubitt-graph": "0.6.0",
+	"cubitt-commands": "0.6.1"
   }
 }

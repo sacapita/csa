@@ -2,17 +2,16 @@
 var graph = require("cubitt-graph");
 var commands = require("cubitt-commands");
 var http = require("http");
+var fs = require("fs");
+var express = require('express');
+var router = express.Router();
+var path    = require("path");
 
-http.createServer(function (request, response) {
+var app = express();
+app.set('views', './views');
 
-   // Send the HTTP header 
-   // HTTP Status: 200 : OK
-   // Content Type: text/plain
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   
-   // Send the response body as "Hello World"
-   response.end('Hello World\n');
-}).listen(8081);
-
-// Console will print the message
-console.log('Server running at http://127.0.0.1:8081/');
+app.get("/", function(req, res){
+	res.sendFile(path.join(__dirname+'/views/index.html'));
+});
+app.listen(8000);
+console.log("Listening on 127.0.0.1:8000");
