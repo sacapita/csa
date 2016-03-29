@@ -1,0 +1,30 @@
+body { background-color: #ccc; }
+
+.nopadding { padding: 0 !important; margin: 0 !important; }
+
+.window-header { background-color: rgb(91,155,213); height: 20px;}
+.window-header .close { background-color: rgb(192,0,0); width: 50px; color: #fff; text-align: center; font-size: 20px; opacity: 1; text-shadow: none; }
+
+.top-tabs { background-color: #fbfbfb; }
+.top-tabs a { color: #333; }
+.top-tabs .nav-tabs>li.active>a, 
+.top-tabs .nav-tabs>li.active>a:focus, 
+.top-tabs .nav-tabs>li.active>a:hover  { border-radius: 0px; border-bottom-color: #ddd !important; }
+
+.tab-content { height: 150px; overflow: overflow-y; background-color: #fbfbfb;  }
+
+.left-tabs { height: 100%; background-color: #fbfbfb; }
+.left-tabs .panel {box-shadow: none; }
+.left-tabs .panel-group .panel{ border-radius: 0px; border: 0px; }
+.left-tabs .panel-group .panel+.panel { margin-top: 2px; }
+.left-tabs .panel-heading { padding: 0px; }
+.left-tabs .panel-default>.panel-heading { background-color: rgb(91,155,213); color: #fff; border-radius: 0px; } 
+.left-tabs .panel-collapse { background-color: #fbfbfb; }
+.left-tabs .panel-collapse .tree { list-style-type: none; position: relative; padding: 0px;}
+.left-tabs .panel-collapse .tree:before, .tree ul:before { content: ""; display: block; width: 0; position: absolute; top: 0; bottom: 0; left: 0; border-left: 1px solid; }
+.left-tabs .panel-collapse .tree li { position: relative; padding: 0 1.5em; }
+.left-tabs .panel-collapse .tree li:before { content: ""; display: block; width: 10px; height: 0; border-top: 1px solid; margin-top: -1px; position: absolute; top: 12px; left: 0;	}
+.left-tabs a,
+.left-tabs a:hover,
+.left-tabs a:focus { text-decoration: none; }
+.left-tabs a { display: block; padding: 10px 15px; }

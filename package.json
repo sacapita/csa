@@ -21,10 +21,12 @@
   "homepage": "https://github.com/sacapita/csa#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "cubitt-commands": "0.6.1",
-    "cubitt-graph": "0.6.0",
+    "cubitt-commands": "^0.6.0",
+    "cubitt-graph": "^0.6.1",
     "cubitt-graph-cqrs": "^0.6.2",
     "express": "^4.13.4",
-    "mongoose": "^4.4.8"
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "path": "^0.12.7"
   }
 }
