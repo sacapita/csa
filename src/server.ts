@@ -1,17 +1,18 @@
 /// <reference path='./typings/tsd.d.ts' />
-import {GraphInterface} from "../node_modules/cubitt-graph/src/cubitt-graph";
-import {CommandFactory} from "../node_modules/cubitt-commands/src/cubitt-commands";
-
+import {GraphInterface} from "cubitt-graph";
+import {CommandFactory} from "cubitt-commands";
+import * as Common from "cubitt-common";
+import * as Commands from "cubitt-commands";
 import express = require('express');
 import bodyParser = require('body-parser');
 import http = require('http');
 import path = require('path');
-import commands = require("cubitt-commands");
+
 
 var app = express();
 //var Functions = functions.Functions;
 var router = express.Router();
-var port = 8000;
+var port = 8045;
 var graph = null;
 
 router.use(bodyParser.json());
@@ -24,8 +25,20 @@ router.get( '/', function( req, res ) {
 
 router.get('/add/model', function (req, res) {
       //console.log("add model", graph);
+      let dict: Common.Dictionary<string> = {};
       console.log("graph from memory", graph);
-      res.send(JSON.stringify(graph));
+      var cmd = new Commands.AddModelCommand(
+        Common.Guid.newGuid(), // id
+        Common.Guid.newGuid(), // requestId
+        Common.Guid.newGuid(), // sessionId
+        Common.Guid.newGuid(), // elementId
+        "FAM_NODE",
+        dict
+      );
+      
+      //var parsedCommand = Commands.CommandFactory.parse(cmd);
+
+      res.send(JSON.stringify(cmd));
 });
 
 router.get('/graph', function (req, res) {

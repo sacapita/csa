@@ -3,7 +3,7 @@ var Functions = (function () {
   function Functions() {
 
   }
-  Functions.blahh = function(msg) {
+  Functions.prototype.blahh = function(msg) {
     console.log(msg);
   };
   return Functions;
