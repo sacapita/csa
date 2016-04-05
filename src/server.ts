@@ -8,9 +8,7 @@ import bodyParser = require('body-parser');
 import http = require('http');
 import path = require('path');
 
-
 var app = express();
-//var Functions = functions.Functions;
 var router = express.Router();
 var port = 8045;
 var graph = null;
@@ -19,12 +17,15 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get( '/', function( req, res ) {
-
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
   });
 
-router.get('/add/model', function (req, res) {
-      //console.log("add model", graph);
+router.post('/update/graph', function (req, res) {
+      var graph = req.body.graph;
+      for (let elem in graph){
+        
+      }
+
       let dict: Common.Dictionary<string> = {};
       console.log("graph from memory", graph);
       var cmd = new Commands.AddModelCommand(
@@ -35,7 +36,7 @@ router.get('/add/model', function (req, res) {
         "FAM_NODE",
         dict
       );
-      
+
       //var parsedCommand = Commands.CommandFactory.parse(cmd);
 
       res.send(JSON.stringify(cmd));

@@ -1,4 +1,4 @@
-// declare the namespace for this example
+// declare the namespace for this application
 var CSA = {};
 
 /**
@@ -19,7 +19,8 @@ CSA.Application = Class.extend(
      */
      init : function()
      {
-	      this.view    = new CSA.View("canvas");
-        this.toolbar = new CSA.Toolbar("toolbar",  this.view );
+	      this.view       = new CSA.View("canvas");
+        this.toolbar    = new CSA.Toolbar("toolbar",  this.view );
+        this.middleware = new CSA.Middleware(this.view);
       }
 });

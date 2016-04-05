@@ -16,7 +16,14 @@
         "./**/*.ts"
     ],
     "files": [
-        "./Functions.ts",
+        "./AbstractElement.ts",
+        "./ConnectorElement.ts",
+        "./EdgeElement.ts",
+        "./ElementType.ts",
+        "./Graph.ts",
+        "./GraphInterface.ts",
+        "./ModelElement.ts",
+        "./NodeElement.ts",
         "./query-service.ts",
         "./server.ts",
         "./typings/body-parser/body-parser.d.ts",

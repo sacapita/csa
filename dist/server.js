@@ -14,7 +14,10 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
-router.get('/add/model', function (req, res) {
+router.post('/update/graph', function (req, res) {
+    var graph = req.body.graph;
+    for (var elem in graph) {
+    }
     var dict = {};
     console.log("graph from memory", graph);
     var cmd = new Commands.AddModelCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), Common.Guid.newGuid(), Common.Guid.newGuid(), "FAM_NODE", dict);

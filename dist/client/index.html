@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css" />
 
 		<!-- begin draw2d include -->
-		<link type="text/css" rel="stylesheet" href="./css/application.css" />
+		<link type="text/css" rel="stylesheet" href="/assets/css/application.css" />
     <link type="text/css" rel="stylesheet" href="/draw2d/css/contextmenu.css" />
 
     <SCRIPT src="/draw2d/lib/shifty.js"></SCRIPT>
@@ -25,8 +25,8 @@
     <SCRIPT src="/draw2d/lib/json2.js"></SCRIPT>
     <SCRIPT src="/draw2d/lib/pathfinding-browser.min.js"></SCRIPT>
 
-    <SCRIPT src="/draw2d/src/draw2d.js"></SCRIPT>
-	  <SCRIPT src="/draw2d/src/util/Polyfill.js"> </SCRIPT>
+		<SCRIPT src="/draw2d/src/draw2d.js"></SCRIPT>
+	    <SCRIPT src="/draw2d/src/util/Polyfill.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Base64.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Debug.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Color.js"> </SCRIPT>
@@ -103,7 +103,7 @@
     <SCRIPT src="/draw2d/src/layout/locator/RightLocator.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/layout/locator/CenterLocator.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/policy/EditPolicy.js"> </SCRIPT>
-		<SCRIPT src="/draw2d/src/policy/canvas/CanvasPolicy.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/policy/canvas/CanvasPolicy.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/policy/canvas/ZoomPolicy.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/policy/canvas/WheelZoomPolicy.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/policy/canvas/KeyboardPolicy.js"> </SCRIPT>
@@ -239,17 +239,24 @@
     <SCRIPT src="/draw2d/src/decoration/connection/DiamondDecorator.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/decoration/connection/CircleDecorator.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/decoration/connection/BarDecorator.js"> </SCRIPT>
-		<SCRIPT src="/draw2d/src/io/Reader.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/io/Reader.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/io/Writer.js"> </SCRIPT>
-		<SCRIPT src="/draw2d/src/io/json/Reader.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/io/svg/Writer.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/io/png/Writer.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/io/json/Writer.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/io/json/Reader.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/storage/FileStorage.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/storage/GoogleDrive.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/storage/LocalFileStorage.js"> </SCRIPT>
+    <SCRIPT src="/draw2d/src/storage/TideSDKStorage.js"> </SCRIPT>
 
-    <SCRIPT src="./lib/jquery.browser.js"></SCRIPT>
-    <SCRIPT src="./lib/jquery-ui-1.8.23.custom.min.js"></SCRIPT>
+    <SCRIPT src="/assets/js/jquery.browser.js"></SCRIPT>
+    <SCRIPT src="/assets/js/jquery-ui-1.8.23.custom.min.js"></SCRIPT>
 
     <SCRIPT src="./app/Application.js"></SCRIPT>
     <SCRIPT src="./app/View.js"></SCRIPT>
     <SCRIPT src="./app/Toolbar.js"></SCRIPT>
+		<SCRIPT src="./app/Middleware.js"></SCRIPT>
     <SCRIPT src="./app/TableShape.js"></SCRIPT>
 		<SCRIPT src="./app/LabelShape.js"></SCRIPT>
 
@@ -304,6 +311,7 @@
 			// (load)
 			var reader = new draw2d.io.json.Reader();
 			reader.unmarshal(app.view, jsonDocument);
+			console.log(jsonDocument);
 
 		});
 
@@ -428,11 +436,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-10 nopadding">
+				<div class="col-sm-8 nopadding">
 						<div id="toolbar" class="navbar-default">
 				    </div>
 						<div id="canvas" >
 						</div>
+				</div>
+				<div class="col-sm-2 nopadding">
+					<pre id="json" style="overflow:auto;background:white;border:1px solid gray">
+					</pre>
 				</div>
 			</div>
 		</div>
