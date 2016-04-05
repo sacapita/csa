@@ -3,10 +3,47 @@ var ElementType_1 = require("./ElementType");
 var NodeElement_1 = require("./NodeElement");
 var ConnectorElement_1 = require("./ConnectorElement");
 var EdgeElement_1 = require("./EdgeElement");
+var ModelElement_1 = require("./ModelElement");
 var Graph = (function () {
     function Graph() {
         this.Elements = {};
     }
+    Graph.prototype.parse = function (jsGraph, modelId) {
+        var graph = new Graph();
+        var json = JSON.parse(jsGraph);
+        this.addModel(modelId, "DRAW2D_MODEL", {});
+        for (var key in json) {
+            var elem = json[key];
+            var elemId = elem.id;
+            var elemProperties = [];
+            switch (elem.type) {
+                case "TableShape":
+                case "LabelShape":
+                    for (var prop in elem) {
+                        var value = elem[prop];
+                        if (prop == "ports" && elem.hasOwnProperty(prop)) {
+                            for (var port in value) {
+                                var portObject = value[port];
+                                var portProperties = [];
+                                for (var portProps in portObject) {
+                                    portProperties[portProps] = portObject[portProps];
+                                }
+                                console.log("port", elemId, this.Elements);
+                                this.addConnector(portObject.id, portObject.type, elemId, portProperties);
+                            }
+                        }
+                        else {
+                            elemProperties[prop] = value;
+                        }
+                    }
+                    this.addNode(elemId, elem.type.toString(), modelId, elemProperties);
+                    break;
+                case "draw2d.Connection":
+                    break;
+            }
+        }
+        return this;
+    };
     Graph.prototype.getElement = function (id) {
         var elem = this.Elements[id.toString()];
         if (elem == undefined) {
@@ -26,9 +63,13 @@ var Graph = (function () {
         if (model == undefined) {
             throw new Error("No model with GUID " + modelId + " could be found");
         }
+        if (model.getType() != ElementType_1.ElementType.Model) {
+            throw new Error("GUID " + modelId.toString() + " does not belong to a model");
+        }
         properties["type"] = type;
         var node = new NodeElement_1.NodeElement(id, properties);
         node.addModelNeighbour(modelId);
+        model.addNodeNeighbour(id);
         this.Elements[node.Id.toString()] = node;
     };
     Graph.prototype.addEdge = function (id, type, modelId, startNodeId, startConnectorId, endNodeId, endConnectorId, properties) {
@@ -39,6 +80,9 @@ var Graph = (function () {
         var model = this.Elements[modelId.toString()];
         if (model == undefined) {
             throw new Error("No model with GUID " + modelId + " could be found");
+        }
+        if (model.getType() != ElementType_1.ElementType.Model) {
+            throw new Error("Element with GUID " + modelId.toString() + " is not a Model");
         }
         var startConnector = this.Elements[startConnectorId.toString()];
         if (startConnector == undefined) {
@@ -60,6 +104,7 @@ var Graph = (function () {
         edge.addEndConnector(endConnectorId);
         startConnector.addEdgeNeighbour(id);
         endConnector.addEdgeNeighbour(id);
+        model.addEdgeNeighbour(id);
         edge.addModelNeighbour(modelId);
         this.Elements[id.toString()] = edge;
     };
@@ -80,6 +125,14 @@ var Graph = (function () {
         connector.addNodeNeighbour(nodeId);
         this.Elements[id.toString()] = connector;
     };
+    Graph.prototype.addModel = function (id, type, properties) {
+        if (this.hasElement(id)) {
+            throw new Error("An Element with GUID " + id.toString() + " already exists");
+        }
+        properties["type"] = type;
+        var model = new ModelElement_1.ModelElement(id, properties);
+        this.Elements[id.toString()] = model;
+    };
     Graph.prototype.deserialize = function (jsonObject) {
         var graph = new Graph();
         return graph;
@@ -98,6 +151,32 @@ var Graph = (function () {
             "edges": {},
             "connectors": {}
         };
+        var elements = this.Elements;
+        for (var key in elements) {
+            var elem = elements[key];
+            var obj = {
+                "id": elem.Id.toString(),
+                "properties": elem.getProperties(),
+                "neighbours": {
+                    "models": elem.getModelNeighbours().map(function (val) { return val.toString(); }),
+                    "nodes": elem.getNodeNeighbours().map(function (val) { return val.toString(); }),
+                    "edges": elem.getEdgeNeighbours().map(function (val) { return val.toString(); }),
+                    "connectors": elem.getConnectorNeighbours().map(function (val) { return val.toString(); })
+                }
+            };
+            if (elem.getType() == ElementType_1.ElementType.Node) {
+                graph.nodes[elem.Id.toString()] = obj;
+            }
+            else if (elem.getType() == ElementType_1.ElementType.Edge) {
+                graph.edges[elem.Id.toString()] = obj;
+            }
+            else if (elem.getType() == ElementType_1.ElementType.Connector) {
+                graph.connectors[elem.Id.toString()] = obj;
+            }
+            else {
+                graph.models[elem.Id.toString()] = obj;
+            }
+        }
         return graph;
     };
     return Graph;

@@ -39,6 +39,16 @@ import * as Common from "cubitt-common";
    addConnector(id: Common.Guid, type: string, nodeId: Common.Guid, properties ?: Common.Dictionary<any>);
 
    /**
+     * Adds a Model to the Graph
+     *
+     * @param id Identifier of the Model to add, this GUID should not already exist in the system
+     * @param type string String representing the type of the connector (i.e. "MODEL_FAM" or "MODEL_UML")
+     * @param properties Dictionary of properties of the Model
+     *
+     */
+    addModel(id: Common.Guid, type: string, properties ?: Common.Dictionary<any>);
+
+   /**
     * Transforms this Graph to a plain JSON graph
     *
     */

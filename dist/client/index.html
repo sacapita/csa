@@ -275,6 +275,7 @@
 				 fill:#F7F7F7;
 				 stroke:#d7d7d7;
 			}
+			#loader { background-color: #181817; width: 100%; height: 100%; overflow: hidden; position: fixed; z-index: 1031; background-image: url("/assets/img/loading.gif"); background-position: center center; background-repeat: no-repeat;}
 		</style>
 		<script type="text/javascript">
 
@@ -289,7 +290,7 @@
 		* @returns {draw2d.Connection}
 		*/
 
-		$(window).load(function () {
+		$(document).ready(function() {
 
 			var routerToUse =new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
 			var app  = new CSA.Application();
@@ -306,7 +307,6 @@
 					}
 			}));
 
-
 			// unmarshal the JSON document into the canvas
 			// (load)
 			var reader = new draw2d.io.json.Reader();
@@ -315,11 +315,22 @@
 
 		});
 
+		window.onload = function () {
+				$('#loader').fadeOut(500, "linear", function(){
+					document.getElementById("loader").style.backgroundImage = "url(/assets/img/loading_text.png)";
+				});
+		};
+
+		window.onbeforeunload = function() {
+			document.getElementById('loader').style.display = "block";
+		};
+
 
 		</script>
 
 	</head>
 	<body>
+		<div id="loader"></div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="window-header">
@@ -436,13 +447,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-8 nopadding">
+				<div class="col-sm-6 nopadding">
 						<div id="toolbar" class="navbar-default">
 				    </div>
 						<div id="canvas" >
 						</div>
 				</div>
-				<div class="col-sm-2 nopadding">
+				<div class="col-sm-4 nopadding">
 					<pre id="json" style="overflow:auto;background:white;border:1px solid gray">
 					</pre>
 				</div>

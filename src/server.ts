@@ -7,6 +7,7 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import http = require('http');
 import path = require('path');
+import {Graph as D2DGraph} from "./Graph";
 
 var app = express();
 var router = express.Router();
@@ -21,11 +22,11 @@ router.get( '/', function( req, res ) {
   });
 
 router.post('/update/graph', function (req, res) {
-      var graph = req.body.graph;
-      for (let elem in graph){
-        
-      }
-
+      var jsGraph = req.body.graph;
+      let d2dGraph = new D2DGraph();
+      var modelId = Common.Guid.newGuid();
+      var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
+/*
       let dict: Common.Dictionary<string> = {};
       console.log("graph from memory", graph);
       var cmd = new Commands.AddModelCommand(
@@ -35,11 +36,11 @@ router.post('/update/graph', function (req, res) {
         Common.Guid.newGuid(), // elementId
         "FAM_NODE",
         dict
-      );
+      );*/
 
       //var parsedCommand = Commands.CommandFactory.parse(cmd);
 
-      res.send(JSON.stringify(cmd));
+      res.send(JSON.stringify(d2d));
 });
 
 router.get('/graph', function (req, res) {

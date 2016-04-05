@@ -7,8 +7,8 @@ body { background-color: #ccc; }
 
 .top-tabs { background-color: #fbfbfb; }
 .top-tabs a { color: #333; }
-.top-tabs .nav-tabs>li.active>a, 
-.top-tabs .nav-tabs>li.active>a:focus, 
+.top-tabs .nav-tabs>li.active>a,
+.top-tabs .nav-tabs>li.active>a:focus,
 .top-tabs .nav-tabs>li.active>a:hover  { border-radius: 0px; border-bottom-color: #ddd !important; }
 
 .tab-content { height: 150px; overflow: overflow-y; background-color: #fbfbfb;  }
@@ -18,7 +18,7 @@ body { background-color: #ccc; }
 .left-tabs .panel-group .panel{ border-radius: 0px; border: 0px; }
 .left-tabs .panel-group .panel+.panel { margin-top: 2px; }
 .left-tabs .panel-heading { padding: 0px; }
-.left-tabs .panel-default>.panel-heading { background-color: rgb(91,155,213); color: #fff; border-radius: 0px; } 
+.left-tabs .panel-default>.panel-heading { background-color: rgb(91,155,213); color: #fff; border-radius: 0px; }
 .left-tabs .panel-collapse { background-color: #fbfbfb; }
 .left-tabs .panel-collapse .tree { list-style-type: none; position: relative; padding: 0px;}
 .left-tabs .panel-collapse .tree:before, .tree ul:before { content: ""; display: block; width: 0; position: absolute; top: 0; bottom: 0; left: 0; border-left: 1px solid; }

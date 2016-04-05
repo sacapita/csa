@@ -19,6 +19,53 @@ export class Graph implements GraphInterface {
   }
 
   /**
+   * Convert a JSON Draw2D graph object to a Graph
+   */
+  public parse(jsGraph: string, modelId: Common.Guid): Graph {
+    let graph = new Graph();
+    let json = JSON.parse(jsGraph);
+
+    this.addModel(modelId, "DRAW2D_MODEL", {});
+
+    for(let key in json) {
+      let elem = json[key];
+      let elemId = elem.id;
+      let elemProperties: Object[] = [];
+
+      switch(elem.type){
+        case "TableShape":
+        case "LabelShape":
+          for(let prop in elem) {
+            let value = elem[prop];
+            if(prop == "ports" && elem.hasOwnProperty(prop)){
+              for(let port in value){
+                // Add connector for each port
+                let portObject = value[port];
+                let portProperties: Object[] = [];
+                for(let portProps in portObject){
+                  portProperties[portProps] = portObject[portProps];
+                }
+
+                console.log("port",elemId, this.Elements);
+
+                this.addConnector(portObject.id, portObject.type, elemId, portProperties);
+              }
+            }else{
+                elemProperties[prop] = value;
+            }
+          }
+          this.addNode(elemId, elem.type.toString(), modelId, elemProperties);
+          break;
+        case "draw2d.Connection":
+          //console.log("Edge");
+          break;
+      }
+    }
+
+    return this;
+  }
+
+  /**
    * Returns an element given an GUID
    *
    * @param id GUID representing an element identifier
@@ -50,13 +97,13 @@ export class Graph implements GraphInterface {
       if (model == undefined) {
           throw new Error("No model with GUID " + modelId + " could be found");
       }
-    /*  if (model.getType() != ElementType.Model) {
+      if (model.getType() != ElementType.Model) {
           throw new Error("GUID " + modelId.toString() + " does not belong to a model");
-      }*/
+      }
       properties["type"] = type;
       var node = new NodeElement(id, properties);
       node.addModelNeighbour(modelId);
-      //model.addNodeNeighbour(id);
+      model.addNodeNeighbour(id);
 
       this.Elements[node.Id.toString()] = node;
   }
@@ -75,9 +122,9 @@ export class Graph implements GraphInterface {
       if (model == undefined) {
           throw new Error("No model with GUID " + modelId + " could be found");
       }
-      /*if (model.getType() != ElementType.Model) {
+      if (model.getType() != ElementType.Model) {
           throw new Error("Element with GUID " + modelId.toString() + " is not a Model");
-      }*/
+      }
 
       // Validate startConnector
       var startConnector = this.Elements[startConnectorId.toString()];
@@ -105,7 +152,7 @@ export class Graph implements GraphInterface {
       startConnector.addEdgeNeighbour(id);
       endConnector.addEdgeNeighbour(id);
 
-    //  model.addEdgeNeighbour(id);
+      model.addEdgeNeighbour(id);
       edge.addModelNeighbour(modelId);
 
       this.Elements[id.toString()] = edge;
@@ -141,9 +188,24 @@ export class Graph implements GraphInterface {
   /**
    * @inheritdoc
    */
+   public addModel(id: Common.Guid, type: string, properties: Common.Dictionary<any>)
+  {
+      // Validate GUID
+      if (this.hasElement(id)) {
+          throw new Error("An Element with GUID " + id.toString() + " already exists");
+      }
+      properties["type"] = type;
+      var model = new ModelElement(id, properties);
+      this.Elements[id.toString()] = model;
+
+  }
+
+  /**
+   * @inheritdoc
+   */
   public deserialize(jsonObject : Object) : GraphInterface {
       var graph = new Graph();
-      /*var modelElements: Common.Dictionary<ModelElement> = {};
+    /*  var modelElements: Common.Dictionary<ModelElement> = {};
       var models = jsonObject['models'];
       for (var modelKey in models) {
           var model = models[modelKey];
@@ -205,7 +267,7 @@ export class Graph implements GraphInterface {
        "edges"      : {},
        "connectors" : {}
       };
-/*
+
       var elements = this.Elements;
       for (var key in elements) {
           var elem  = elements[key];
@@ -230,7 +292,7 @@ export class Graph implements GraphInterface {
           } else {
               graph.models[elem.Id.toString()] = obj;
           }
-      }*/
+      }
       return graph;
   }
 }

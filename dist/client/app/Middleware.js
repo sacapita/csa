@@ -17,6 +17,7 @@ CSA.Middleware = Class.extend({
       $("#json").text(JSON.stringify(json, null, 2));
   },
   updateGraph:function(json){
+			var self = this;
       //ajax to backend
 			$.ajax({
 				method: "POST",
@@ -24,7 +25,8 @@ CSA.Middleware = Class.extend({
 				type: "json",
 				data: {graph: json},
 				success: function(res){
-					console.log("8045:/update/graph success", res);
+					self.displayJSON(JSON.parse(res));
+					//console.log("8045:/update/graph success", res);
 				},
 				error: function(err){
 					console.log(err);

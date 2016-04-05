@@ -18,6 +18,10 @@ export abstract class AbstractElement {
    constructor(id: Common.Guid, properties: Common.Dictionary<any> = {}) {
         this.id = id;
         this.properties = properties;
+        this.nodeNeighbours = {};
+        this.edgeNeighbours = {};
+        this.connectorNeighbours = {};
+        this.modelNeighbours = {};
    }
 
    /**
@@ -69,6 +73,71 @@ export abstract class AbstractElement {
     }
 
     /**
+     * Returns all neighbours, optionally filtered by ElementType
+     *
+     * @param type The elementtype to filter by, by default all elements are returned
+     */
+    protected internalGetNeighbours(type ?: ElementType) : Common.Guid[] {
+        if (type == ElementType.Node) {
+            return this.toArray(this.nodeNeighbours);
+        } else if (type == ElementType.Edge) {
+            return this.toArray(this.edgeNeighbours);
+        } else if (type == ElementType.Connector) {
+            return this.toArray(this.connectorNeighbours);
+        } else if (type == ElementType.Model) {
+            return this.toArray(this.modelNeighbours);
+        } else {
+            var types : Array<Common.Dictionary<Common.Guid>> = [];
+            types.push(this.nodeNeighbours);
+            types.push(this.edgeNeighbours);
+            types.push(this.connectorNeighbours);
+            types.push(this.modelNeighbours);
+            var result = [];
+            for (var elems of types) {
+                for (var key in elems) {
+                    result.push(elems[key]);
+                }
+            }
+            return result;
+        }
+    }
+
+    /**
+     * Returns all neighbours
+     */
+    public getNeighbours() : Common.Guid[] {
+        return this.internalGetNeighbours();
+    }
+
+    /**
+     * Returns all neighbours of type Node
+     */
+    public getNodeNeighbours() : Common.Guid[] {
+        return this.internalGetNeighbours(ElementType.Node);
+    }
+
+    /**
+     * Returns all neighbours of type Edge
+     */
+    public getEdgeNeighbours() : Common.Guid[] {
+        return this.internalGetNeighbours(ElementType.Edge);
+    }
+
+    /**
+     * Returns all neighbours of type Connector
+     */
+    public getConnectorNeighbours() : Common.Guid[] {
+        return this.internalGetNeighbours(ElementType.Connector);
+    }
+
+    /**
+     * Returns all neighbours of type Model
+     */
+    public getModelNeighbours() : Common.Guid[] {
+        return this.internalGetNeighbours(ElementType.Model);
+    }
+
+    /**
      * Sets a property on this Element
      *
      * @param name Name of the property to set
@@ -92,5 +161,19 @@ export abstract class AbstractElement {
      */
     public getProperties() : Common.Dictionary<any> {
         return this.properties;
+    }
+
+    /**
+     * Converts a Dictionary to an Array
+     *
+     * @param dictionary The dictionary to convert
+     */
+    private toArray(dictionary : Common.Dictionary<Common.Guid>) : Common.Guid[] {
+        var result : Common.Guid[] = [];
+        for (var key in dictionary) {
+            var elem = dictionary[key]
+            result.push(elem);
+        }
+        return result;
     }
 }

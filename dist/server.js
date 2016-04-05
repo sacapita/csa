@@ -1,10 +1,10 @@
 "use strict";
 var Common = require("cubitt-common");
-var Commands = require("cubitt-commands");
 var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var path = require('path');
+var Graph_1 = require("./Graph");
 var app = express();
 var router = express.Router();
 var port = 8045;
@@ -15,13 +15,11 @@ router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 router.post('/update/graph', function (req, res) {
-    var graph = req.body.graph;
-    for (var elem in graph) {
-    }
-    var dict = {};
-    console.log("graph from memory", graph);
-    var cmd = new Commands.AddModelCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), Common.Guid.newGuid(), Common.Guid.newGuid(), "FAM_NODE", dict);
-    res.send(JSON.stringify(cmd));
+    var jsGraph = req.body.graph;
+    var d2dGraph = new Graph_1.Graph();
+    var modelId = Common.Guid.newGuid();
+    var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
+    res.send(JSON.stringify(d2d));
 });
 router.get('/graph', function (req, res) {
     var options = {

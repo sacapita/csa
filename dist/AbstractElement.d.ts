@@ -15,7 +15,14 @@ export declare abstract class AbstractElement {
     addEdgeNeighbour(id: Common.Guid): void;
     addConnectorNeighbour(id: Common.Guid): void;
     addModelNeighbour(id: Common.Guid): void;
+    protected internalGetNeighbours(type?: ElementType): Common.Guid[];
+    getNeighbours(): Common.Guid[];
+    getNodeNeighbours(): Common.Guid[];
+    getEdgeNeighbours(): Common.Guid[];
+    getConnectorNeighbours(): Common.Guid[];
+    getModelNeighbours(): Common.Guid[];
     setProperty(name: string, value: any): void;
     getProperty(name: string): any;
     getProperties(): Common.Dictionary<any>;
+    private toArray(dictionary);
 }
