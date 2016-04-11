@@ -24,7 +24,14 @@ router.get( '/', function( req, res ) {
 router.post('/update/graph', function (req, res) {
       var jsGraph = req.body.graph;
       let d2dGraph = new D2DGraph();
-      var modelId = Common.Guid.newGuid();
+      var modelId = req.body.modelId;
+
+      if(modelId){
+          // parse plain guid to Guid object
+          modelId = Common.Guid.parse(modelId);
+      }else{
+          modelId = Common.Guid.newGuid();
+      }
       var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
 /*
       let dict: Common.Dictionary<string> = {};

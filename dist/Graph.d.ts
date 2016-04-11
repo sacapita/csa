@@ -3,6 +3,7 @@ import { GraphInterface } from './GraphInterface';
 import { AbstractElement } from "./AbstractElement";
 export declare class Graph implements GraphInterface {
     private Elements;
+    private modelId;
     constructor();
     parse(jsGraph: string, modelId: Common.Guid): Graph;
     getElement(id: Common.Guid): AbstractElement;

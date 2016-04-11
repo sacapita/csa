@@ -1,4 +1,5 @@
 "use strict";
+var Common = require("cubitt-common");
 var ElementType_1 = require("./ElementType");
 var NodeElement_1 = require("./NodeElement");
 var ConnectorElement_1 = require("./ConnectorElement");
@@ -11,11 +12,13 @@ var Graph = (function () {
     Graph.prototype.parse = function (jsGraph, modelId) {
         var graph = new Graph();
         var json = JSON.parse(jsGraph);
+        this.modelId = modelId;
         this.addModel(modelId, "DRAW2D_MODEL", {});
-        for (var key in json) {
+        var _loop_1 = function(key) {
             var elem = json[key];
             var elemId = elem.id;
             var elemProperties = [];
+            var connectorsToAdd = [];
             switch (elem.type) {
                 case "TableShape":
                 case "LabelShape":
@@ -28,19 +31,46 @@ var Graph = (function () {
                                 for (var portProps in portObject) {
                                     portProperties[portProps] = portObject[portProps];
                                 }
-                                console.log("port", elemId, this.Elements);
-                                this.addConnector(portObject.id, portObject.type, elemId, portProperties);
+                                connectorsToAdd.push({ id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties });
                             }
                         }
                         else {
                             elemProperties[prop] = value;
                         }
                     }
-                    this.addNode(elemId, elem.type.toString(), modelId, elemProperties);
+                    this_1.addNode(elemId, elem.type, modelId, elemProperties);
+                    var self_1 = this_1;
+                    connectorsToAdd.forEach(function (currentValue, index, arr) { self_1.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
                     break;
                 case "draw2d.Connection":
+                    for (var prop in elem) {
+                        var value = elem[prop];
+                        startNodeId = null;
+                        startConnectorId = null;
+                        endNodeId = null;
+                        endConnectorId = null;
+                        if (prop == "target" && elem.hasOwnProperty("target")) {
+                            endNodeId = elem.target.node;
+                            var intermediate = elem.target.port;
+                            endConnectorId = Common.Guid.parse(intermediate.substring(6, intermediate.length));
+                        }
+                        else if (prop == "source" && elem.hasOwnProperty("source")) {
+                            startNodeId = elem.source.node;
+                            var intermediate = elem.source.port;
+                            startConnectorId = Common.Guid.parse(intermediate.substring(7, intermediate.length));
+                        }
+                        else {
+                            elemProperties[prop] = value;
+                        }
+                    }
+                    this_1.addEdge(elemId, elem.type, modelId, startNodeId, startConnectorId, endNodeId, endConnectorId, elemProperties);
                     break;
             }
+        };
+        var this_1 = this;
+        var startNodeId, startConnectorId, endNodeId, endConnectorId;
+        for (var key in json) {
+            _loop_1(key);
         }
         return this;
     };

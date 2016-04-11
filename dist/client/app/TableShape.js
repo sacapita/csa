@@ -18,7 +18,7 @@ TableShape = draw2d.shape.layout.VerticalLayout.extend({
             resizeable:true,
             editor:new draw2d.ui.LabelInplaceEditor()
         });
-       
+
         this.add(this.classLabel);
     },
 

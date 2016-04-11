@@ -13,6 +13,7 @@ import {ModelElement} from "./ModelElement"
  */
 export class Graph implements GraphInterface {
   private Elements : Common.Dictionary<AbstractElement>;
+  private modelId: Common.Guid;
 
   constructor() {
       this.Elements = {};
@@ -21,49 +22,66 @@ export class Graph implements GraphInterface {
   /**
    * Convert a JSON Draw2D graph object to a Graph
    */
-  public parse(jsGraph: string, modelId: Common.Guid): Graph {
-    let graph = new Graph();
-    let json = JSON.parse(jsGraph);
+    public parse(jsGraph: string, modelId: Common.Guid): Graph {
+        let graph = new Graph();
+        let json = JSON.parse(jsGraph);
+        this.modelId = modelId;
+        this.addModel(modelId, "DRAW2D_MODEL", {});
 
-    this.addModel(modelId, "DRAW2D_MODEL", {});
+        for(let key in json) {
+            let elem = json[key];
+            let elemId = elem.id;
+            let elemProperties: Object[] = [];
+            let connectorsToAdd: {id: Common.Guid, type: string; elemId: Common.Guid, props: Object[]}[] = [];
 
-    for(let key in json) {
-      let elem = json[key];
-      let elemId = elem.id;
-      let elemProperties: Object[] = [];
-
-      switch(elem.type){
-        case "TableShape":
-        case "LabelShape":
-          for(let prop in elem) {
-            let value = elem[prop];
-            if(prop == "ports" && elem.hasOwnProperty(prop)){
-              for(let port in value){
-                // Add connector for each port
-                let portObject = value[port];
-                let portProperties: Object[] = [];
-                for(let portProps in portObject){
-                  portProperties[portProps] = portObject[portProps];
-                }
-
-                console.log("port",elemId, this.Elements);
-
-                this.addConnector(portObject.id, portObject.type, elemId, portProperties);
-              }
-            }else{
-                elemProperties[prop] = value;
+            switch(elem.type){
+                case "TableShape":
+                case "LabelShape":
+                    for(let prop in elem) {
+                        let value = elem[prop];
+                        if(prop == "ports" && elem.hasOwnProperty(prop)){
+                            for(let port in value){
+                                // Add connector for each port
+                                let portObject = value[port];
+                                let portProperties: Object[] = [];
+                                for(let portProps in portObject){
+                                    portProperties[portProps] = portObject[portProps];
+                                }
+                                connectorsToAdd.push({id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties});
+                            }
+                        }else{
+                            elemProperties[prop] = value;
+                        }
+                    }
+                    this.addNode(elemId, elem.type, modelId, elemProperties);
+                    let self = this;
+                    connectorsToAdd.forEach(function(currentValue, index, arr){ self.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
+                    break;
+                case "draw2d.Connection":
+                    for(let prop in elem) {
+                        let value = elem[prop];
+                        var startNodeId: Common.Guid = null;
+                        var startConnectorId: Common.Guid = null;
+                        var endNodeId: Common.Guid = null;
+                        var endConnectorId: Common.Guid = null;
+                        if(prop == "target" && elem.hasOwnProperty("target")){
+                            endNodeId = elem.target.node;
+                            let intermediate: string = elem.target.port;
+                            endConnectorId = Common.Guid.parse(intermediate.substring(6,intermediate.length)); // Strip "input_" from Guid
+                        }else if(prop == "source" && elem.hasOwnProperty("source")){
+                            startNodeId = elem.source.node;
+                            let intermediate: string = elem.source.port;
+                            startConnectorId = Common.Guid.parse(intermediate.substring(7,intermediate.length)); // Strip "output_" from Guid
+                        }else{
+                            elemProperties[prop] = value;
+                        }
+                    }
+                    this.addEdge(elemId, elem.type, modelId, startNodeId, startConnectorId, endNodeId, endConnectorId, elemProperties);
+                    break;
             }
-          }
-          this.addNode(elemId, elem.type.toString(), modelId, elemProperties);
-          break;
-        case "draw2d.Connection":
-          //console.log("Edge");
-          break;
-      }
+        }
+        return this;
     }
-
-    return this;
-  }
 
   /**
    * Returns an element given an GUID
