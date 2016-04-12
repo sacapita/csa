@@ -4,8 +4,8 @@ import {Graph} from "./Graph"
 
 export abstract class AbstractElement {
     protected id: Common.Guid;
-	  protected type: ElementType;
-	  protected properties: Common.Dictionary<any>;
+	protected type: ElementType;
+	protected properties: Common.Dictionary<any>;
     protected nodeNeighbours: Common.Dictionary<Common.Guid>;
     protected edgeNeighbours: Common.Dictionary<Common.Guid>;
     protected connectorNeighbours: Common.Dictionary<Common.Guid>;
@@ -15,8 +15,9 @@ export abstract class AbstractElement {
    * @param id GUID of the Element that is created
    * @param properties of the Element
    */
-   constructor(id: Common.Guid, properties: Common.Dictionary<any> = {}) {
+   constructor(id: Common.Guid, type: ElementType, properties: Common.Dictionary<any> = {}) {
         this.id = id;
+        this.type = type;
         this.properties = properties;
         this.nodeNeighbours = {};
         this.edgeNeighbours = {};

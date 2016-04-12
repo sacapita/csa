@@ -5,13 +5,16 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var path = require('path');
 var Graph_1 = require("./Graph");
+var CommandGenerator_1 = require("./CommandGenerator");
 var app = express();
 var router = express.Router();
 var port = 8045;
 var graph = null;
+var sessionId;
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', function (req, res) {
+    sessionId = Common.Guid.newGuid();
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 router.post('/update/graph', function (req, res) {
@@ -25,6 +28,8 @@ router.post('/update/graph', function (req, res) {
         modelId = Common.Guid.newGuid();
     }
     var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
+    var cg = new CommandGenerator_1.CommandGenerator(sessionId);
+    cg.process(d2d);
     res.send(JSON.stringify(d2d));
 });
 router.get('/graph', function (req, res) {

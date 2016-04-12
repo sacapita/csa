@@ -11,12 +11,20 @@ import {ModelElement} from "./ModelElement"
  * Draw2D Graph object containing nodes, connectors and edges
  *
  */
-export class Graph implements GraphInterface {
-  private Elements : Common.Dictionary<AbstractElement>;
+export class Graph {
+  private  Elements : Common.Dictionary<AbstractElement>;
   private modelId: Common.Guid;
 
   constructor() {
       this.Elements = {};
+  }
+
+  public getElements(): Common.Dictionary<AbstractElement> {
+      return this.Elements;
+  }
+
+  public getModelId(): Common.Guid {
+      return this.modelId;
   }
 
   /**
@@ -120,7 +128,7 @@ export class Graph implements GraphInterface {
           throw new Error("GUID " + modelId.toString() + " does not belong to a model");
       }
       properties["type"] = type;
-      var node = new NodeElement(id, properties);
+      var node = new NodeElement(id, ElementType.Node, properties);
       node.addModelNeighbour(modelId);
       model.addNodeNeighbour(id);
 
@@ -163,7 +171,7 @@ export class Graph implements GraphInterface {
           throw new Error("Invalid endConnectorId, "  + endConnectorId + " does not belong to a connector");
       }
       properties["type"] = type;
-      var edge = new EdgeElement(id, properties);
+      var edge = new EdgeElement(id, ElementType.Edge, properties);
       // By convention, element 0 is the start item, 1 is the end
       edge.addStartConnector(startConnectorId);
       edge.addEndConnector(endConnectorId);
@@ -197,7 +205,7 @@ export class Graph implements GraphInterface {
       }
 
       properties["type"] = type;
-      var connector = new ConnectorElement(id, properties);
+      var connector = new ConnectorElement(id, ElementType.Connector, properties);
       node.addConnectorNeighbour(id);
       connector.addNodeNeighbour(nodeId);
 
@@ -214,7 +222,7 @@ export class Graph implements GraphInterface {
           throw new Error("An Element with GUID " + id.toString() + " already exists");
       }
       properties["type"] = type;
-      var model = new ModelElement(id, properties);
+      var model = new ModelElement(id, ElementType.Model, properties);
       this.Elements[id.toString()] = model;
 
   }

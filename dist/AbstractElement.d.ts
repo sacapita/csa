@@ -8,7 +8,7 @@ export declare abstract class AbstractElement {
     protected edgeNeighbours: Common.Dictionary<Common.Guid>;
     protected connectorNeighbours: Common.Dictionary<Common.Guid>;
     protected modelNeighbours: Common.Dictionary<Common.Guid>;
-    constructor(id: Common.Guid, properties?: Common.Dictionary<any>);
+    constructor(id: Common.Guid, type: ElementType, properties?: Common.Dictionary<any>);
     readonly Id: Common.Guid;
     abstract getType(): ElementType;
     addNodeNeighbour(id: Common.Guid): void;

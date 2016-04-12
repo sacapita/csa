@@ -1,10 +1,12 @@
 import * as Common from "cubitt-common";
 import { GraphInterface } from './GraphInterface';
 import { AbstractElement } from "./AbstractElement";
-export declare class Graph implements GraphInterface {
+export declare class Graph {
     private Elements;
     private modelId;
     constructor();
+    getElements(): Common.Dictionary<AbstractElement>;
+    getModelId(): Common.Guid;
     parse(jsGraph: string, modelId: Common.Guid): Graph;
     getElement(id: Common.Guid): AbstractElement;
     hasElement(id: Common.Guid): boolean;

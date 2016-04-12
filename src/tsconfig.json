@@ -17,6 +17,7 @@
     ],
     "files": [
         "./AbstractElement.ts",
+        "./CommandGenerator.ts",
         "./ConnectorElement.ts",
         "./EdgeElement.ts",
         "./ElementType.ts",

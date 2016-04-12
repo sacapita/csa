@@ -8,16 +8,19 @@ import bodyParser = require('body-parser');
 import http = require('http');
 import path = require('path');
 import {Graph as D2DGraph} from "./Graph";
+import {CommandGenerator} from "./CommandGenerator";
 
 var app = express();
 var router = express.Router();
 var port = 8045;
 var graph = null;
+var sessionId: Common.Guid;
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get( '/', function( req, res ) {
+    sessionId = Common.Guid.newGuid();
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
   });
 
@@ -45,7 +48,8 @@ router.post('/update/graph', function (req, res) {
         dict
       );*/
 
-      //var parsedCommand = Commands.CommandFactory.parse(cmd);
+      let cg = new CommandGenerator(sessionId);
+      cg.process(d2d);
 
       res.send(JSON.stringify(d2d));
 });

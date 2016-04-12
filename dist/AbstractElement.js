@@ -1,9 +1,10 @@
 "use strict";
 var ElementType_1 = require("./ElementType");
 var AbstractElement = (function () {
-    function AbstractElement(id, properties) {
+    function AbstractElement(id, type, properties) {
         if (properties === void 0) { properties = {}; }
         this.id = id;
+        this.type = type;
         this.properties = properties;
         this.nodeNeighbours = {};
         this.edgeNeighbours = {};

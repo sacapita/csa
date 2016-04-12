@@ -9,6 +9,12 @@ var Graph = (function () {
     function Graph() {
         this.Elements = {};
     }
+    Graph.prototype.getElements = function () {
+        return this.Elements;
+    };
+    Graph.prototype.getModelId = function () {
+        return this.modelId;
+    };
     Graph.prototype.parse = function (jsGraph, modelId) {
         var graph = new Graph();
         var json = JSON.parse(jsGraph);
@@ -98,7 +104,7 @@ var Graph = (function () {
             throw new Error("GUID " + modelId.toString() + " does not belong to a model");
         }
         properties["type"] = type;
-        var node = new NodeElement_1.NodeElement(id, properties);
+        var node = new NodeElement_1.NodeElement(id, ElementType_1.ElementType.Node, properties);
         node.addModelNeighbour(modelId);
         model.addNodeNeighbour(id);
         this.Elements[node.Id.toString()] = node;
@@ -130,7 +136,7 @@ var Graph = (function () {
             throw new Error("Invalid endConnectorId, " + endConnectorId + " does not belong to a connector");
         }
         properties["type"] = type;
-        var edge = new EdgeElement_1.EdgeElement(id, properties);
+        var edge = new EdgeElement_1.EdgeElement(id, ElementType_1.ElementType.Edge, properties);
         edge.addStartConnector(startConnectorId);
         edge.addEndConnector(endConnectorId);
         startConnector.addEdgeNeighbour(id);
@@ -151,7 +157,7 @@ var Graph = (function () {
             throw new Error("Invalid nodeId, " + nodeId + " does not belong to a Node");
         }
         properties["type"] = type;
-        var connector = new ConnectorElement_1.ConnectorElement(id, properties);
+        var connector = new ConnectorElement_1.ConnectorElement(id, ElementType_1.ElementType.Connector, properties);
         node.addConnectorNeighbour(id);
         connector.addNodeNeighbour(nodeId);
         this.Elements[id.toString()] = connector;
@@ -161,7 +167,7 @@ var Graph = (function () {
             throw new Error("An Element with GUID " + id.toString() + " already exists");
         }
         properties["type"] = type;
-        var model = new ModelElement_1.ModelElement(id, properties);
+        var model = new ModelElement_1.ModelElement(id, ElementType_1.ElementType.Model, properties);
         this.Elements[id.toString()] = model;
     };
     Graph.prototype.deserialize = function (jsonObject) {
