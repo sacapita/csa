@@ -26,7 +26,7 @@ CSA.Middleware = Class.extend({
 			data: {graph: json, modelId: self.modelId},
 			success: function(res){
 				var model = JSON.parse(res);
-				self.displayJSON(model.Elements);
+				//self.displayJSON(model);
 				self.modelId = model.modelId.guid;
 			},
 			error: function(err){

@@ -4,7 +4,7 @@ CSA.View = draw2d.Canvas.extend({
 
 	init:function(id)
     {
-		this._super(id, 2000,2000);
+		this._super(id);
 
 		this.setScrollArea("#"+id);
 	},
@@ -29,9 +29,9 @@ CSA.View = draw2d.Canvas.extend({
         var type = $(droppedDomNode).data("shape");
         var figure = eval("new "+type+"();");
 
-				if(typeof Figure == TableShape){
+		if(figure.NAME == "TableShape"){
         	figure.addEntity("id");
-				}
+		}
 
         // create a command for the undo/redo support
         var command = new draw2d.command.CommandAdd(this, figure, x, y);

@@ -27,6 +27,7 @@ export class Graph implements GraphInterface {
         let json = JSON.parse(jsGraph);
         this.modelId = modelId;
         this.addModel(modelId, "DRAW2D_MODEL", {});
+        let ports : string[] = []; // ports from Draw2D aka connectors for this object
 
         for(let key in json) {
             let elem = json[key];
@@ -47,7 +48,9 @@ export class Graph implements GraphInterface {
                                 for(let portProps in portObject){
                                     portProperties[portProps] = portObject[portProps];
                                 }
-                                connectorsToAdd.push({id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties});
+                                let connector = {id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties};
+                                connectorsToAdd.push(connector);
+                                ports[portProperties["name"]] = portObject.id;
                             }
                         }else{
                             elemProperties[prop] = value;
@@ -58,20 +61,18 @@ export class Graph implements GraphInterface {
                     connectorsToAdd.forEach(function(currentValue, index, arr){ self.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
                     break;
                 case "draw2d.Connection":
+                    var startNodeId: Common.Guid = null;
+                    var startConnectorId: Common.Guid = null;
+                    var endNodeId: Common.Guid = null;
+                    var endConnectorId: Common.Guid = null;
                     for(let prop in elem) {
                         let value = elem[prop];
-                        var startNodeId: Common.Guid = null;
-                        var startConnectorId: Common.Guid = null;
-                        var endNodeId: Common.Guid = null;
-                        var endConnectorId: Common.Guid = null;
-                        if(prop == "target" && elem.hasOwnProperty("target")){
-                            endNodeId = elem.target.node;
-                            let intermediate: string = elem.target.port;
-                            endConnectorId = Common.Guid.parse(intermediate.substring(6,intermediate.length)); // Strip "input_" from Guid
-                        }else if(prop == "source" && elem.hasOwnProperty("source")){
-                            startNodeId = elem.source.node;
-                            let intermediate: string = elem.source.port;
-                            startConnectorId = Common.Guid.parse(intermediate.substring(7,intermediate.length)); // Strip "output_" from Guid
+                        if(prop == "source" && elem.hasOwnProperty("source")){
+                            startNodeId = Common.Guid.parse(elem.source.node);
+                            startConnectorId = Common.Guid.parse(ports[elem.source.port]);
+                        }else if(prop == "target" && elem.hasOwnProperty("target")){
+                            endNodeId = Common.Guid.parse(elem.target.node);
+                            endConnectorId = Common.Guid.parse(ports[elem.target.port]);
                         }else{
                             elemProperties[prop] = value;
                         }

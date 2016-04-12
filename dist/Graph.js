@@ -14,6 +14,7 @@ var Graph = (function () {
         var json = JSON.parse(jsGraph);
         this.modelId = modelId;
         this.addModel(modelId, "DRAW2D_MODEL", {});
+        var ports = [];
         var _loop_1 = function(key) {
             var elem = json[key];
             var elemId = elem.id;
@@ -31,7 +32,9 @@ var Graph = (function () {
                                 for (var portProps in portObject) {
                                     portProperties[portProps] = portObject[portProps];
                                 }
-                                connectorsToAdd.push({ id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties });
+                                var connector = { id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties };
+                                connectorsToAdd.push(connector);
+                                ports[portProperties["name"]] = portObject.id;
                             }
                         }
                         else {
@@ -43,21 +46,19 @@ var Graph = (function () {
                     connectorsToAdd.forEach(function (currentValue, index, arr) { self_1.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
                     break;
                 case "draw2d.Connection":
+                    startNodeId = null;
+                    startConnectorId = null;
+                    endNodeId = null;
+                    endConnectorId = null;
                     for (var prop in elem) {
                         var value = elem[prop];
-                        startNodeId = null;
-                        startConnectorId = null;
-                        endNodeId = null;
-                        endConnectorId = null;
-                        if (prop == "target" && elem.hasOwnProperty("target")) {
-                            endNodeId = elem.target.node;
-                            var intermediate = elem.target.port;
-                            endConnectorId = Common.Guid.parse(intermediate.substring(6, intermediate.length));
+                        if (prop == "source" && elem.hasOwnProperty("source")) {
+                            startNodeId = Common.Guid.parse(elem.source.node);
+                            startConnectorId = Common.Guid.parse(ports[elem.source.port]);
                         }
-                        else if (prop == "source" && elem.hasOwnProperty("source")) {
-                            startNodeId = elem.source.node;
-                            var intermediate = elem.source.port;
-                            startConnectorId = Common.Guid.parse(intermediate.substring(7, intermediate.length));
+                        else if (prop == "target" && elem.hasOwnProperty("target")) {
+                            endNodeId = Common.Guid.parse(elem.target.node);
+                            endConnectorId = Common.Guid.parse(ports[elem.target.port]);
                         }
                         else {
                             elemProperties[prop] = value;
