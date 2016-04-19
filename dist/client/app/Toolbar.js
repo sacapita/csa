@@ -49,8 +49,6 @@ CSA.Toolbar = Class.extend({
         this.disableButton(this.undoButton, true);
         this.disableButton(this.redoButton, true);
         this.disableButton(this.deleteButton, true);
-
-        this.html.append($("<div id='toolbar_hint'>Use the contextmenu on table entities for extended features..</div>"));
     },
 
 	/**

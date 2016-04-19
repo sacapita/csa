@@ -254,9 +254,12 @@
     <SCRIPT src="/assets/js/jquery-ui-1.8.23.custom.min.js"></SCRIPT>
 
 	<SCRIPT src="./app/csa.js"></SCRIPT>
+	<SCRIPT src="./app/Model.js"></SCRIPT>
 	<SCRIPT src="./app/io/json/Reader.js"></SCRIPT>
 	<SCRIPT src="./app/io/json/Writer.js"></SCRIPT>
-	<SCRIPT src="./app/CSAShape.js"></SCRIPT>
+	<SCRIPT src="./app/io/svg/Writer.js"></SCRIPT>
+	<SCRIPT src="./app/CSAElement.js"></SCRIPT>
+	<SCRIPT src="./app/Edge.js"></SCRIPT>
 	<SCRIPT src="./app/TableShape.js"></SCRIPT>
 	<SCRIPT src="./app/LabelShape.js"></SCRIPT>
 	<SCRIPT src="./app/ModuleShape.js"></SCRIPT>
@@ -265,8 +268,7 @@
     <SCRIPT src="./app/Toolbar.js"></SCRIPT>
 	<SCRIPT src="./app/Middleware.js"></SCRIPT>
 
-    <SCRIPT src="information_model.js"></SCRIPT>
-	<SCRIPT src="functional_model.js"></SCRIPT>
+    <SCRIPT src="csa_graph.js"></SCRIPT>
 		<!-- End draw2d include -->
 
 		<script src="/assets/js/bootstrap.min.js"></script>
@@ -316,8 +318,7 @@
 			// unmarshal the JSON document into the canvas
 			// (load)
 			var reader = new csa.io.json.Reader();
-			reader.unmarshal(app.view, information_model);
-			reader.unmarshal(app.view, functional_model);
+			reader.unmarshal(app.view, csa_graph);
 
 		});
 
@@ -374,11 +375,11 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="fam">
-							<div data-shape="ModuleShape" class="palette_node_element draw2d_droppable" id="fam">module</div>
+							<div data-shape="csa.ModuleShape" class="palette_node_element draw2d_droppable" id="fam">module</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="classdiagram">
-							<div data-shape="TableShape" class="palette_node_element draw2d_droppable" id="classdiagram">Class</div>
-							<div data-shape="LabelShape" class="palette_node_element draw2d_droppable" id="classdiagram">Label</div>
+							<div data-shape="csa.TableShape" class="palette_node_element draw2d_droppable" id="classdiagram">Class</div>
+							<div data-shape="csa.LabelShape" class="palette_node_element draw2d_droppable" id="classdiagram">Label</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="petrinet">elementen</div>
 						<div role="tabpanel" class="tab-pane" id="sequencediagram">elementen</div>

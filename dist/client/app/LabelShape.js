@@ -8,8 +8,8 @@
  * @since 1.0
  * @extends draw2d.shape.basic.Label
  */
-LabelShape = draw2d.shape.basic.Label.extend({
-    NAME: "TextShape",
+csa.LabelShape = draw2d.shape.basic.Label.extend({
+    NAME: "csa.TextShape",
 
     init : function(attr, shapeType)
     {

@@ -1,7 +1,7 @@
 
-TableShape = draw2d.shape.layout.VerticalLayout.extend({
+csa.TableShape = draw2d.shape.layout.VerticalLayout.extend({
 
-	NAME: "TableShape",
+	NAME: "csa.TableShape",
 
     init : function(attr, shapeType)
     {

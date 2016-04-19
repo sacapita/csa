@@ -1,9 +1,38 @@
-var information_model = {
-    "modelId": "f8ab7db5-714e-43ab-ba37-87e3fbc63f95",
-    "type": "information",
+var csa_graph = [
+  {
+    "id": "f8ab6db5-714e-43ab-ba37-87e3fbc63f95",
+    "type": "fam",
     "elements": [
       {
-        "type": "TableShape",
+        "type": "csa.ModuleShape",
+        "id": "262739eb-b12a-483a-9174-9ce6fb0c6784",
+        "x": 150.84375,
+        "y": 104,
+        "width": 50,
+        "height": 50,
+        "alpha": 1,
+        "angle": 0,
+        "userData": {
+          "shapeType": "fam"
+        },
+        "cssClass": "ModuleShape",
+        "ports": [],
+        "bgColor": "#DBDDDE",
+        "color": "#D7D7D7",
+        "stroke": 1,
+        "radius": 1,
+        "dasharray": null,
+        "name": "Module",
+        "entities": []
+      }
+    ]
+  },
+  {
+    "id": "f8ab7db5-714e-43ab-ba37-87e3fbc63f95",
+    "type": "classdiagram",
+    "elements": [
+      {
+        "type": "csa.TableShape",
         "id": "d2dad284-8361-4cee-8c46-c38190350dd9",
         "x": 11.84375,
         "y": 13,
@@ -68,7 +97,7 @@ var information_model = {
         ]
       },
       {
-        "type": "TableShape",
+        "type": "csa.TableShape",
         "id": "7ea90d23-cad3-42b0-922a-98dc3b414f94",
         "x": 177.84375,
         "y": 5,
@@ -77,7 +106,7 @@ var information_model = {
         "alpha": 1,
         "angle": 0,
         "userData": {
-            "shapeType": "classdiagram"
+          "shapeType": "classdiagram"
         },
         "cssClass": "TableShape",
         "ports": [
@@ -133,12 +162,14 @@ var information_model = {
         ]
       },
       {
-        "type": "draw2d.Connection",
+        "type": "csa.Edge",
         "id": "34685fac-ff15-4803-8142-0cac8d266b82",
         "alpha": 1,
         "angle": 0,
-        "userData": {},
-        "cssClass": "draw2d_Connection",
+        "userData": {
+          "shapeType": "classdiagram"
+        },
+        "cssClass": "csa_edge",
         "stroke": 3,
         "color": "#91B93E",
         "outlineStroke": 1,
@@ -179,4 +210,5 @@ var information_model = {
         }
       }
     ]
-};
+  }
+];

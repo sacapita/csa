@@ -37,9 +37,10 @@ router.post('/update/graph', function (req, res) {
       }
       var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
 
-      let cg = new CommandGenerator(sessionId);
-      let commands = cg.process(d2d);
-      sendCommands(commands);
+      //let cg = new CommandGenerator(sessionId);
+      //let commands = cg.process(d2d);
+      //sendCommands(commands);
+      console.log("-------> sendCommands is commented <-------- in server.ts");
 
       res.send(JSON.stringify(d2d));
 });

@@ -12,8 +12,6 @@ CSA.Application = Class.extend(
 {
     NAME : "CSA.Application",
 
-    information_viewpoint: null,
-
     /**
      * @constructor
      *

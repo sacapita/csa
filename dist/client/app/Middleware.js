@@ -1,5 +1,4 @@
 CSA.Middleware = Class.extend({
-	modelId: null,
 	app: null,
 	init:function(app, canvas)
 	{
@@ -7,8 +6,7 @@ CSA.Middleware = Class.extend({
 		self.app = app;
       	canvas.getCommandStack().addEventListener(function(e){
         	if(e.isPostChangeEvent()){
-
-				var writer = new draw2d.io.json.Writer();
+				var writer = new csa.io.json.Writer();
 				self.displaySVG(canvas);
 				writer.marshal(canvas, function(json){
           			self.displayJSON(json);
@@ -25,7 +23,7 @@ CSA.Middleware = Class.extend({
       	$("#json").text(JSON.stringify(json, null, 2));
   	},
 	displaySVG:function(canvas){
-		var writer = new draw2d.io.svg.Writer();
+		var writer = new csa.io.svg.Writer();
 		writer.marshal(canvas, function(svg){
 			$(".viewpoint-thumb").html(svg);
 		});
@@ -37,7 +35,7 @@ CSA.Middleware = Class.extend({
 			method: "POST",
 			url: "http://localhost:8045/update/graph",
 			type: "json",
-			data: {graph: json, modelId: self.modelId},
+			data: {graph: json, modelId: null},
 			success: function(res){
 				var model = JSON.parse(res);
 				//self.displayJSON(model);

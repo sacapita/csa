@@ -56,55 +56,60 @@ csa.io.json.Reader = draw2d.io.Reader.extend({
     unmarshal: function(canvas, json){
         var result = new draw2d.util.ArrayList();
 
-        if(typeof json ==="string"){
+        if(typeof json === "string"){
             json = JSON.parse(json);
         }
 
         var node=null;
-        $.each(json.elements, $.proxy(function(i, element){
-            try{
-                var o = eval("new "+element.type+"()");
-                var source= null;
-                var target=null;
-                for(i in element){
-                    var val = element[i];
-                    if(i === "source"){
-                        node = canvas.getFigure(val.node);
-                        if(node===null){
-                            throw "Source figure with id '"+val.node+"' not found";
+        $.each(json, $.proxy(function(i, model){
+            var m = new csa.Model({id: model.modelId, type: model.type});
+            canvas.addModel(m);
+
+            $.each(model.elements, $.proxy(function(i, element){
+                try{
+                    var o = eval("new "+element.type+"()");
+                    var source= null;
+                    var target=null;
+                    for(i in element){
+                        var val = element[i];
+                        if(i === "source"){
+                            node = canvas.getFigure(val.node);
+                            if(node===null){
+                                throw "Source figure with id '"+val.node+"' not found";
+                            }
+                            source = node.getPort(val.port);
+                            if(source===null){
+                                throw "Unable to find source port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                            }
                         }
-                        source = node.getPort(val.port);
-                        if(source===null){
-                            throw "Unable to find source port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                        else if (i === "target"){
+                            node = canvas.getFigure(val.node);
+                            if(node===null){
+                                throw "Target figure with id '"+val.node+"' not found";
+                            }
+                            target = node.getPort(val.port);
+                            if(target===null){
+                                throw "Unable to find target port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                            }
                         }
                     }
-                    else if (i === "target"){
-                        node = canvas.getFigure(val.node);
-                        if(node===null){
-                            throw "Target figure with id '"+val.node+"' not found";
-                        }
-                        target = node.getPort(val.port);
-                        if(target===null){
-                            throw "Unable to find target port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
-                        }
+                    if(source!==null && target!==null){
+                        // don't change the order or the source/target set.
+                        // TARGET must always be the second one because some applications needs the "source"
+                        // port in the "connect" event of the target.
+                        o.setSource(source);
+                        o.setTarget(target);
                     }
+                    o.setPersistentAttributes(element);
+                    canvas.add(o);
+                    result.add(o);
                 }
-                if(source!==null && target!==null){
-                    // don't change the order or the source/target set.
-                    // TARGET must always be the second one because some applications needs the "source"
-                    // port in the "connect" event of the target.
-                    o.setSource(source);
-                    o.setTarget(target);
+                catch(exc){
+                    debug.error(element,"Unable to instantiate figure type '"+element.type+"' with id '"+element.id+"' during unmarshal by "+this.NAME+". Skipping figure..");
+                    debug.error(exc);
+                    debug.warn(element);
                 }
-                o.setPersistentAttributes(element);
-                canvas.add(o);
-                result.add(o);
-            }
-            catch(exc){
-                debug.error(element,"Unable to instantiate figure type '"+element.type+"' with id '"+element.id+"' during unmarshal by "+this.NAME+". Skipping figure..");
-                debug.error(exc);
-                debug.warn(element);
-            }
+            },this));
         },this));
 
         // restore group assignment

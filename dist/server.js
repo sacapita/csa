@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var path = require('path');
 var Graph_1 = require("./Graph");
-var CommandGenerator_1 = require("./CommandGenerator");
 var app = express();
 var router = express.Router();
 var port = 8045;
@@ -28,9 +27,7 @@ router.post('/update/graph', function (req, res) {
         modelId = Common.Guid.newGuid();
     }
     var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
-    var cg = new CommandGenerator_1.CommandGenerator(sessionId);
-    var commands = cg.process(d2d);
-    sendCommands(commands);
+    console.log("-------> sendCommands is commented <-------- in server.ts");
     res.send(JSON.stringify(d2d));
 });
 function cbFunction(response) {

@@ -11,32 +11,72 @@ CSA.View = draw2d.Canvas.extend({
 		if(!isNaN(zoomFactor)){
 			this.setZoom(zoomFactor, true);
 		}
+
+		// Extend the Canvas with multiple models
+		this.models = new draw2d.util.ArrayList();
 	},
 
 	/**
      * @method
-     * Returns all lines/connections in this workflow/canvas.<br>
+     * Add model to internal models.<br>
+     *
+     * @param {csa.Model}
+     **/
+	addModel: function(model)
+	{
+		this.models.add(model);
+	},
+
+	/**
+     * @method
+     * Returns the internal models.<br>
      *
      * @protected
      * @return {draw2d.util.ArrayList}
      **/
-    getLines: function(shapeType)
+    getModels: function()
     {
-      	return this.lines;
+      return this.models;
+    },
+
+	/**
+     * @method
+     * Returns all lines/connections in this workflow/canvas of type shapeType.<br>
+     *
+     * @protected
+     * @return {draw2d.util.ArrayList}
+     **/
+    getLinesFromType: function(shapeType)
+    {
+		shapeType = (typeof shapeType === 'undefined') ? null : shapeType;
+		var lines = new draw2d.util.ArrayList();
+
+		this.lines.each(function(i, line){
+			if(line.userData.hasOwnProperty("shapeType") && line.userData.shapeType == shapeType){
+				lines.push(line);
+			}
+		});
+      	return lines;
     },
 
     /**
      * @method
-     * Returns the internal figures.<br>
+     * Returns the internal figures of type shapeType.<br>
      *
      * @protected
      * @return {draw2d.util.ArrayList}
      **/
-    getFigures: function(shapeType)
+    getFiguresFromType: function(shapeType)
     {
 		shapeType = (typeof shapeType === 'undefined') ? null : shapeType;
-		console.log(shapeType);
-      	return this.figures;
+		var figures = new draw2d.util.ArrayList();
+
+		this.figures.each(function(i, figure){
+			if(figure.userData.shapeType !== null && figure.userData.shapeType == shapeType){
+				figures.push(figure);
+			}
+		});
+      	return figures;
     },
 
 

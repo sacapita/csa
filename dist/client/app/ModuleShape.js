@@ -8,8 +8,8 @@
  * @since 1.0
  * @extends draw2d.shape.basic.Label
  */
-ModuleShape = draw2d.shape.basic.Rectangle.extend({
-    NAME: "ModuleShape",
+csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
+    NAME: "csa.ModuleShape",
 
     init : function(attr, shapeType)
     {
@@ -18,14 +18,13 @@ ModuleShape = draw2d.shape.basic.Rectangle.extend({
         // Extend Draw2D shapes the ugly way
 		if(shapeType !== undefined){
 			// this value is passed onDrop, but not when read from the document.js
-        	var csashape = new CSAShape(this, shapeType);
+        	var csaElement = new CSAElement(this, shapeType);
 		}
 
         this.classLabel = new draw2d.shape.basic.Label({
             text:"Module",
             stroke:0,
             fontColor:"#000000",
-            bgColor:"#f7f7f7",
             radius: this.getRadius(),
             padding:5,
             resizeable:true,
@@ -61,8 +60,8 @@ ModuleShape = draw2d.shape.basic.Rectangle.extend({
 
        memento.name = this.classLabel.getText();
        memento.entities   = [];
-       this.children.each(function(i,e){
 
+       this.children.each(function(i,e){
            if(i>0){ // skip the header of the figure
                memento.entities.push({
                    text:e.figure.getText(),

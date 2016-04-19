@@ -26,17 +26,15 @@
  * @author Bart Smolders
  * @extends draw2d.io.Writer
  */
-csa.io.json.Writer = draw2d.io.Writer.extend({
+csa.io.svg.Writer = draw2d.io.Writer.extend({
 
-    init: function()
-    {
+    init: function(){
         this._super();
     },
 
     /**
      * @method
-     * Export the content to the implemented data format. Inherit class implements
-     * content specific writer.
+     * Export the content of the canvas into SVG. The SVG document can be loaded with Inkscape or any other SVG Editor.
      * <br>
      * <br>
      *
@@ -44,38 +42,30 @@ csa.io.json.Writer = draw2d.io.Writer.extend({
      * The parameter <b>resultCallback</b> is required and new. The method calls
      * the callback instead of return the result.
      *
-     * @param {draw2d.Canvas} canvas
-     * @param {Function} resultCallback the method to call on success. The first argument is the result object, the second the base64 representation of the file content
-     * @param {Object} resultCallback.json  the canvas document as JSON object
-     * @param {String} resultCallback.base64  the canvas document as base encoded JSON
+     *
+     * @param {draw2d.Canvas} canvas the canvas to marshal
+     * @param {Function} callback the method to call on success. The first argument is the SVG document
+     * @param {String} callback.svg  the SVG document
+     * @param {String} callback.base64  the SVG document encoded in base64
      */
-    marshal: function(canvas, resultCallback)
-    {
+    marshal: function(canvas, callback){
         // I change the API signature from version 2.10.1 to 3.0.0. Throw an exception
         // if any application not care about this changes.
-        if(typeof resultCallback !== "function"){
+        if(typeof callback !== "function"){
             throw "Writer.marshal method signature has been change from version 2.10.1 to version 3.0.0. Please consult the API documentation about this issue.";
         }
 
-        var result = [];
+        var s = canvas.getPrimarySelection();
+        canvas.setCurrentSelection(null);
+        var svg = canvas.getHtmlContainer().html()
+                     .replace(/>\s+/g, ">")
+                     .replace(/\s+</g, "<");
+        svg = this.formatXml(svg);
+        svg = svg.replace(/<desc>.*<\/desc>/g,"<desc>Create with draw2d JS graph library and RaphaelJS</desc>");
 
-        canvas.getModels().each(function(i, model){
-            var m = model.getPersistentAttributes();
-            var modelType = m.type;
+        canvas.setCurrentSelection(s);
 
-            canvas.getFiguresFromType(modelType).each(function(i, figure){
-                m.elements.push(figure.getPersistentAttributes());
-            });
-
-            canvas.getLinesFromType(modelType).each(function(i, element){
-                m.elements.push(element.getPersistentAttributes());
-            });
-
-            result.push(m);
-        });
-
-    	var base64Content = draw2d.util.Base64.encode(JSON.stringify(result, null, 2));
-
-    	resultCallback(result, base64Content);
+    	var base64Content = draw2d.util.Base64.encode(svg);
+    	callback( svg, base64Content);
     }
 });
