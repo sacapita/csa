@@ -1,11 +1,11 @@
 /// <reference path='./typings/tsd.d.ts' />
 import {GraphInterface} from "cubitt-graph";
-import {CommandFactory} from "cubitt-commands";
 import * as Common from "cubitt-common";
 import * as Commands from "cubitt-commands";
 import express = require('express');
 import bodyParser = require('body-parser');
 import http = require('http');
+import request = require('request');
 import path = require('path');
 import {Graph as D2DGraph} from "./Graph";
 import {CommandGenerator} from "./CommandGenerator";
@@ -36,34 +36,12 @@ router.post('/update/graph', function (req, res) {
           modelId = Common.Guid.newGuid();
       }
       var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
-/*
-      let dict: Common.Dictionary<string> = {};
-      console.log("graph from memory", graph);
-      var cmd = new Commands.AddModelCommand(
-        Common.Guid.newGuid(), // id
-        Common.Guid.newGuid(), // requestId
-        Common.Guid.newGuid(), // sessionId
-        Common.Guid.newGuid(), // elementId
-        "FAM_NODE",
-        dict
-      );*/
 
       let cg = new CommandGenerator(sessionId);
-      cg.process(d2d);
+      let commands = cg.process(d2d);
+      sendCommands(commands);
 
       res.send(JSON.stringify(d2d));
-});
-
-router.get('/graph', function (req, res) {
-  var options = {
-    host: 'localhost',
-    port: 8001,
-    path: '/api/query',
-    method: 'POST'
-  };
-  http.request(options, cbFunction).end();
-  var obj: { message: string; } = { message: "foo" }
-  obj.message = "response";
 });
 
 function cbFunction(response){
@@ -76,6 +54,26 @@ function cbFunction(response){
     graph = JSON.parse(str);
     console.log(graph);
   });
+}
+
+function sendCommands(commands){
+    //console.log(commands, JSON.stringify(commands));
+    //Lets configure and request
+    request({
+        url: 'http://localhost:9090/api/command',
+        method: 'POST',
+        json: true,
+        headers: {
+            "content-type": "application/json",
+        },
+        body: { commands: JSON.stringify(commands) }
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+        }
+    });
 }
 
 router.use(express.static(__dirname + '/client'));

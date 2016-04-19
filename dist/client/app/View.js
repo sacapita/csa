@@ -2,12 +2,42 @@
 
 CSA.View = draw2d.Canvas.extend({
 
-	init:function(id)
+	init:function(id, width, height, zoomFactor)
     {
-		this._super(id);
+		this._super(id, width, height);
 
 		this.setScrollArea("#"+id);
+
+		if(!isNaN(zoomFactor)){
+			this.setZoom(zoomFactor, true);
+		}
 	},
+
+	/**
+     * @method
+     * Returns all lines/connections in this workflow/canvas.<br>
+     *
+     * @protected
+     * @return {draw2d.util.ArrayList}
+     **/
+    getLines: function(shapeType)
+    {
+      	return this.lines;
+    },
+
+    /**
+     * @method
+     * Returns the internal figures.<br>
+     *
+     * @protected
+     * @return {draw2d.util.ArrayList}
+     **/
+    getFigures: function(shapeType)
+    {
+		shapeType = (typeof shapeType === 'undefined') ? null : shapeType;
+		console.log(shapeType);
+      	return this.figures;
+    },
 
 
     /**
@@ -27,7 +57,8 @@ CSA.View = draw2d.Canvas.extend({
     onDrop : function(droppedDomNode, x, y, shiftKey, ctrlKey)
     {
         var type = $(droppedDomNode).data("shape");
-        var figure = eval("new "+type+"();");
+		var attr = new Object();
+        var figure = eval("new "+type+"({},\"" + droppedDomNode[0].id +"\");");
 
 		if(figure.NAME == "TableShape"){
         	figure.addEntity("id");

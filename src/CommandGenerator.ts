@@ -18,7 +18,7 @@ export class CommandGenerator {
         this.Commands = [];
     }
 
-    public process(graph: Graph): void {
+    public process(graph: Graph): Commands.Command[] {
         let elements: Common.Dictionary<AbstractElement> = graph.getElements();
         for(let key in elements) {
             let elem: AbstractElement = elements[key];
@@ -39,7 +39,7 @@ export class CommandGenerator {
                     break;
             }
         }
-        console.log(this.Commands);
-        // Send commands to the backend
+
+        return this.Commands;
     }
 }

@@ -12,6 +12,8 @@ CSA.Application = Class.extend(
 {
     NAME : "CSA.Application",
 
+    information_viewpoint: null,
+
     /**
      * @constructor
      *
@@ -21,6 +23,6 @@ CSA.Application = Class.extend(
     {
 	    this.view       = new CSA.View("canvas");
         this.toolbar    = new CSA.Toolbar("toolbar",  this.view );
-        this.middleware = new CSA.Middleware(this.view);
+        this.middleware = new CSA.Middleware(this, this.view);
     }
 });

@@ -29,8 +29,10 @@
         "./server.ts",
         "./typings/body-parser/body-parser.d.ts",
         "./typings/express/express.d.ts",
+        "./typings/form-data/form-data.d.ts",
         "./typings/mime/mime.d.ts",
         "./typings/node/node.d.ts",
+        "./typings/request/request.d.ts",
         "./typings/serve-static/serve-static.d.ts",
         "./typings/tsd.d.ts"
     ],

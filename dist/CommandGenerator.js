@@ -27,7 +27,7 @@ var CommandGenerator = (function () {
                     break;
             }
         }
-        console.log(this.Commands);
+        return this.Commands;
     };
     return CommandGenerator;
 }());

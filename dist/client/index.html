@@ -253,14 +253,20 @@
     <SCRIPT src="/assets/js/jquery.browser.js"></SCRIPT>
     <SCRIPT src="/assets/js/jquery-ui-1.8.23.custom.min.js"></SCRIPT>
 
+	<SCRIPT src="./app/csa.js"></SCRIPT>
+	<SCRIPT src="./app/io/json/Reader.js"></SCRIPT>
+	<SCRIPT src="./app/io/json/Writer.js"></SCRIPT>
+	<SCRIPT src="./app/CSAShape.js"></SCRIPT>
 	<SCRIPT src="./app/TableShape.js"></SCRIPT>
 	<SCRIPT src="./app/LabelShape.js"></SCRIPT>
+	<SCRIPT src="./app/ModuleShape.js"></SCRIPT>
     <SCRIPT src="./app/Application.js"></SCRIPT>
     <SCRIPT src="./app/View.js"></SCRIPT>
     <SCRIPT src="./app/Toolbar.js"></SCRIPT>
 	<SCRIPT src="./app/Middleware.js"></SCRIPT>
-    
-    <SCRIPT src="document.js"></SCRIPT>
+
+    <SCRIPT src="information_model.js"></SCRIPT>
+	<SCRIPT src="functional_model.js"></SCRIPT>
 		<!-- End draw2d include -->
 
 		<script src="/assets/js/bootstrap.min.js"></script>
@@ -309,8 +315,9 @@
 
 			// unmarshal the JSON document into the canvas
 			// (load)
-			var reader = new draw2d.io.json.Reader();
-			reader.unmarshal(app.view, jsonDocument);
+			var reader = new csa.io.json.Reader();
+			reader.unmarshal(app.view, information_model);
+			reader.unmarshal(app.view, functional_model);
 
 		});
 
@@ -340,10 +347,10 @@
 				<div class="col-md-12 nopadding">
 					<div class="top-tabs">
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation">
+							<li role="presentation" class="active">
 								<a href="#fam" aria-controls="fam" role="tab" data-toggle="tab">Functional Architecture model</a>
 							</li>
-							<li role="presentation" class="active">
+							<li role="presentation">
 								<a href="#classdiagram" aria-controls="classdiagram" role="tab" data-toggle="tab">Class diagram</a>
 							</li>
 							<li role="presentation">
@@ -366,11 +373,12 @@
 				<div class="col-md-12 nopadding">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane" id="fam">
+						<div role="tabpanel" class="tab-pane active" id="fam">
+							<div data-shape="ModuleShape" class="palette_node_element draw2d_droppable" id="fam">module</div>
 						</div>
-						<div role="tabpanel" class="tab-pane active" id="classdiagram">
-							<div data-shape="TableShape" class="palette_node_element draw2d_droppable">Class</div>
-							<div data-shape="LabelShape" class="palette_node_element draw2d_droppable">Label</div>
+						<div role="tabpanel" class="tab-pane" id="classdiagram">
+							<div data-shape="TableShape" class="palette_node_element draw2d_droppable" id="classdiagram">Class</div>
+							<div data-shape="LabelShape" class="palette_node_element draw2d_droppable" id="classdiagram">Label</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="petrinet">elementen</div>
 						<div role="tabpanel" class="tab-pane" id="sequencediagram">elementen</div>
@@ -386,12 +394,12 @@
 						  <div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingOne">
 							  <h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 								  User stories (34)
 								</a>
 							  </h4>
 							</div>
-							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 							  <div class="panel-body">
 								<ul class="tree">
 									<li>US 1</li>
@@ -403,15 +411,17 @@
 						  <div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingTwo">
 							  <h4 class="panel-title">
-								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 								  Viewpoints (7)
 								</a>
 							  </h4>
 							</div>
-							<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 							  <div class="panel-body">
 								Functional<br/>
+								<div id="functional" class="viewpoint-thumb"></div>
 								Information<br/>
+								<div id="information" class="viewpoint-thumb"></div>
 								Concurrency<br/>
 								Operational<br/>
 								Development<br/>

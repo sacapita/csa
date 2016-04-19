@@ -2,7 +2,7 @@
 var Common = require("cubitt-common");
 var express = require('express');
 var bodyParser = require('body-parser');
-var http = require('http');
+var request = require('request');
 var path = require('path');
 var Graph_1 = require("./Graph");
 var CommandGenerator_1 = require("./CommandGenerator");
@@ -29,19 +29,9 @@ router.post('/update/graph', function (req, res) {
     }
     var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
     var cg = new CommandGenerator_1.CommandGenerator(sessionId);
-    cg.process(d2d);
+    var commands = cg.process(d2d);
+    sendCommands(commands);
     res.send(JSON.stringify(d2d));
-});
-router.get('/graph', function (req, res) {
-    var options = {
-        host: 'localhost',
-        port: 8001,
-        path: '/api/query',
-        method: 'POST'
-    };
-    http.request(options, cbFunction).end();
-    var obj = { message: "foo" };
-    obj.message = "response";
 });
 function cbFunction(response) {
     var str = '';
@@ -51,6 +41,24 @@ function cbFunction(response) {
     response.on('end', function () {
         graph = JSON.parse(str);
         console.log(graph);
+    });
+}
+function sendCommands(commands) {
+    request({
+        url: 'http://localhost:9090/api/command',
+        method: 'POST',
+        json: true,
+        headers: {
+            "content-type": "application/json",
+        },
+        body: { commands: JSON.stringify(commands) }
+    }, function (error, response, body) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log(response.statusCode, body);
+        }
     });
 }
 router.use(express.static(__dirname + '/client'));

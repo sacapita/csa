@@ -8,12 +8,12 @@
  * @since 1.0
  * @extends draw2d.shape.basic.Label
  */
-LabelShape = draw2d.shape.basic.Label.extend({
-    NAME: "TextShape",
+ModuleShape = draw2d.shape.basic.Rectangle.extend({
+    NAME: "ModuleShape",
 
     init : function(attr, shapeType)
     {
-        this._super($.extend({bgColor:"#dbddde", color:"#d7d7d7", stroke:0, radius:3},attr));
+        this._super($.extend({bgColor:"#dbddde", color:"#d7d7d7", stroke:1, radius:1},attr));
 
         // Extend Draw2D shapes the ugly way
 		if(shapeType !== undefined){
@@ -22,18 +22,17 @@ LabelShape = draw2d.shape.basic.Label.extend({
 		}
 
         this.classLabel = new draw2d.shape.basic.Label({
-          text:"Label1",
-          stroke:0,
-          fontColor:"#00000",
-          bgColor:"#ffffff",
-          fontSize: 14,
-          radius: this.getRadius(),
-          padding:5,
-          resizeable:true,
-          editor:new draw2d.ui.LabelInplaceEditor()
+            text:"Module",
+            stroke:0,
+            fontColor:"#000000",
+            bgColor:"#f7f7f7",
+            radius: this.getRadius(),
+            padding:5,
+            resizeable:true,
+            editor:new draw2d.ui.LabelInplaceEditor()
         });
 
-        this.add(this.classLabel, new draw2d.layout.locator.TopLocator() );
+        this.add(this.classLabel, new draw2d.layout.locator.TopLocator());
     },
 
     /**
