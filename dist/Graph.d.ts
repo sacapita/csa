@@ -3,11 +3,9 @@ import { GraphInterface } from './GraphInterface';
 import { AbstractElement } from "./AbstractElement";
 export declare class Graph {
     private Elements;
-    private modelId;
     constructor();
     getElements(): Common.Dictionary<AbstractElement>;
-    getModelId(): Common.Guid;
-    parse(jsGraph: string, modelId: Common.Guid): Graph;
+    parse(jsGraph: string): Graph;
     getElement(id: Common.Guid): AbstractElement;
     hasElement(id: Common.Guid): boolean;
     addNode(id: Common.Guid, type: string, modelId: Common.Guid, properties?: Common.Dictionary<any>): void;

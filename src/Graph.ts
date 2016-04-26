@@ -13,7 +13,6 @@ import {ModelElement} from "./ModelElement"
  */
 export class Graph {
   private  Elements : Common.Dictionary<AbstractElement>;
-  private modelId: Common.Guid;
 
   constructor() {
       this.Elements = {};
@@ -23,70 +22,71 @@ export class Graph {
       return this.Elements;
   }
 
-  public getModelId(): Common.Guid {
-      return this.modelId;
-  }
-
   /**
    * Convert a JSON Draw2D graph object to a Graph
    */
-    public parse(jsGraph: string, modelId: Common.Guid): Graph {
+    public parse(jsGraph: string): Graph {
         let graph = new Graph();
         let json = JSON.parse(jsGraph);
-        this.modelId = modelId;
-        this.addModel(modelId, "DRAW2D_MODEL", {});
-        let ports : string[] = []; // ports from Draw2D aka connectors for this object
 
-        for(let key in json) {
-            let elem = json[key];
-            let elemId = elem.id;
-            let elemProperties: Object[] = [];
-            let connectorsToAdd: {id: Common.Guid, type: string; elemId: Common.Guid, props: Object[]}[] = [];
+        for(let m in json){
+            let model = json[m];
+            let modelId = (model.modelId ? Common.Guid.parse(model.modelId) : Common.Guid.newGuid());
 
-            switch(elem.type){
-                case "TableShape":
-                case "LabelShape":
-                    for(let prop in elem) {
-                        let value = elem[prop];
-                        if(prop == "ports" && elem.hasOwnProperty(prop)){
-                            for(let port in value){
-                                // Add connector for each port
-                                let portObject = value[port];
-                                let portProperties: Object[] = [];
-                                for(let portProps in portObject){
-                                    portProperties[portProps] = portObject[portProps];
-                                }
-                                let connector = {id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties};
-                                connectorsToAdd.push(connector);
-                                ports[portProperties["name"]] = portObject.id;
+            this.addModel(modelId, "DRAW2D_MODEL", {});
+            let ports : string[] = []; // ports from Draw2D aka connectors for this object
+
+            for(let key in model.elements) {
+                let elem = model.elements[key];
+                let elemId = elem.id;
+
+                let elemProperties: Object[] = [];
+                let connectorsToAdd: {id: Common.Guid, type: string; elemId: Common.Guid, props: Object[]}[] = [];
+
+                switch(elem.type){
+                    case "csa.Edge":
+                        var startNodeId: Common.Guid = null;
+                        var startConnectorId: Common.Guid = null;
+                        var endNodeId: Common.Guid = null;
+                        var endConnectorId: Common.Guid = null;
+                        for(let prop in elem) {
+                            let value = elem[prop];
+                            if(prop == "source" && elem.hasOwnProperty("source")){
+                                startNodeId = Common.Guid.parse(elem.source.node);
+                                startConnectorId = Common.Guid.parse(ports[elem.source.port]);
+                            }else if(prop == "target" && elem.hasOwnProperty("target")){
+                                endNodeId = Common.Guid.parse(elem.target.node);
+                                endConnectorId = Common.Guid.parse(ports[elem.target.port]);
+                            }else{
+                                elemProperties[prop] = value;
                             }
-                        }else{
-                            elemProperties[prop] = value;
                         }
-                    }
-                    this.addNode(elemId, elem.type, modelId, elemProperties);
-                    let self = this;
-                    connectorsToAdd.forEach(function(currentValue, index, arr){ self.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
-                    break;
-                case "draw2d.Connection":
-                    var startNodeId: Common.Guid = null;
-                    var startConnectorId: Common.Guid = null;
-                    var endNodeId: Common.Guid = null;
-                    var endConnectorId: Common.Guid = null;
-                    for(let prop in elem) {
-                        let value = elem[prop];
-                        if(prop == "source" && elem.hasOwnProperty("source")){
-                            startNodeId = Common.Guid.parse(elem.source.node);
-                            startConnectorId = Common.Guid.parse(ports[elem.source.port]);
-                        }else if(prop == "target" && elem.hasOwnProperty("target")){
-                            endNodeId = Common.Guid.parse(elem.target.node);
-                            endConnectorId = Common.Guid.parse(ports[elem.target.port]);
-                        }else{
-                            elemProperties[prop] = value;
+                        this.addEdge(elemId, elem.type, modelId, startNodeId, startConnectorId, endNodeId, endConnectorId, elemProperties);
+                        break;
+                    default:
+                        for(let prop in elem) {
+                            let value = elem[prop];
+                            if(prop == "ports" && elem.hasOwnProperty(prop)){
+                                for(let port in value){
+                                    // Add connector for each port
+                                    let portObject = value[port];
+                                    let portProperties: Object[] = [];
+                                    for(let portProps in portObject){
+                                        portProperties[portProps] = portObject[portProps];
+                                    }
+                                    let connector = {id: portObject.id, type: portObject.type, elemId: elemId, props: portProperties};
+                                    connectorsToAdd.push(connector);
+                                    ports[portProperties["name"]] = portObject.id;
+                                }
+                            }else{
+                                elemProperties[prop] = value;
+                            }
                         }
-                    }
-                    this.addEdge(elemId, elem.type, modelId, startNodeId, startConnectorId, endNodeId, endConnectorId, elemProperties);
-                    break;
+                        this.addNode(elemId, elem.type, modelId, elemProperties);
+                        let self = this;
+                        connectorsToAdd.forEach(function(currentValue, index, arr){ self.addConnector(currentValue.id, currentValue.type, currentValue.elemId, currentValue.props); });
+                        break;
+                }
             }
         }
         return this;

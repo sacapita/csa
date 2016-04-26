@@ -5,6 +5,7 @@ CSA.Middleware = Class.extend({
       	var self = this;
 		self.app = app;
       	canvas.getCommandStack().addEventListener(function(e){
+			$("#json").text('');
         	if(e.isPostChangeEvent()){
 				var writer = new csa.io.json.Writer();
 				self.displaySVG(canvas);
@@ -35,11 +36,10 @@ CSA.Middleware = Class.extend({
 			method: "POST",
 			url: "http://localhost:8045/update/graph",
 			type: "json",
-			data: {graph: json, modelId: null},
+			data: {graph: json},
 			success: function(res){
 				var model = JSON.parse(res);
-				//self.displayJSON(model);
-				self.modelId = model.modelId.guid;
+				self.displayJSON(model);
 			},
 			error: function(err){
 				console.log(err);

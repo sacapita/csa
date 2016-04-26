@@ -20,13 +20,7 @@ router.post('/update/graph', function (req, res) {
     var jsGraph = req.body.graph;
     var d2dGraph = new Graph_1.Graph();
     var modelId = req.body.modelId;
-    if (modelId) {
-        modelId = Common.Guid.parse(modelId);
-    }
-    else {
-        modelId = Common.Guid.newGuid();
-    }
-    var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
+    var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
     console.log("-------> sendCommands is commented <-------- in server.ts");
     res.send(JSON.stringify(d2d));
 });

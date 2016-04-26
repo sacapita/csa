@@ -29,14 +29,8 @@ router.post('/update/graph', function (req, res) {
       let d2dGraph = new D2DGraph();
       var modelId = req.body.modelId;
 
-      if(modelId){
-          // parse plain guid to Guid object
-          modelId = Common.Guid.parse(modelId);
-      }else{
-          modelId = Common.Guid.newGuid();
-      }
-      var d2d = d2dGraph.parse(JSON.stringify(jsGraph), modelId);
-
+      // parse plain guid to Guid object
+      var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
       //let cg = new CommandGenerator(sessionId);
       //let commands = cg.process(d2d);
       //sendCommands(commands);
