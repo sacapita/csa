@@ -18,7 +18,7 @@ var Graph = (function () {
         for (var m in json) {
             var model = json[m];
             var modelId = (model.modelId ? Common.Guid.parse(model.modelId) : Common.Guid.newGuid());
-            this.addModel(modelId, "DRAW2D_MODEL", {});
+            this.addModel(modelId, model.type, {});
             var ports = [];
             var _loop_1 = function(key) {
                 var elem = model.elements[key];

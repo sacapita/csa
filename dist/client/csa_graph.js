@@ -1,7 +1,7 @@
 var csa_graph = [
   {
     "id": "f8ab6db5-714e-43ab-ba37-87e3fbc63f95",
-    "type": "fam",
+    "type": "DRAW2D_MODEL_FAM",
     "elements": [
       {
         "type": "csa.ModuleShape",
@@ -13,7 +13,7 @@ var csa_graph = [
         "alpha": 1,
         "angle": 0,
         "userData": {
-          "shapeType": "fam"
+          "shapeType": "DRAW2D_MODEL_FAM"
         },
         "cssClass": "ModuleShape",
         "ports": [],
@@ -29,7 +29,7 @@ var csa_graph = [
   },
   {
     "id": "f8ab7db5-714e-43ab-ba37-87e3fbc63f95",
-    "type": "classdiagram",
+    "type": "DRAW2D_MODEL_CLASSDIAGRAM",
     "elements": [
       {
         "type": "csa.TableShape",
@@ -41,7 +41,7 @@ var csa_graph = [
         "alpha": 1,
         "angle": 0,
         "userData": {
-          "shapeType": "classdiagram"
+          "shapeType": "DRAW2D_MODEL_CLASSDIAGRAM"
         },
         "cssClass": "TableShape",
         "ports": [
@@ -106,7 +106,7 @@ var csa_graph = [
         "alpha": 1,
         "angle": 0,
         "userData": {
-          "shapeType": "classdiagram"
+          "shapeType": "DRAW2D_MODEL_CLASSDIAGRAM"
         },
         "cssClass": "TableShape",
         "ports": [
@@ -167,7 +167,7 @@ var csa_graph = [
         "alpha": 1,
         "angle": 0,
         "userData": {
-          "shapeType": "classdiagram"
+          "shapeType": "DRAW2D_MODEL_CLASSDIAGRAM"
         },
         "cssClass": "csa_edge",
         "stroke": 3,

@@ -33,7 +33,7 @@ export class Graph {
             let model = json[m];
             let modelId = (model.modelId ? Common.Guid.parse(model.modelId) : Common.Guid.newGuid());
 
-            this.addModel(modelId, "DRAW2D_MODEL", {});
+            this.addModel(modelId, model.type, {});
             let ports : string[] = []; // ports from Draw2D aka connectors for this object
 
             for(let key in model.elements) {
