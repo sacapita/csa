@@ -18,7 +18,7 @@ export class Graph {
       this.Elements = {};
   }
 
-  public getElements(): Common.Dictionary<AbstractElement> {
+  get elements(): Common.Dictionary<AbstractElement> {
       return this.Elements;
   }
 
@@ -31,7 +31,7 @@ export class Graph {
 
         for(let m in json){
             let model = json[m];
-            let modelId = (model.modelId ? Common.Guid.parse(model.modelId) : Common.Guid.newGuid());
+            let modelId = (model.id ? Common.Guid.parse(model.id) : Common.Guid.newGuid());
 
             this.addModel(modelId, model.type, {});
             let ports : string[] = []; // ports from Draw2D aka connectors for this object
@@ -39,7 +39,6 @@ export class Graph {
             for(let key in model.elements) {
                 let elem = model.elements[key];
                 let elemId = elem.id;
-
                 let elemProperties: Object[] = [];
                 let connectorsToAdd: {id: Common.Guid, type: string; elemId: Common.Guid, props: Object[]}[] = [];
 

@@ -20,12 +20,11 @@ router.get('/', function (req, res) {
 router.post('/update/graph', function (req, res) {
     var jsGraph = req.body.graph;
     var d2dGraph = new Graph_1.Graph();
-    var modelId = req.body.modelId;
     var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
     var cg = new CommandGenerator_1.CommandGenerator(sessionId);
     var commands = cg.process(d2d);
-    sendCommands(commands);
-    res.send(JSON.stringify(d2d));
+    console.log("-------> sendCommands is commented <-------- in " + __filename);
+    res.send(JSON.stringify(commands));
 });
 function cbFunction(response) {
     var str = '';

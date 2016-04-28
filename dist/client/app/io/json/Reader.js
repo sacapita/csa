@@ -62,7 +62,7 @@ csa.io.json.Reader = draw2d.io.Reader.extend({
 
         var node=null;
         $.each(json, $.proxy(function(i, model){
-            var m = new csa.Model({id: model.modelId, type: model.type});
+            var m = new csa.Model({id: model.id, type: model.type});
             canvas.addModel(m);
 
             $.each(model.elements, $.proxy(function(i, element){

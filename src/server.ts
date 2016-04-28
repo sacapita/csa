@@ -27,16 +27,14 @@ router.get( '/', function( req, res ) {
 router.post('/update/graph', function (req, res) {
       var jsGraph = req.body.graph;
       let d2dGraph = new D2DGraph();
-      var modelId = req.body.modelId;
-
-      // parse plain guid to Guid object
       var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
+
       let cg = new CommandGenerator(sessionId);
       let commands = cg.process(d2d);
-      sendCommands(commands);
-      //console.log("-------> sendCommands is commented <-------- in server.ts");
+      //sendCommands(commands);
+      console.log("-------> sendCommands is commented <-------- in " + __filename);
 
-      res.send(JSON.stringify(d2d));
+      res.send(JSON.stringify(commands));
 });
 
 function cbFunction(response){

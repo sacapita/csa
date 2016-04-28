@@ -9,15 +9,19 @@ var Graph = (function () {
     function Graph() {
         this.Elements = {};
     }
-    Graph.prototype.getElements = function () {
-        return this.Elements;
-    };
+    Object.defineProperty(Graph.prototype, "elements", {
+        get: function () {
+            return this.Elements;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Graph.prototype.parse = function (jsGraph) {
         var graph = new Graph();
         var json = JSON.parse(jsGraph);
         for (var m in json) {
             var model = json[m];
-            var modelId = (model.modelId ? Common.Guid.parse(model.modelId) : Common.Guid.newGuid());
+            var modelId = (model.id ? Common.Guid.parse(model.id) : Common.Guid.newGuid());
             this.addModel(modelId, model.type, {});
             var ports = [];
             var _loop_1 = function(key) {

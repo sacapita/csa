@@ -4,7 +4,7 @@ import { AbstractElement } from "./AbstractElement";
 export declare class Graph {
     private Elements;
     constructor();
-    getElements(): Common.Dictionary<AbstractElement>;
+    readonly elements: Common.Dictionary<AbstractElement>;
     parse(jsGraph: string): Graph;
     getElement(id: Common.Guid): AbstractElement;
     hasElement(id: Common.Guid): boolean;

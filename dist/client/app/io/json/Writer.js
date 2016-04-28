@@ -62,7 +62,7 @@ csa.io.json.Writer = draw2d.io.Writer.extend({
         canvas.getModels().each(function(i, model){
             var m = model.getPersistentAttributes();
             var modelType = m.type;
-    
+
             canvas.getFiguresFromType(modelType).each(function(i, figure){
                 m.elements.push(figure.getPersistentAttributes());
             });
