@@ -4,26 +4,63 @@ var csa_graph = [
     "type": "DRAW2D_MODEL_FAM",
     "elements": [
       {
-        "type": "csa.ModuleShape",
-        "id": "262739eb-b12a-483a-9174-9ce6fb0c6784",
-        "x": 150.84375,
-        "y": 104,
-        "width": 50,
-        "height": 50,
-        "alpha": 1,
-        "angle": 0,
-        "userData": {
-          "shapeType": "DRAW2D_MODEL_FAM"
-        },
-        "cssClass": "ModuleShape",
-        "ports": [],
-        "bgColor": "#DBDDDE",
-        "color": "#D7D7D7",
-        "stroke": 1,
-        "radius": 1,
-        "dasharray": null,
-        "name": "Module",
-        "entities": []
+          "type": "csa.ModuleShape",
+          "id": "fa0757e4-cd57-40b5-9770-617e180f3566",
+          "x": 86.84375,
+          "y": 115,
+          "width": 50,
+          "height": 50,
+          "alpha": 1,
+          "angle": 0,
+          "userData": {
+            "shapeType": "DRAW2D_MODEL_FAM"
+          },
+          "cssClass": "csa_ModuleShape",
+          "ports": [
+            {
+              "type": "draw2d.InputPort",
+              "id": "8ff43070-6e9a-48d6-a5e9-f4c20b160120",
+              "width": 10,
+              "height": 10,
+              "alpha": 1,
+              "angle": 0,
+              "userData": {},
+              "cssClass": "draw2d_InputPort",
+              "bgColor": "#4F6870",
+              "color": "#1B1B1B",
+              "stroke": 1,
+              "dasharray": null,
+              "maxFanOut": 9007199254740991,
+              "name": "input_fa0757e4-cd57-40b5-9770-617e180f3566",
+              "port": "draw2d.InputPort",
+              "locator": "draw2d.layout.locator.InputPortLocator"
+            },
+            {
+              "type": "draw2d.OutputPort",
+              "id": "7211dc4d-5984-4a23-a70f-28ad88298aaa",
+              "width": 10,
+              "height": 10,
+              "alpha": 1,
+              "angle": 0,
+              "userData": {},
+              "cssClass": "draw2d_OutputPort",
+              "bgColor": "#4F6870",
+              "color": "#1B1B1B",
+              "stroke": 1,
+              "dasharray": null,
+              "maxFanOut": 9007199254740991,
+              "name": "output_fa0757e4-cd57-40b5-9770-617e180f3566",
+              "port": "draw2d.OutputPort",
+              "locator": "draw2d.layout.locator.OutputPortLocator"
+            }
+          ],
+          "bgColor": "#DBDDDE",
+          "color": "#D7D7D7",
+          "stroke": 1,
+          "radius": 1,
+          "dasharray": null,
+          "name": "Module",
+          "entities": []
       }
     ]
   },

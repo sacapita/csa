@@ -31,6 +31,12 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
             editor:new draw2d.ui.LabelInplaceEditor()
         });
 
+        var input = this.createPort("input");
+        var output = this.createPort("output");
+
+        input.setName("input_"+this.id);
+        output.setName("output_"+this.id);
+
         this.add(this.classLabel, new draw2d.layout.locator.TopLocator());
     },
 

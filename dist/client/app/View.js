@@ -2,6 +2,8 @@
 
 CSA.View = draw2d.Canvas.extend({
 
+	models: new draw2d.util.ArrayList(),
+
 	init:function(id, width, height, zoomFactor)
     {
 		this._super(id, width, height);
@@ -13,7 +15,7 @@ CSA.View = draw2d.Canvas.extend({
 		}
 
 		// Extend the Canvas with multiple models
-		this.models = new draw2d.util.ArrayList();
+		//this.models = new draw2d.util.ArrayList();
 	},
 
 	/**
@@ -40,6 +42,26 @@ CSA.View = draw2d.Canvas.extend({
     },
 
 	/**
+	 * @method
+	 * Check all lines for a source model and assign one when no source model is assigned
+	 *
+	 * @return void
+	 */
+	addUnassignedLines: function(){
+		var lines = this.getLines();
+		for(var k in lines["data"]){
+			var line = lines["data"][k];
+			if(line.userData == null){
+				console.log(line);
+				var sourceModel = line.sourcePort.parent.userData.shapeType;
+				console.log(sourceModel);
+				line.userData = {};
+				line.userData.shapeType = sourceModel;
+			}
+		}
+	},
+
+	/**
      * @method
      * Returns all lines/connections in this workflow/canvas of type shapeType.<br>
      *
@@ -52,7 +74,9 @@ CSA.View = draw2d.Canvas.extend({
 		var lines = new draw2d.util.ArrayList();
 
 		this.lines.each(function(i, line){
-			if(line.userData.hasOwnProperty("shapeType") && line.userData.shapeType == shapeType){
+			if(line.userData !== null
+			  && line.userData.hasOwnProperty("shapeType")
+			  && line.userData.shapeType == shapeType){
 				lines.push(line);
 			}
 		});

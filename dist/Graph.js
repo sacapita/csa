@@ -43,7 +43,7 @@ var Graph = (function () {
                             }
                             else if (prop == "target" && elem.hasOwnProperty("target")) {
                                 endNodeId = Common.Guid.parse(elem.target.node);
-                                endConnectorId = Common.Guid.parse(ports[elem.target.port]);
+                                endConnectorId = Common.Guid.parse(elem.target.port.substring(6, elem.target.port.length));
                             }
                             else {
                                 elemProperties[prop] = value;
@@ -131,19 +131,11 @@ var Graph = (function () {
         if (startConnector.getType() != ElementType_1.ElementType.Connector) {
             throw new Error("Invalid startConnectorId, " + startConnectorId + " does not belong to a connector");
         }
-        var endConnector = this.Elements[endConnectorId.toString()];
-        if (endConnector == undefined) {
-            throw new Error("No endConnector with GUID " + endConnectorId + " could be found");
-        }
-        if (endConnector.getType() != ElementType_1.ElementType.Connector) {
-            throw new Error("Invalid endConnectorId, " + endConnectorId + " does not belong to a connector");
-        }
         properties["type"] = type;
         var edge = new EdgeElement_1.EdgeElement(id, ElementType_1.ElementType.Edge, properties);
         edge.addStartConnector(startConnectorId);
         edge.addEndConnector(endConnectorId);
         startConnector.addEdgeNeighbour(id);
-        endConnector.addEdgeNeighbour(id);
         model.addEdgeNeighbour(id);
         edge.addModelNeighbour(modelId);
         this.Elements[id.toString()] = edge;

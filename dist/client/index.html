@@ -304,9 +304,9 @@
 			var app  = new CSA.Application();
 			app.view.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
 				createConnection: function(){
-					var connection = new draw2d.Connection({
-							stroke:3,
-							outlineStroke:1,
+					var connection = new csa.Edge({
+							stroke:2,
+							outlineStroke:0,
 							outlineColor:"#303030",
 							color:"91B93E",
 							router:routerToUse

@@ -55,7 +55,7 @@ export class Graph {
                                 startConnectorId = Common.Guid.parse(ports[elem.source.port]);
                             }else if(prop == "target" && elem.hasOwnProperty("target")){
                                 endNodeId = Common.Guid.parse(elem.target.node);
-                                endConnectorId = Common.Guid.parse(ports[elem.target.port]);
+                                endConnectorId = Common.Guid.parse(elem.target.port.substring(6, elem.target.port.length));
                             }else{
                                 elemProperties[prop] = value;
                             }
@@ -162,13 +162,18 @@ export class Graph {
       }
 
       // Validate endConnectorId
-      var endConnector = this.Elements[endConnectorId.toString()];
+
+      // NOTICE
+      // Commented because inter-model edges do not work in this construction
+      // The end node and thus connector are not yet defined when the source model is the first model to be parsed
+
+     /* var endConnector = this.Elements[endConnectorId.toString()];
       if (endConnector == undefined) {
           throw new Error("No endConnector with GUID " + endConnectorId + " could be found");
       }
-      if (endConnector.getType() != ElementType.Connector) {
+     if (endConnector.getType() != ElementType.Connector) {
           throw new Error("Invalid endConnectorId, "  + endConnectorId + " does not belong to a connector");
-      }
+      }*/
       properties["type"] = type;
       var edge = new EdgeElement(id, ElementType.Edge, properties);
       // By convention, element 0 is the start item, 1 is the end
@@ -176,7 +181,7 @@ export class Graph {
       edge.addEndConnector(endConnectorId);
 
       startConnector.addEdgeNeighbour(id);
-      endConnector.addEdgeNeighbour(id);
+      // endConnector.addEdgeNeighbour(id);
 
       model.addEdgeNeighbour(id);
       edge.addModelNeighbour(modelId);

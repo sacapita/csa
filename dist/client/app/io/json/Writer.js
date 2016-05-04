@@ -59,6 +59,9 @@ csa.io.json.Writer = draw2d.io.Writer.extend({
 
         var result = [];
 
+        // Assign unassigned edges to the source model
+        canvas.addUnassignedLines();
+
         canvas.getModels().each(function(i, model){
             var m = model.getPersistentAttributes();
             var modelType = m.type;

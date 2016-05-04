@@ -5,8 +5,7 @@ CSA.Middleware = Class.extend({
       	var self = this;
 		self.app = app;
       	canvas.getCommandStack().addEventListener(function(e){
-			$("#json").text('');
-        	if(e.isPostChangeEvent()){
+			if(e.isPostChangeEvent()){
 				var writer = new csa.io.json.Writer();
 				self.displaySVG(canvas);
 				writer.marshal(canvas, function(json){
@@ -15,7 +14,7 @@ CSA.Middleware = Class.extend({
 				});
         	}
       	});
-		// Does not show SVG without setTimeout
+		// FIXME: Does not show SVG without setTimeout
 		setTimeout(function(){
 			self.displaySVG(canvas);
 		}, 500);
