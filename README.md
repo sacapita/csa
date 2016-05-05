@@ -13,5 +13,6 @@ FEATURES:
 - DONE - unmarchal/marchal/D2DGraph meerdere modellen ondersteunen 
 - DONE - graph met daarin models versturen naar backend
 - DONE - inter-model connections/edges (worden deze op in een model opgeslagen, de backend ondersteund geen edges op graph niveau.)
-- TODO - json object inlezen van de backend en unmarchallen op de canvas
-- TODO - aparte Canvas/View maken voor elke thumbnail om preview weer te geven met alleen de elementen van die viewpoint
+- DONE - separate Canvas/View for evert thumbnail to show the previes with element of that modelType only
+- TODO - json object inlezen van de backend en unmarchallen op de canvas (deserialize)
+- TODO - incremental update to backend, track elements that changed and what properties changed. The backend expectes incremental updates

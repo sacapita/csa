@@ -32,13 +32,25 @@ CSA.View = draw2d.Canvas.extend({
 	/**
      * @method
      * Returns the internal models.<br>
+	 * @param modelType return only one model matching the modelType
      *
      * @protected
      * @return {draw2d.util.ArrayList}
      **/
-    getModels: function()
+    getModels: function(modelType)
     {
-      return this.models;
+		if(modelType != null){
+			var output = new draw2d.util.ArrayList();
+			for(var m in this.models.data){
+				var model = this.models.data[m];
+				if(model.getType() == modelType){
+					return output.add(model);
+				}
+			}
+			// No model found matching the given modelType
+			return new draw2d.util.ArrayList();
+		}
+		return this.models;
     },
 
 	/**

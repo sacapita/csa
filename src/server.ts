@@ -27,7 +27,7 @@ router.get( '/', function( req, res ) {
 router.post('/update/graph', function (req, res) {
       var jsGraph = req.body.graph;
       let d2dGraph = new D2DGraph();
-      var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
+      var d2d = d2dGraph.serialize(JSON.stringify(jsGraph));
 
       let cg = new CommandGenerator(sessionId);
       let commands = cg.process(d2d);

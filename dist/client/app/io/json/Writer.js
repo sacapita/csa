@@ -49,7 +49,7 @@ csa.io.json.Writer = draw2d.io.Writer.extend({
      * @param {Object} resultCallback.json  the canvas document as JSON object
      * @param {String} resultCallback.base64  the canvas document as base encoded JSON
      */
-    marshal: function(canvas, resultCallback)
+    marshal: function(canvas, modelType, resultCallback)
     {
         // I change the API signature from version 2.10.1 to 3.0.0. Throw an exception
         // if any application not care about this changes.
@@ -62,7 +62,7 @@ csa.io.json.Writer = draw2d.io.Writer.extend({
         // Assign unassigned edges to the source model
         canvas.addUnassignedLines();
 
-        canvas.getModels().each(function(i, model){
+        canvas.getModels(modelType).each(function(i, model){
             var m = model.getPersistentAttributes();
             var modelType = m.type;
 

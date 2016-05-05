@@ -27,6 +27,10 @@ csa.Model = Class.extend({
         }
     },
 
+    getType: function(){
+        return this.properties.type;
+    },
+
     /**
      * @method
      * Return an objects with all important attributes for XML or JSON serialization

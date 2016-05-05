@@ -16,7 +16,7 @@ var Graph = (function () {
         enumerable: true,
         configurable: true
     });
-    Graph.prototype.parse = function (jsGraph) {
+    Graph.prototype.serialize = function (jsGraph) {
         var graph = new Graph();
         var json = JSON.parse(jsGraph);
         for (var m in json) {
@@ -175,41 +175,6 @@ var Graph = (function () {
             properties[propertyKey] = jsonProperties[propertyKey];
         }
         return properties;
-    };
-    Graph.prototype.serialize = function () {
-        var graph = {
-            "models": {},
-            "nodes": {},
-            "edges": {},
-            "connectors": {}
-        };
-        var elements = this.Elements;
-        for (var key in elements) {
-            var elem = elements[key];
-            var obj = {
-                "id": elem.Id.toString(),
-                "properties": elem.getProperties(),
-                "neighbours": {
-                    "models": elem.getModelNeighbours().map(function (val) { return val.toString(); }),
-                    "nodes": elem.getNodeNeighbours().map(function (val) { return val.toString(); }),
-                    "edges": elem.getEdgeNeighbours().map(function (val) { return val.toString(); }),
-                    "connectors": elem.getConnectorNeighbours().map(function (val) { return val.toString(); })
-                }
-            };
-            if (elem.getType() == ElementType_1.ElementType.Node) {
-                graph.nodes[elem.Id.toString()] = obj;
-            }
-            else if (elem.getType() == ElementType_1.ElementType.Edge) {
-                graph.edges[elem.Id.toString()] = obj;
-            }
-            else if (elem.getType() == ElementType_1.ElementType.Connector) {
-                graph.connectors[elem.Id.toString()] = obj;
-            }
-            else {
-                graph.models[elem.Id.toString()] = obj;
-            }
-        }
-        return graph;
     };
     return Graph;
 }());

@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
 router.post('/update/graph', function (req, res) {
     var jsGraph = req.body.graph;
     var d2dGraph = new Graph_1.Graph();
-    var d2d = d2dGraph.parse(JSON.stringify(jsGraph));
+    var d2d = d2dGraph.serialize(JSON.stringify(jsGraph));
     var cg = new CommandGenerator_1.CommandGenerator(sessionId);
     var commands = cg.process(d2d);
     console.log("-------> sendCommands is commented <-------- in " + __filename);

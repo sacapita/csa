@@ -25,7 +25,7 @@ export class Graph {
   /**
    * Convert a JSON Draw2D graph object to a Graph
    */
-    public parse(jsGraph: string): Graph {
+    public serialize(jsGraph: string): Graph {
         let graph = new Graph();
         let json = JSON.parse(jsGraph);
 
@@ -234,7 +234,7 @@ export class Graph {
   /**
    * @inheritdoc
    */
-  public deserialize(jsonObject : Object) : GraphInterface {
+  public deserialize(jsonObject : Object) : Graph {
       var graph = new Graph();
     /*  var modelElements: Common.Dictionary<ModelElement> = {};
       var models = jsonObject['models'];
@@ -286,44 +286,5 @@ export class Graph {
           properties[propertyKey] = jsonProperties[propertyKey];
       }
       return properties;
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public serialize() {
-      var graph = {
-       "models"     : {},
-       "nodes"      : {},
-       "edges"      : {},
-       "connectors" : {}
-      };
-
-      var elements = this.Elements;
-      for (var key in elements) {
-          var elem  = elements[key];
-
-          var obj =
-              {
-                  "id" : elem.Id.toString(),
-                  "properties" : elem.getProperties(),
-                  "neighbours" : {
-                      "models" : elem.getModelNeighbours().map(function(val) { return val.toString(); }),
-                      "nodes"  : elem.getNodeNeighbours().map(function(val) { return val.toString(); }),
-                      "edges"  : elem.getEdgeNeighbours().map(function(val) { return val.toString(); }),
-                      "connectors" : elem.getConnectorNeighbours().map(function(val) { return val.toString(); })
-                  }
-              };
-          if (elem.getType() == ElementType.Node) {
-              graph.nodes[elem.Id.toString()] = obj;
-          } else if (elem.getType() == ElementType.Edge) {
-              graph.edges[elem.Id.toString()] = obj;
-          } else if (elem.getType() == ElementType.Connector) {
-              graph.connectors[elem.Id.toString()] = obj;
-          } else {
-              graph.models[elem.Id.toString()] = obj;
-          }
-      }
-      return graph;
   }
 }
