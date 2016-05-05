@@ -64,11 +64,10 @@ CSA.View = draw2d.Canvas.extend({
 		for(var k in lines["data"]){
 			var line = lines["data"][k];
 			if(line.userData == null){
-				console.log(line);
 				var sourceModel = line.sourcePort.parent.userData.shapeType;
-				console.log(sourceModel);
 				line.userData = {};
 				line.userData.shapeType = sourceModel;
+				line.userData.interModel = true;
 			}
 		}
 	},

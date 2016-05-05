@@ -69,7 +69,7 @@ csa.io.json.Reader = draw2d.io.Reader.extend({
                 try{
                     var o = eval("new "+element.type+"()");
                     var source= null;
-                    var target=null;
+                    var target= null;
                     for(i in element){
                         var val = element[i];
                         if(i === "source"){

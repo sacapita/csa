@@ -1,6 +1,5 @@
 CSA.Middleware = Class.extend({
 	app: null,
-	showThumbnails: false,
 
 	init:function(app, canvas)
 	{
@@ -11,9 +10,8 @@ CSA.Middleware = Class.extend({
 			// Events are fired twice for some unknown reason
 			if(e.isPostChangeEvent() && counter % 2 == 0){
 				var writer = new csa.io.json.Writer();
-				if(self.showThumbnails){
-					self.displaySVG(canvas);
-				}
+				self.displaySVG(canvas);
+
 				writer.marshal(canvas, null, function(json){
           			self.displayJSON(json);
 					self.updateGraph(json);
@@ -23,8 +21,7 @@ CSA.Middleware = Class.extend({
       	});
 		// FIXME: Does not show SVG without setTimeout
 		setTimeout(function(){
-			//self.displaySVG(canvas);
-			self.showThumbnails = true;
+			self.displaySVG(canvas);
 		}, 500);
 	},
 	// Debug information
@@ -50,6 +47,7 @@ CSA.Middleware = Class.extend({
 				var svgWriter = new csa.io.svg.Writer();
 				svgWriter.marshal(thumbCanvas, function(svg){
 					thumbnail.html(svg);
+					thumbCanvas = null;
 				});
 			});
 		});
@@ -65,7 +63,7 @@ CSA.Middleware = Class.extend({
 			data: {graph: json},
 			success: function(res){
 				var model = JSON.parse(res);
-				self.displayJSON(model);
+				//self.displayJSON(model);
 			},
 			error: function(err){
 				console.log(err);

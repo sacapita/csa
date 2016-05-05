@@ -39,7 +39,7 @@
  */
 csa.io.json.SimpleReader = draw2d.io.Reader.extend({
 
-    NAME : "csa.io.json.Reader",
+    NAME : "csa.io.json.SimpleReader",
 
     init: function(){
         this._super();
@@ -67,41 +67,44 @@ csa.io.json.SimpleReader = draw2d.io.Reader.extend({
             $.each(model.elements, $.proxy(function(i, element){
                 try{
                     var o = eval("new "+element.type+"()");
-                    var source= null;
-                    var target=null;
-                    for(i in element){
-                        var val = element[i];
-                        if(i === "source"){
-                            node = canvas.getFigure(val.node);
-                            if(node===null){
-                                throw "Source figure with id '"+val.node+"' not found";
+                    // Inter-model edges cannot be displayed in the thumbnails and will result in exceptions
+                    if(!element.userData.hasOwnProperty("interModel")){
+                        var source= null;
+                        var target=null;
+                        for(i in element){
+                            var val = element[i];
+                            if(i === "source"){
+                                node = canvas.getFigure(val.node);
+                                if(node===null){
+                                    throw "Source figure with id '"+val.node+"' not found";
+                                }
+                                source = node.getPort(val.port);
+                                if(source===null){
+                                    throw "Unable to find source port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                                }
                             }
-                            source = node.getPort(val.port);
-                            if(source===null){
-                                throw "Unable to find source port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                            else if (i === "target"){
+                                node = canvas.getFigure(val.node);
+                                if(node===null){
+                                    throw "Target figure with id '"+val.node+"' not found";
+                                }
+                                target = node.getPort(val.port);
+                                if(target===null){
+                                    throw "Unable to find target port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
+                                }
                             }
                         }
-                        else if (i === "target"){
-                            node = canvas.getFigure(val.node);
-                            if(node===null){
-                                throw "Target figure with id '"+val.node+"' not found";
-                            }
-                            target = node.getPort(val.port);
-                            if(target===null){
-                                throw "Unable to find target port '"+val.port+"' at figure '"+val.node+"' to unmarschal '"+element.type+"'";
-                            }
+                        if(source!==null && target!==null){
+                            // don't change the order or the source/target set.
+                            // TARGET must always be the second one because some applications needs the "source"
+                            // port in the "connect" event of the target.
+                            o.setSource(source);
+                            o.setTarget(target);
                         }
+                        o.setPersistentAttributes(element);
+                        canvas.add(o);
+                        result.add(o);
                     }
-                    if(source!==null && target!==null){
-                        // don't change the order or the source/target set.
-                        // TARGET must always be the second one because some applications needs the "source"
-                        // port in the "connect" event of the target.
-                        o.setSource(source);
-                        o.setTarget(target);
-                    }
-                    o.setPersistentAttributes(element);
-                    canvas.add(o);
-                    result.add(o);
                 }
                 catch(exc){
                     debug.error(element,"Unable to instantiate figure type '"+element.type+"' with id '"+element.id+"' during unmarshal by "+this.NAME+". Skipping figure..");
