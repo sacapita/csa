@@ -16,7 +16,10 @@ csa.LabelShape = draw2d.shape.basic.Label.extend({
         this._super($.extend({bgColor:"#dbddde", color:"#d7d7d7", stroke:0, radius:3},attr));
 
         // Extend Draw2D shapes the ugly way
-
+		if(shapeType !== undefined){
+			// this value is passed onDrop, but not when read from the document.js
+        	var csaElement = new CSAElement(this, shapeType);
+		}
 
         this.classLabel = new draw2d.shape.basic.Label({
           text:"Label1",

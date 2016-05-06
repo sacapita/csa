@@ -50,7 +50,6 @@ CSA.Middleware = Class.extend({
 	},
   	updateGraph:function(json){
 		var self = this;
-		console.log(json);
       	//ajax to backend
 		$.ajax({
 			method: "POST",

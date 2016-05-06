@@ -64,10 +64,25 @@ CSA.View = draw2d.Canvas.extend({
 		for(var k in lines["data"]){
 			var line = lines["data"][k];
 			if(line.userData == null){
-				var sourceModel = line.sourcePort.parent.userData.shapeType;
 				line.userData = {};
-				line.userData.shapeType = sourceModel;
-				line.userData.interModel = true;
+
+				var sourceModel = line.sourcePort.parent;
+				var smType = null;
+				if(sourceModel.userData != null){
+					smType = sourceModel.userData.shapeType;
+				}
+				var targetModel = line.targetPort.parent;
+				var tmTpye = null;
+				if(targetModel.userData != null){
+					tmType = targetModel.userData.shapeType;
+				}
+
+				line.userData.shapeType = smType;
+				
+				//If source and target modeType differ, then it is an inter-model edge
+				if(smType != tmType){
+					line.userData.interModel = true;
+				}
 			}
 		}
 	},

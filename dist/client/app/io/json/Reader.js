@@ -103,7 +103,6 @@ csa.io.json.Reader = draw2d.io.Reader.extend({
                     o.setPersistentAttributes(element);
                     canvas.add(o);
                     result.add(o);
-                    console.log(canvas);
                 }
                 catch(exc){
                     debug.error(element,"Unable to instantiate figure type '"+element.type+"' with id '"+element.id+"' during unmarshal by "+this.NAME+". Skipping figure..");

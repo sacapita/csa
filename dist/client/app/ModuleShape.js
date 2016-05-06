@@ -13,7 +13,7 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
 
     init : function(attr, shapeType)
     {
-         this._super($.extend({bgColor:"#ffffff", color:"#000000", stroke:1},attr));
+         this._super($.extend({bgColor:"#dbddde", color:"#000000", stroke:0},attr));
 
 
         if(shapeType !== undefined){
