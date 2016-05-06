@@ -104,7 +104,7 @@
 
 });
 
-var shape = new csa.PackageShape();
+var shape = new csa.LayerShape();
 
 /*csa.PackageShape = draw2d.setFigure.extend({
     NAME: "csa.PackageShape",
