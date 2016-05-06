@@ -8,21 +8,18 @@
  * @since 1.0
  * @extends draw2d.shape.basic.Label
  */
-csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
-    NAME: "csa.ModuleShape",
+ csa.LayerShape = draw2d.SetFigure.extend({
+    NAME: "csa.LayerShape",
 
     init : function(attr, shapeType)
     {
-         this._super($.extend({bgColor:"#ffffff", color:"#000000", stroke:1},attr));
+        this._super();
+        this.setBackgroundColor("#ffffff");
+        this.setStroke(0);
+        this.setDimension(300,128);
 
-
-        if(shapeType !== undefined){
-   // this value is passed onDrop, but not when read from the document.js
-         var csaElement = new CSAElement(this, shapeType);
-    }
-
-        this.classLabel = new draw2d.shape.basic.Label({
-            text:"Module",
+         this.classLabel = new draw2d.shape.basic.Label({
+            text:"Layer",
             stroke:0,
             fontColor:"#000000",
             radius: this.getRadius(),
@@ -47,14 +44,9 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
         bottom.setName("bottom"+this.id);
 
         this.add(this.classLabel, new draw2d.layout.locator.Locator());
+
     },
 
-    /**
-     * @method
-     * Set the name of the DB table. Visually it is the header of the shape
-     *
-     * @param name
-     */
     setName: function(name)
     {
         this.classLabel.setText(name);
@@ -62,13 +54,15 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
         return this;
     },
 
+    createSet: function(){
+        var set = this._super();
+        set.push( this.canvas.paper.rect(0, 0, 150, 1));
+        set.push( this.canvas.paper.rect(0, 80, 150, 1));
 
-    /**
-     * @method
-     * Return an objects with all important attributes for XML or JSON serialization
-     *
-     * @returns {Object}
-     */
+        return set;
+    },
+
+
     getPersistentAttributes : function()
     {
         var memento= this._super();
@@ -88,13 +82,6 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
         return memento;
     },
 
-    /**
-     * @method
-     * Read all attributes from the serialized properties and transfer them into the shape.
-     *
-     * @param {Object} memento
-     * @return
-     */
     setPersistentAttributes : function(memento)
     {
         this._super(memento);
@@ -114,4 +101,32 @@ csa.ModuleShape = draw2d.shape.basic.Rectangle.extend({
 
         return this;
     }
+
 });
+
+var shape = new csa.PackageShape();
+
+/*csa.PackageShape = draw2d.setFigure.extend({
+    NAME: "csa.PackageShape",
+
+    init : function()
+    {
+        this._super();
+ 
+        this.setBackgroundColor("f0f0ff");
+        this.setStroke(1);
+        this.setDimension(128,128);
+    },
+ 
+    createSet: function(){
+        var set = this._super();
+ 
+        set.push( this.canvas.paper.image("unnamed.png",0,0,128,128));
+        set.push( this.canvas.paper.circle(20, 20, 10));
+        return set;
+    }
+
+});
+
+var shape = new BgColorImage();
+canvas.add( shape,100,100);*/

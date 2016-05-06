@@ -28,3 +28,33 @@ body { background-color: #ccc; }
 .left-tabs a:hover,
 .left-tabs a:focus { text-decoration: none; }
 .left-tabs a { display: block; padding: 10px 15px; }
+
+/* palette notation styles */
+
+.FAM_module {width: 150px !important; height: 40px; background: white !important; border-radius: 0 !important;}
+
+.SRMA_package {
+    width: 150px !important;
+    height: 80px !important;
+    visibility: hidden !important;
+}
+
+.packagetop {
+	height: 10px !important;
+	width: 30px !important;
+	background-color: #fff !important;
+	border: 1px solid black !important;
+	visibility: visible !important;
+}
+
+.packagemiddle {
+	width: 150px !important; 
+	height: 65px !important;
+	background-color: #fff !important;
+	border: 1px solid black !important;
+	visibility: visible !important;
+}
+
+.SRMA_component {	width: 150px !important; height: 80px; background: white !important;	 border-radius: 0 !important;}
+.SRMA_layer {	width: 150px !important; height: 80px; background: white !important;	 border-radius: 0 !important; border-left: 5px!important; border-right: 5px!important;}
+.SRMA_interface {	width: 50px !important; height: 50px !important; background: #fff !important; -moz-border-radius: 50px !important; -webkit-border-radius: 50px !important;  border-radius: 50px !important;}

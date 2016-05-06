@@ -8,33 +8,45 @@
  * @since 1.0
  * @extends draw2d.shape.basic.Label
  */
-csa.LabelShape = draw2d.shape.basic.Label.extend({
-    NAME: "csa.TextShape",
+csa.ComponentShape = draw2d.shape.basic.Rectangle.extend({
+    NAME: "csa.ComponentShape",
 
     init : function(attr, shapeType)
     {
-        this._super($.extend({bgColor:"#dbddde", color:"#d7d7d7", stroke:0, radius:3},attr));
+        this._super($.extend({bgColor:"#ffffff", color:"#000000", stroke:1},attr));
 
-        // Extend Draw2D shapes the ugly way
 
         if(shapeType !== undefined){
    // this value is passed onDrop, but not when read from the document.js
          var csaElement = new CSAElement(this, shapeType);
-  }
+    }
 
         this.classLabel = new draw2d.shape.basic.Label({
-          text:"Label1",
-          stroke:0,
-          fontColor:"#00000",
-          bgColor:"#ffffff",
-          fontSize: 14,
-          radius: this.getRadius(),
-          padding:5,
-          resizeable:true,
-          editor:new draw2d.ui.LabelInplaceEditor()
+            text:"Component",
+            stroke:0,
+            fontColor:"#000000",
+            radius: this.getRadius(),
+            padding:5,
+            resizeable:true,
+            editor:new draw2d.ui.LabelInplaceEditor()
         });
 
-        this.add(this.classLabel, new draw2d.layout.locator.TopLocator() );
+        var InputLocator = new draw2d.layout.locator.InputPortLocator();
+        var OutputLocator = new draw2d.layout.locator.OutputPortLocator();
+        var TopLocator = new draw2d.layout.locator.TopLocator();
+        var BottomLocator = new draw2d.layout.locator.BottomLocator();
+
+        var input = this.createPort("hybrid", InputLocator);
+        var output = this.createPort("hybrid", OutputLocator);
+        var top = this.createPort("hybrid", TopLocator);
+        var bottom = this.createPort("hybrid", BottomLocator);
+
+        input.setName("input_"+this.id);
+        output.setName("output_"+this.id);
+        top.setName("top"+this.id);
+        bottom.setName("bottom"+this.id);
+
+        this.add(this.classLabel, new draw2d.layout.locator.Locator());
     },
 
     /**
@@ -63,8 +75,8 @@ csa.LabelShape = draw2d.shape.basic.Label.extend({
 
        memento.name = this.classLabel.getText();
        memento.entities   = [];
-       this.children.each(function(i,e){
 
+       this.children.each(function(i,e){
            if(i>0){ // skip the header of the figure
                memento.entities.push({
                    text:e.figure.getText(),
@@ -95,6 +107,8 @@ csa.LabelShape = draw2d.shape.basic.Label.extend({
                 entity.id = e.id;
                 entity.getInputPort(0).setName("input_"+e.id);
                 entity.getOutputPort(0).setName("output_"+e.id);
+                entity.getTopPort(0).setName("top"+e.id);
+                entity.getBottomPort(0).setName("top"+e.id);
             },this));
         }
 

@@ -262,7 +262,11 @@
 	<SCRIPT src="./app/CSAElement.js"></SCRIPT>
 	<SCRIPT src="./app/Edge.js"></SCRIPT>
 	<SCRIPT src="./app/TableShape.js"></SCRIPT>
+    <SCRIPT src="./app/LayerShape.js"></SCRIPT>
+    <SCRIPT src="./app/PackageShape.js"></SCRIPT>
+    <SCRIPT src="./app/ComponentShape.js"></SCRIPT>
 	<SCRIPT src="./app/LabelShape.js"></SCRIPT>
+    <SCRIPT src="./app/CircleShape.js"></SCRIPT>
 	<SCRIPT src="./app/ModuleShape.js"></SCRIPT>
     <SCRIPT src="./app/Application.js"></SCRIPT>
     <SCRIPT src="./app/View.js"></SCRIPT>
@@ -354,7 +358,7 @@
 								<a href="#DRAW2D_FAM" aria-controls="DRAW2D_FAM" role="tab" data-toggle="tab">Functional Architecture model</a>
 							</li>
 							<li role="presentation">
-								<a href="#DRAW2D_CLASSDIAGRAM" aria-controls="DRAW2D_CLASSDIAGRAM" role="tab" data-toggle="tab">Class diagram</a>
+								<a href="#DRAW2D_CLASSDIAGRAM" aria-controls="DRAW2D_CLASSDIAGRAM" role="tab" data-toggle="tab">SRMA</a>
 							</li>
 							<li role="presentation">
 								<a href="#petrinet" aria-controls="petrinet" role="tab" data-toggle="tab">Petri net</a>
@@ -377,11 +381,13 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="DRAW2D_FAM">
-							<div data-shape="csa.ModuleShape" class="palette_node_element draw2d_droppable" id="DRAW2D_MODEL_FAM">module</div>
+							<div data-shape="csa.ModuleShape" class="palette_node_element draw2d_droppable FAM_module" id="DRAW2D_MODEL_FAM">module/feature</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="DRAW2D_CLASSDIAGRAM">
-							<div data-shape="csa.TableShape" class="palette_node_element draw2d_droppable" id="DRAW2D_MODEL_CLASSDIAGRAM">Class</div>
-							<div data-shape="csa.LabelShape" class="palette_node_element draw2d_droppable" id="DRAW2D_MODEL_CLASSDIAGRAM">Label</div>
+                            <div data-shape="csa.PackageShape" class="palette_node_element draw2d_droppable SRMA_package" id="DRAW2D_MODEL_CLASSDIAGRAM"><div class="packagetop"></div><div class="packagemiddle">Package</div></div>
+							<div data-shape="csa.ComponentShape" class="palette_node_element draw2d_droppable SRMA_component" id="DRAW2D_MODEL_CLASSDIAGRAM">Component</div>
+							<div data-shape="csa.CircleShape" class="palette_node_element draw2d_droppable SRMA_interface" id="DRAW2D_MODEL_CLASSDIAGRAM">Interface</div>
+                            <div data-shape="csa.LayerShape" class="palette_node_element draw2d_droppable SRMA_layer" id="DRAW2D_MODEL_CLASSDIAGRAM">Layer</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="petrinet">elementen</div>
 						<div role="tabpanel" class="tab-pane" id="sequencediagram">elementen</div>
