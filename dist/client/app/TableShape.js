@@ -10,7 +10,7 @@ csa.TableShape = draw2d.shape.layout.VerticalLayout.extend({
 		// Extend Draw2D shapes the ugly way
 		if(shapeType !== undefined){
 			// this value is passed onDrop, but not when read from the document.js
-        	var csashape = new CSAShape(this, shapeType);
+        	var csaElement = new CSAElement(this, shapeType);
 		}
 
         this.classLabel = new draw2d.shape.basic.Label({

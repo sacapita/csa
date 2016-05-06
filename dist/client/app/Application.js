@@ -20,7 +20,7 @@ CSA.Application = Class.extend(
     init : function()
     {
 	    this.view       = new CSA.View("canvas");
-        this.toolbar    = new CSA.Toolbar("toolbar",  this.view );
-        this.middleware = new CSA.Middleware(this, this.view);
+        this.toolbar    = new CSA.Toolbar("toolbar", this.view);
+        this.middleware = new CSA.Middleware(this.view);
     }
 });

@@ -135,7 +135,7 @@ CSA.View = draw2d.Canvas.extend({
 		var attr = new Object();
         var figure = eval("new "+type+"({},\"" + droppedDomNode[0].id +"\");");
 
-		if(figure.NAME == "TableShape"){
+		if(figure.NAME == "csa.TableShape"){
         	figure.addEntity("id");
 		}
 
