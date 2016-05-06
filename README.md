@@ -13,6 +13,7 @@ FEATURES:
 - DONE - unmarchal/marchal/D2DGraph meerdere modellen ondersteunen 
 - DONE - graph met daarin models versturen naar backend
 - DONE - inter-model connections/edges (worden deze op in een model opgeslagen, de backend ondersteund geen edges op graph niveau.)
-- DONE - separate Canvas/View for evert thumbnail to show the previes with element of that modelType only
-- TODO - json object inlezen van de backend en unmarchallen op de canvas (deserialize)
+- DONE - separate Canvas/View for every thumbnail to show the previes with element of that modelType only
+- TODO - GET project or models from the backend and unmarchallen to canvas (deserialize)
 - TODO - incremental update to backend, track elements that changed and what properties changed. The backend expectes incremental updates
+- TODO - update to new versions of cubitt packages (commands, common en graph?)

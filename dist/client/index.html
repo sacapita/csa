@@ -324,7 +324,7 @@
 			// (load)
 			var reader = new csa.io.json.Reader();
 			reader.unmarshal(app.view, csa_graph);
-			new CSA.Middleware(new CSA.Application(), app.view).displayJSON(csa_graph);
+			new CSA.Middleware(app.view).displayJSON(csa_graph);
 
 		});
 

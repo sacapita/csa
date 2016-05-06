@@ -1,17 +1,13 @@
 CSA.Middleware = Class.extend({
-	app: null,
-
-	init:function(app, canvas)
+	init:function(canvas)
 	{
       	var self = this;
-		self.app = app;
 		counter = 0;
       	canvas.getCommandStack().addEventListener(function(e){
 			// Events are fired twice for some unknown reason
 			if(e.isPostChangeEvent() && counter % 2 == 0){
 				var writer = new csa.io.json.Writer();
 				self.displaySVG(canvas);
-
 				writer.marshal(canvas, null, function(json){
           			self.displayJSON(json);
 					self.updateGraph(json);
