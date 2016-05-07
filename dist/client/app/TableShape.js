@@ -9,12 +9,17 @@ csa.TableShape = draw2d.shape.layout.VerticalLayout.extend({
 
 		// Extend Draw2D shapes the ugly way
 
+        if(shapeType !== undefined){
+           // this value is passed onDrop, but not when read from the document.js
+            var csaElement = new CSAElement(this, shapeType);
+        }
+
         this.classLabel = new draw2d.shape.basic.Label({
             text:"ClassName",
             stroke:1,
-            fontColor:"#5856d6",
-            bgColor:"#f7f7f7",
-            radius: this.getRadius(),
+            fontColor:"#000000",
+            bgColor:"#ffffff",
+            radius: 0,
             padding:10,
             resizeable:true,
             editor:new draw2d.ui.LabelInplaceEditor()
@@ -35,11 +40,11 @@ csa.TableShape = draw2d.shape.layout.VerticalLayout.extend({
     {
 	   	 var label =new draw2d.shape.basic.Label({
 	   	     text:txt,
-	   	     stroke:0,
+	   	     stroke:1,
 	   	     radius:0,
-	   	     bgColor:null,
+	   	     bgColor:"#ffffff",
 	   	     padding:{left:10, top:3, right:10, bottom:5},
-	   	     fontColor:"#4a4a4a",
+	   	     fontColor:"#000000",
 	   	     resizeable:true,
              editor:new draw2d.ui.LabelEditor()
 	   	 });
