@@ -18,6 +18,11 @@
         this.setStroke(0);
         this.setDimension(300,128);
 
+        if(shapeType !== undefined){
+           // this value is passed onDrop, but not when read from the document.js
+            var csaElement = new CSAElement(this, shapeType);
+        }
+
          this.classLabel = new draw2d.shape.basic.Label({
             text:"Layer",
             stroke:0,
