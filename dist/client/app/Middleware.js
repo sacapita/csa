@@ -1,13 +1,18 @@
 CSA.Middleware = Class.extend({
-	init:function(canvas)
+	port: null,
+
+	init:function(canvas, port)
 	{
+		this.port = port;
       	var self = this;
 		counter = 0;
+		var eventParser = new CSA.EventParser(port);
       	canvas.getCommandStack().addEventListener(function(e){
 			// Events are fired twice for some unknown reason
 			if(e.isPostChangeEvent() && counter % 2 == 0){
+				eventParser.parse(e);
 				var writer = new csa.io.json.Writer();
-				self.displaySVG(canvas);
+				self.displayThumnails(canvas);
 				writer.marshal(canvas, null, function(json){
           			self.displayJSON(json);
 					self.updateGraph(json);
@@ -17,7 +22,7 @@ CSA.Middleware = Class.extend({
       	});
 		// FIXME: Does not show SVG without setTimeout
 		setTimeout(function(){
-			self.displaySVG(canvas);
+			self.displayThumnails(canvas);
 		}, 500);
 	},
 	// Debug information
@@ -25,7 +30,7 @@ CSA.Middleware = Class.extend({
       	$("#json").text(JSON.stringify(json, null, 2));
   	},
 	// Viewpoint thumbnails
-	displaySVG:function(canvas){
+	displayThumnails:function(canvas){
 		var writer = new csa.io.svg.Writer();
 		$(".viewpoint-thumb").each(function(){
 			var thumbnail = $(this);
@@ -40,9 +45,9 @@ CSA.Middleware = Class.extend({
 				var thumbReader = new csa.io.json.SimpleReader();
 				thumbReader.unmarshal(thumbCanvas, json);
 				// svg maken van die canvas en in de thumbnail de svg tonen
-				var svgWriter = new csa.io.svg.Writer();
-				svgWriter.marshal(thumbCanvas, function(svg){
-					thumbnail.html(svg);
+				var pngWriter = new csa.io.png.Writer();
+				pngWriter.marshal(thumbCanvas, function(png){
+					thumbnail.html("<img src=\"" + png + "\" />");
 					thumbCanvas = null;
 				});
 			});
@@ -53,12 +58,12 @@ CSA.Middleware = Class.extend({
       	//ajax to backend
 		$.ajax({
 			method: "POST",
-			url: "http://localhost:8045/update/graph",
+			url: "http://localhost:" + this.port + "/update/graph",
 			type: "json",
 			data: {graph: json},
 			success: function(res){
 				var model = JSON.parse(res);
-				//self.displayJSON(model);
+				self.displayJSON(model);
 			},
 			error: function(err){
 				console.log(err);

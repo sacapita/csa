@@ -15,39 +15,45 @@ var router = express.Router();
 var port = 8045;
 var graph = null;
 var sessionId: Common.Guid;
+let cg = null; // CommandGenerator
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get( '/', function( req, res ) {
     sessionId = Common.Guid.newGuid();
+    cg = new CommandGenerator(sessionId);
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
-  });
+});
 
 router.post('/update/graph', function (req, res) {
       var jsGraph = req.body.graph;
       let d2dGraph = new D2DGraph();
       var d2d = d2dGraph.serialize(JSON.stringify(jsGraph));
 
-      let cg = new CommandGenerator(sessionId);
-      let commands = cg.process(d2d);
+      let commands = cg.processGraph(d2d);
       //sendCommands(commands);
       console.log("-------> sendCommands is commented <-------- in " + __filename);
-
       res.send(JSON.stringify(commands));
 });
 
-function cbFunction(response){
-  var str = ''
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
+router.post('/graph/incremental', function(req, res){
+    var type = req.body.type;
+    var elemId = req.body.elemId;
+    var updates = req.body.updates;
+    var commands: Commands.Command[] = [];
+    console.log("incremental");
 
-  response.on('end', function () {
-    graph = JSON.parse(str);
-    console.log(graph);
-  });
-}
+    // Split multiple items of the request as multiple commands to form one transaction
+    for(let key in updates){
+        commands.push(cg.incrementalCommand(type, elemId, key, updates[key]));
+    }
+
+    // Send commands array to the command handler
+    //sendCommands(commands);
+
+    res.send({status: 200, message: "OK"});
+})
 
 function sendCommands(commands){
     //console.log(commands, JSON.stringify(commands));

@@ -9,6 +9,7 @@ var csa =
 {
     io:{
         json:{},
-        svg:{}
+        svg:{},
+        png:{}
     },
 };

@@ -21,9 +21,9 @@
   "homepage": "https://github.com/sacapita/csa#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "cubitt-commands": "^0.6.0",
-    "cubitt-common": "^0.5.0",
-    "cubitt-graph": "^0.6.1",
+    "cubitt-commands": "^1.0.0",
+    "cubitt-common": "^1.0.0",
+    "cubitt-graph": "^1.0.0",
     "express": "^4.13.4",
     "fs": "0.0.2",
     "http": "0.0.0",

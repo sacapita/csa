@@ -259,6 +259,7 @@
 	<SCRIPT src="./app/io/json/SimpleReader.js"></SCRIPT>
 	<SCRIPT src="./app/io/json/Writer.js"></SCRIPT>
 	<SCRIPT src="./app/io/svg/Writer.js"></SCRIPT>
+	<SCRIPT src="./app/io/png/Writer.js"></SCRIPT>
 	<SCRIPT src="./app/CSAElement.js"></SCRIPT>
 	<SCRIPT src="./app/Edge.js"></SCRIPT>
 	<SCRIPT src="./app/TableShape.js"></SCRIPT>
@@ -271,6 +272,7 @@
     <SCRIPT src="./app/Application.js"></SCRIPT>
     <SCRIPT src="./app/View.js"></SCRIPT>
     <SCRIPT src="./app/Toolbar.js"></SCRIPT>
+	<SCRIPT src="./app/EventParser.js"></SCRIPT>
 	<SCRIPT src="./app/Middleware.js"></SCRIPT>
 
     <SCRIPT src="csa_graph.js"></SCRIPT>
@@ -324,7 +326,7 @@
 			// (load)
 			var reader = new csa.io.json.Reader();
 			reader.unmarshal(app.view, csa_graph);
-			new CSA.Middleware(app.view).displayJSON(csa_graph);
+			new CSA.Middleware(app.view, app.PORT).displayJSON(csa_graph);
 
 		});
 

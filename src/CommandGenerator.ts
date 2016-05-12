@@ -10,15 +10,14 @@ import {Graph} from './Graph';
  *
  */
 export class CommandGenerator {
-    private Commands : Commands.Command[];
     private sessionId : Common.Guid;
 
     constructor(sessionId: Common.Guid) {
         this.sessionId = sessionId;
-        this.Commands = [];
     }
 
-    public process(graph: Graph): Commands.Command[] {
+    public processGraph(graph: Graph): Commands.Command[] {
+        let commands: Commands.Command[] = [];
         for(let k in graph.elements){
             let item = graph.elements[k];
 
@@ -27,28 +26,51 @@ export class CommandGenerator {
                 let modelId = item.Id;
 
                 // Create and Add the addModelCommand
-                this.Commands.push(new Commands.AddModelCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, item.Id, item.getProperty("type") + "_MODEL", item.getProperties()));
+                commands.push(new Commands.AddModelCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, item.Id, item.getProperty("type") + "_MODEL", item.getProperties()));
 
                 for(let key in elements) {
                     let elem: AbstractElement = elements[key];
                     switch(elem.getType()){
                         // Add Commands to an array
                         case ElementType.Node:
-                            this.Commands.push(new Commands.AddNodeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_NODE", elem.getProperties(), modelId));
+                            commands.push(new Commands.AddNodeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_NODE", elem.getProperties(), modelId));
                             break;
                         case ElementType.Connector:
-                            this.Commands.push(new Commands.AddConnectorCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_CONNECTOR", elem.getProperties(), modelId));
+                            commands.push(new Commands.AddConnectorCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_CONNECTOR", elem.getProperties(), modelId));
                             break;
                         case ElementType.Edge:
                             let edgeElement: EdgeElement = <EdgeElement> elem;
-                            this.Commands.push(new Commands.AddEdgeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_EDGE", elem.getProperties(), modelId, edgeElement.getStartConnector(), edgeElement.getEndConnector()));
+                            commands.push(new Commands.AddEdgeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, elem.Id, elem.getProperty("type") + "_EDGE", elem.getProperties(), modelId, edgeElement.getStartConnector(), edgeElement.getEndConnector()));
                             break;
                     }
                 }
             }
         }
 
-        return this.Commands;
+        return commands;
+    }
+
+    public incrementalCommand(type: string, elemId: string, key: string, value: any) : Commands.Command {
+        let command: Commands.Command;
+        let elementType : ElementType = <ElementType> ElementType[type];
+
+        switch(elementType){
+            case ElementType.Node:
+                command = new Commands.SetNodePropertyCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId), key, value);
+                break;
+            case ElementType.Edge:
+                command = new Commands.SetEdgePropertyCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId), key, value);
+                break;
+            case ElementType.Model:
+                command = new Commands.SetModelPropertyCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId), key, value);
+                break;
+            case ElementType.Connector:
+                command = new Commands.SetConnectorPropertyCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId), key, value);
+                break;
+            default:
+                throw new Error("CREATE COMMAND ERROR: ElementType does not matching any existing ElementTypes");
+        }
+        return command;
     }
 
     public getModelElements(model, graph: Graph): AbstractElement[] {
@@ -58,7 +80,6 @@ export class CommandGenerator {
         for(let k in children){
             elements.push(graph.getElement(children[k]));
         }
-
 
         return elements;
     }
