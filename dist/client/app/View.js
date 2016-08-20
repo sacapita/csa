@@ -78,7 +78,7 @@ CSA.View = draw2d.Canvas.extend({
 				}
 
 				line.userData.shapeType = smType;
-				
+
 				//If source and target modeType differ, then it is an inter-model edge
 				if(smType != tmType){
 					line.userData.interModel = true;
@@ -146,16 +146,24 @@ CSA.View = draw2d.Canvas.extend({
      **/
     onDrop : function(droppedDomNode, x, y, shiftKey, ctrlKey)
     {
-        var type = $(droppedDomNode).data("shape");
-		var attr = new Object();
-        var figure = eval("new "+type+"({},\"" + droppedDomNode[0].id +"\");");
+		if(droppedDomNode[0].className.indexOf("viewpoint-thumbnail-img") == -1){
+	        var type = $(droppedDomNode).data("shape");
+			var attr = new Object();
+	        var figure = eval("new "+type+"({},\"" + droppedDomNode[0].id +"\");");
 
-		if(figure.NAME == "csa.TableShape"){
-        	figure.addEntity("id");
+			if(figure.NAME == "csa.TableShape"){
+	        	figure.addEntity("id");
+			}
+
+	        // create a command for the undo/redo support
+	        var command = new draw2d.command.CommandAdd(this, figure, x, y);
+	        this.getCommandStack().execute(command);
+		}else{
+			// A thumbnail is dropped on the canvas
+			// Ask cubitt for the model
+			var model = droppedDomNode.data("model");
+			console.log("thumbnail: " + model, this);
+			CSA.Middleware.renderDroppedModel(model);
 		}
-
-        // create a command for the undo/redo support
-        var command = new draw2d.command.CommandAdd(this, figure, x, y);
-        this.getCommandStack().execute(command);
     }
 });

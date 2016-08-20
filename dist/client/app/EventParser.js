@@ -47,10 +47,10 @@ CSA.EventParser = Class.extend({
 
   	sendToBackend:function(type, elemId, updates){
 		var self = this;
-      	//ajax to backend
+    //ajax to backend
 		$.ajax({
 			method: "POST",
-			url: "http://localhost:" + this.port + "/graph/incremental",
+			url: "http://185.3.208.201:" + this.port + "/graph/incremental",
 			type: "json",
 			data: {type: type, elemId: elemId, updates: updates},
 			success: function(res){

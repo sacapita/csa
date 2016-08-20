@@ -1,8 +1,7 @@
 "use strict";
 var express = require('express');
 var bodyParser = require('body-parser');
-var cubitt_graph_cqrs_1 = require("cubitt-graph-cqrs");
-var graph = new cubitt_graph_cqrs_1.CQRSGraph();
+var graph = null;
 var app = express();
 app.use(bodyParser.json());
 var router = express.Router();

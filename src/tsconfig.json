@@ -8,8 +8,7 @@
         "preserveConstEnums": true,
         "declaration": true,
         "suppressImplicitAnyIndexErrors": true,
-        "rootDir": "src",
-        "outDir": "../dist"
+        "outDir": "./../dist"
     },
     "filesGlob": [
         "!../node_modules/**/*.ts",
@@ -17,6 +16,7 @@
     ],
     "files": [
         "./AbstractElement.ts",
+        "./app.ts",
         "./CommandGenerator.ts",
         "./ConnectorElement.ts",
         "./EdgeElement.ts",
@@ -26,7 +26,6 @@
         "./ModelElement.ts",
         "./NodeElement.ts",
         "./query-service.ts",
-        "./server.ts",
         "./typings/body-parser/body-parser.d.ts",
         "./typings/express/express.d.ts",
         "./typings/form-data/form-data.d.ts",

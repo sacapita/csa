@@ -1,0 +1,437 @@
+{
+    "models": {
+        "98ab320d-dc64-42c3-bd86-709616e0d0f4": {
+            "id": "98ab320d-dc64-42c3-bd86-709616e0d0f4",
+            "properties": {
+                "type": "DRAW2D_MODEL_FAM"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [],
+                    "child": [
+                        "fa0757e4-cd57-40b5-9770-617e180f3566",
+                        "17e43124-7dd6-4480-936c-bea6da3b33e7"
+                    ]
+                },
+                "edges": {
+                    "parent": [],
+                    "child": [
+                        "d0a84770-9ab5-4650-a300-0e1790f13008"
+                    ]
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        }
+    },
+    "nodes": {
+        "fa0757e4-cd57-40b5-9770-617e180f3566": {
+            "id": "fa0757e4-cd57-40b5-9770-617e180f3566",
+            "properties": {
+                "x": 69.84375,
+                "y": 98,
+                "width": 50,
+                "height": 50,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {
+                    "shapeType": "DRAW2D_MODEL_FAM"
+                },
+                "cssClass": "csa_ModuleShape",
+                "bgColor": "#DBDDDE",
+                "color": "#D7D7D7",
+                "stroke": 1,
+                "radius": 1,
+                "dasharray": null,
+                "name": "Module",
+                "entities": [],
+                "type": "csa.ModuleShape"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [
+                        "98ab320d-dc64-42c3-bd86-709616e0d0f4"
+                    ],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": [
+                        "8ff43070-6e9a-48d6-a5e9-f4c20b160120",
+                        "7211dc4d-5984-4a23-a70f-28ad88298aaa"
+                    ]
+                }
+            }
+        },
+        "17e43124-7dd6-4480-936c-bea6da3b33e7": {
+            "id": "17e43124-7dd6-4480-936c-bea6da3b33e7",
+            "properties": {
+                "x": 176.84375,
+                "y": 90,
+                "width": 50,
+                "height": 50,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {
+                    "shapeType": "DRAW2D_MODEL_FAM"
+                },
+                "cssClass": "csa_ModuleShape",
+                "bgColor": "#DBDDDE",
+                "color": "#000000",
+                "stroke": 0,
+                "radius": 0,
+                "dasharray": null,
+                "name": "Module",
+                "entities": [],
+                "type": "csa.ModuleShape"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [
+                        "98ab320d-dc64-42c3-bd86-709616e0d0f4"
+                    ],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": [
+                        "12b9b20d-5085-4432-8fc3-f6415a239a71",
+                        "7d0e2aaf-5386-439f-ba5c-5af9324197ac",
+                        "54d84876-b393-4ab5-8000-94087b6a95d0",
+                        "229817e9-d930-4afd-bbfd-e386d9abb020"
+                    ]
+                }
+            }
+        }
+    },
+    "edges": {
+        "d0a84770-9ab5-4650-a300-0e1790f13008": {
+            "id": "d0a84770-9ab5-4650-a300-0e1790f13008",
+            "properties": {
+                "alpha": 1,
+                "angle": 0,
+                "userData": {
+                    "shapeType": "DRAW2D_MODEL_FAM"
+                },
+                "cssClass": "csa_Edge",
+                "stroke": 2,
+                "color": "#129CE4",
+                "outlineStroke": 0,
+                "outlineColor": "none",
+                "policy": "draw2d.policy.line.VertexSelectionFeedbackPolicy",
+                "vertex": [
+                    {
+                        "x": 119.84375,
+                        "y": 123
+                    },
+                    {
+                        "x": 176.84375,
+                        "y": 115
+                    }
+                ],
+                "router": "draw2d.layout.connection.VertexRouter",
+                "radius": 3,
+                "source": {
+                    "node": "fa0757e4-cd57-40b5-9770-617e180f3566",
+                    "port": "output_fa0757e4-cd57-40b5-9770-617e180f3566"
+                },
+                "target": {
+                    "node": "17e43124-7dd6-4480-936c-bea6da3b33e7",
+                    "port": "input_17e43124-7dd6-4480-936c-bea6da3b33e7"
+                },
+                "type": "csa.Edge"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [
+                        "98ab320d-dc64-42c3-bd86-709616e0d0f4"
+                    ],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [
+                        "7211dc4d-5984-4a23-a70f-28ad88298aaa",
+                        "12b9b20d-5085-4432-8fc3-f6415a239a71"
+                    ],
+                    "child": []
+                }
+            }
+        }
+    },
+    "connectors": {
+        "8ff43070-6e9a-48d6-a5e9-f4c20b160120": {
+            "id": "8ff43070-6e9a-48d6-a5e9-f4c20b160120",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_InputPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 1,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "input_fa0757e4-cd57-40b5-9770-617e180f3566",
+                "port": "draw2d.InputPort",
+                "locator": "draw2d.layout.locator.InputPortLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "fa0757e4-cd57-40b5-9770-617e180f3566"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        },
+        "7211dc4d-5984-4a23-a70f-28ad88298aaa": {
+            "id": "7211dc4d-5984-4a23-a70f-28ad88298aaa",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_OutputPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 2,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "output_fa0757e4-cd57-40b5-9770-617e180f3566",
+                "port": "draw2d.OutputPort",
+                "locator": "draw2d.layout.locator.OutputPortLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "fa0757e4-cd57-40b5-9770-617e180f3566"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": [
+                        "d0a84770-9ab5-4650-a300-0e1790f13008"
+                    ]
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        },
+        "12b9b20d-5085-4432-8fc3-f6415a239a71": {
+            "id": "12b9b20d-5085-4432-8fc3-f6415a239a71",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_HybridPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 1,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "input_17e43124-7dd6-4480-936c-bea6da3b33e7",
+                "port": "draw2d.HybridPort",
+                "locator": "draw2d.layout.locator.InputPortLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "17e43124-7dd6-4480-936c-bea6da3b33e7"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": [
+                        "d0a84770-9ab5-4650-a300-0e1790f13008"
+                    ]
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        },
+        "7d0e2aaf-5386-439f-ba5c-5af9324197ac": {
+            "id": "7d0e2aaf-5386-439f-ba5c-5af9324197ac",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_HybridPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 1,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "output_17e43124-7dd6-4480-936c-bea6da3b33e7",
+                "port": "draw2d.HybridPort",
+                "locator": "draw2d.layout.locator.OutputPortLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "17e43124-7dd6-4480-936c-bea6da3b33e7"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        },
+        "54d84876-b393-4ab5-8000-94087b6a95d0": {
+            "id": "54d84876-b393-4ab5-8000-94087b6a95d0",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_HybridPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 1,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "top17e43124-7dd6-4480-936c-bea6da3b33e7",
+                "port": "draw2d.HybridPort",
+                "locator": "draw2d.layout.locator.TopLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "17e43124-7dd6-4480-936c-bea6da3b33e7"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        },
+        "229817e9-d930-4afd-bbfd-e386d9abb020": {
+            "id": "229817e9-d930-4afd-bbfd-e386d9abb020",
+            "properties": {
+                "width": 10,
+                "height": 10,
+                "alpha": 1,
+                "angle": 0,
+                "userData": {},
+                "cssClass": "draw2d_HybridPort",
+                "bgColor": "#4F6870",
+                "color": "#1B1B1B",
+                "stroke": 1,
+                "dasharray": null,
+                "maxFanOut": 9007199254740991,
+                "name": "bottom17e43124-7dd6-4480-936c-bea6da3b33e7",
+                "port": "draw2d.HybridPort",
+                "locator": "draw2d.layout.locator.BottomLocator",
+                "type": "draw2d.HybridPort"
+            },
+            "neighbours": {
+                "models": {
+                    "parent": [],
+                    "child": []
+                },
+                "nodes": {
+                    "parent": [
+                        "17e43124-7dd6-4480-936c-bea6da3b33e7"
+                    ],
+                    "child": []
+                },
+                "edges": {
+                    "parent": [],
+                    "child": []
+                },
+                "connectors": {
+                    "parent": [],
+                    "child": []
+                }
+            }
+        }
+    }
+}

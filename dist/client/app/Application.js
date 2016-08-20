@@ -11,7 +11,7 @@ var CSA = {};
 CSA.Application = Class.extend(
 {
     NAME: "CSA.Application",
-    PORT: "8045",
+    PORT: "12345",
     /**
      * @constructor
      *
@@ -20,7 +20,7 @@ CSA.Application = Class.extend(
     init : function()
     {
 	    this.view       = new CSA.View("canvas");
-        this.toolbar    = new CSA.Toolbar("toolbar", this.view);
-        this.middleware = new CSA.Middleware(this.view, this.PORT);
+      this.toolbar    = new CSA.Toolbar("toolbar", this.view);
+      this.middleware = new CSA.Middleware(this.view, this.PORT);
     }
 });

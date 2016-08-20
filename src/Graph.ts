@@ -232,50 +232,6 @@ export class Graph {
   }
 
   /**
-   * @inheritdoc
-   */
-  public deserialize(jsonObject : Object) : Graph {
-      var graph = new Graph();
-    /*  var modelElements: Common.Dictionary<ModelElement> = {};
-      var models = jsonObject['models'];
-      for (var modelKey in models) {
-          var model = models[modelKey];
-          // Only add the model elements themselves, any neighbours will be added
-          // by the other elements
-          var id = Common.Guid.parse(model["id"]);
-          var properties = this.propertiesFromJSON(model["properties"]);
-          graph.addModel(id,properties["type"],properties);
-      }
-      var nodes = jsonObject['nodes'];
-      for (var nodeKey in nodes) {
-          var node = nodes[nodeKey];
-          var id = Common.Guid.parse(node["id"]);
-          var properties = this.propertiesFromJSON(node["properties"]);
-          var modelId = Common.Guid.parse(node["neighbours"]["models"][0]);
-          graph.addNode(id,properties["type"],modelId,properties)
-      }
-      var connectors = jsonObject['connectors'];
-      for (var connectorKey in connectors) {
-          var connector = connectors[connectorKey];
-          var id = Common.Guid.parse(connector["id"]);
-          var properties = this.propertiesFromJSON(connector["properties"]);
-          var nodeId = Common.Guid.parse(connector["neighbours"]["nodes"]["0"]);
-          graph.addConnector(id,properties['type'],nodeId, properties);
-      }
-      var edges = jsonObject['edges'];
-      for (var edgeKey in edges) {
-          var edge = edges[edgeKey];
-          var id = Common.Guid.parse(edge["id"]);
-          var properties = this.propertiesFromJSON(edge["properties"]);
-          var modelId = Common.Guid.parse(edge["neighbours"]["models"][0]);
-          var startConnector = Common.Guid.parse(edge["neighbours"]["connectors"][0]);
-          var endConnector = Common.Guid.parse(edge["neighbours"]["connectors"][1]);
-          graph.addEdge(id,properties["type"],modelId,startConnector, endConnector, properties);
-      }*/
-      return graph;
-  }
-
-  /**
    * Creates a Property dictionary from JSON
    *
    * @param jsonProperties JSON object that contains the properties

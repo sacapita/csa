@@ -4,34 +4,47 @@ CSA.Middleware = Class.extend({
 	init:function(canvas, port)
 	{
 		this.port = port;
-      	var self = this;
+  	var self = this;
+    this.getProject();
 		counter = 0;
 		var eventParser = new CSA.EventParser(port);
-      	canvas.getCommandStack().addEventListener(function(e){
+  	canvas.getCommandStack().addEventListener(function(e){
 			// Events are fired twice for some unknown reason
 			if(e.isPostChangeEvent() && counter % 2 == 0){
 				eventParser.parse(e);
 				var writer = new csa.io.json.Writer();
 				self.displayThumnails(canvas);
 				writer.marshal(canvas, null, function(json){
-          			self.displayJSON(json);
+    			self.displayJSON(json);
 					self.updateGraph(json);
 				});
-        	}
+    	}
 			counter++;
-      	});
+  	});
 		// FIXME: Does not show SVG without setTimeout
 		setTimeout(function(){
 			self.displayThumnails(canvas);
 		}, 500);
 	},
+  getProject:function(){
+    $.ajax({
+			method: "GET",
+			url: "http://185.3.208.201:" + this.port + "/app/project",
+			type: "json",
+			success: function(res){
+				$("#deserialize").text(JSON.stringify(res, null, 2));
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+  },
 	// Debug information
-  	displayJSON:function(json){
-      	$("#json").text(JSON.stringify(json, null, 2));
-  	},
+	displayJSON:function(json){
+  	$("#json").text(JSON.stringify(json, null, 2));
+	},
 	// Viewpoint thumbnails
 	displayThumnails:function(canvas){
-		var writer = new csa.io.svg.Writer();
 		$(".viewpoint-thumb").each(function(){
 			var thumbnail = $(this);
 			thumbnail.html("");
@@ -47,18 +60,18 @@ CSA.Middleware = Class.extend({
 				// svg maken van die canvas en in de thumbnail de svg tonen
 				var pngWriter = new csa.io.png.Writer();
 				pngWriter.marshal(thumbCanvas, function(png){
-					thumbnail.html("<img src=\"" + png + "\" />");
+					thumbnail.html("<img src=\"" + png + "\" class=\"viewpoint-thumbnail-img draw2d_droppable\" data-model=\"" + shapeType + "\" />");
 					thumbCanvas = null;
 				});
 			});
 		});
 	},
-  	updateGraph:function(json){
+	updateGraph:function(json){
 		var self = this;
-      	//ajax to backend
+    //ajax to backend
 		$.ajax({
 			method: "POST",
-			url: "http://localhost:" + this.port + "/update/graph",
+			url: "http://185.3.208.201:" + this.port + "/update/graph",
 			type: "json",
 			data: {graph: json},
 			success: function(res){
@@ -69,5 +82,20 @@ CSA.Middleware = Class.extend({
 				console.log(err);
 			}
 		});
-  	}
+	},
+	renderDroppedModel:function(model){
+		console.log(model + "render");
+		$.ajax({
+			method: "POST",
+			url: "http://185.3.208.201:" + this.port + "/update/graph/model",
+			type: "json",
+			data: {model: model},
+			success: function(res){
+				// TODO: add response to commandstack/canvas
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}
 });

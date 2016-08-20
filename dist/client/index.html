@@ -26,7 +26,7 @@
     <SCRIPT src="/draw2d/lib/pathfinding-browser.min.js"></SCRIPT>
 
 		<SCRIPT src="/draw2d/src/draw2d.js"></SCRIPT>
-	    <SCRIPT src="/draw2d/src/util/Polyfill.js"> </SCRIPT>
+	  <SCRIPT src="/draw2d/src/util/Polyfill.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Base64.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Debug.js"> </SCRIPT>
     <SCRIPT src="/draw2d/src/util/Color.js"> </SCRIPT>
@@ -253,27 +253,27 @@
     <SCRIPT src="/assets/js/jquery.browser.js"></SCRIPT>
     <SCRIPT src="/assets/js/jquery-ui-1.8.23.custom.min.js"></SCRIPT>
 
-	<SCRIPT src="./app/csa.js"></SCRIPT>
-	<SCRIPT src="./app/Model.js"></SCRIPT>
-	<SCRIPT src="./app/io/json/Reader.js"></SCRIPT>
-	<SCRIPT src="./app/io/json/SimpleReader.js"></SCRIPT>
-	<SCRIPT src="./app/io/json/Writer.js"></SCRIPT>
-	<SCRIPT src="./app/io/svg/Writer.js"></SCRIPT>
-	<SCRIPT src="./app/io/png/Writer.js"></SCRIPT>
-	<SCRIPT src="./app/CSAElement.js"></SCRIPT>
-	<SCRIPT src="./app/Edge.js"></SCRIPT>
-	<SCRIPT src="./app/TableShape.js"></SCRIPT>
-    <SCRIPT src="./app/LayerShape.js"></SCRIPT>
-    <SCRIPT src="./app/PackageShape.js"></SCRIPT>
-    <SCRIPT src="./app/ComponentShape.js"></SCRIPT>
-	<SCRIPT src="./app/LabelShape.js"></SCRIPT>
-    <SCRIPT src="./app/CircleShape.js"></SCRIPT>
-	<SCRIPT src="./app/ModuleShape.js"></SCRIPT>
-    <SCRIPT src="./app/Application.js"></SCRIPT>
-    <SCRIPT src="./app/View.js"></SCRIPT>
-    <SCRIPT src="./app/Toolbar.js"></SCRIPT>
-	<SCRIPT src="./app/EventParser.js"></SCRIPT>
-	<SCRIPT src="./app/Middleware.js"></SCRIPT>
+	<SCRIPT src="/app/csa.js"></SCRIPT>
+	<SCRIPT src="/app/Model.js"></SCRIPT>
+	<SCRIPT src="/app/io/json/Reader.js"></SCRIPT>
+	<SCRIPT src="/app/io/json/SimpleReader.js"></SCRIPT>
+	<SCRIPT src="/app/io/json/Writer.js"></SCRIPT>
+	<SCRIPT src="/app/io/svg/Writer.js"></SCRIPT>
+	<SCRIPT src="/app/io/png/Writer.js"></SCRIPT>
+	<SCRIPT src="/app/CSAElement.js"></SCRIPT>
+	<SCRIPT src="/app/Edge.js"></SCRIPT>
+	<SCRIPT src="/app/TableShape.js"></SCRIPT>
+    <SCRIPT src="/app/LayerShape.js"></SCRIPT>
+    <SCRIPT src="/app/PackageShape.js"></SCRIPT>
+    <SCRIPT src="/app/ComponentShape.js"></SCRIPT>
+	<SCRIPT src="/app/LabelShape.js"></SCRIPT>
+    <SCRIPT src="/app/CircleShape.js"></SCRIPT>
+	<SCRIPT src="/app/ModuleShape.js"></SCRIPT>
+    <SCRIPT src="/app/Application.js"></SCRIPT>
+    <SCRIPT src="/app/View.js"></SCRIPT>
+    <SCRIPT src="/app/Toolbar.js"></SCRIPT>
+	<SCRIPT src="/app/EventParser.js"></SCRIPT>
+	<SCRIPT src="/app/Middleware.js"></SCRIPT>
 
     <SCRIPT src="csa_graph.js"></SCRIPT>
 		<!-- End draw2d include -->
@@ -290,7 +290,7 @@
 				 fill:#F7F7F7;
 				 stroke:#d7d7d7;
 			}
-			#loader { background-color: #181817; width: 100%; height: 100%; overflow: hidden; position: fixed; z-index: 1031; background-image: url("/assets/img/loading.gif"); background-position: center center; background-repeat: no-repeat;}
+			#loader { background-color: #181817; width: 100%; height: 100%; overflow: hidden; position: fixed; z-index: 1031; background-image: url("/assets/img/loading_text.png"); background-position: center center; background-repeat: no-repeat;}
 		</style>
 		<script type="text/javascript">
 
@@ -481,7 +481,9 @@
 						</div>
 				</div>
 				<div class="col-sm-4 nopadding">
-					<pre id="json" style="overflow:auto;background:white;border:1px solid gray">
+          <pre id="deserialize" style="overflow:auto;background:white;border:1px solid gray">
+          </pre>
+          <pre id="json" style="overflow:auto;background:white;border:1px solid gray">
 					</pre>
 				</div>
 			</div>

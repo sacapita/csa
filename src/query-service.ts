@@ -6,10 +6,9 @@
  import express = require('express');
  import bodyParser = require('body-parser');
  import {CommandFactory} from "cubitt-commands";
- import {CQRSGraph} from "cubitt-graph-cqrs";
 
  // Initialize empty graph for now
- var graph = new CQRSGraph();
+ var graph = null; //moet via backend opgehaald worden
 
 var app = express();
 app.use(bodyParser.json());

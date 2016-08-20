@@ -165,10 +165,6 @@ var Graph = (function () {
         var model = new ModelElement_1.ModelElement(id, ElementType_1.ElementType.Model, properties);
         this.Elements[id.toString()] = model;
     };
-    Graph.prototype.deserialize = function (jsonObject) {
-        var graph = new Graph();
-        return graph;
-    };
     Graph.prototype.propertiesFromJSON = function (jsonProperties) {
         var properties = {};
         for (var propertyKey in jsonProperties) {

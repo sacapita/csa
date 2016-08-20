@@ -4,8 +4,8 @@ var csa_graph = [
     "type": "DRAW2D_MODEL_FAM",
     "elements": [
       {
-        "type": "csa.ModuleShape",
         "id": "fa0757e4-cd57-40b5-9770-617e180f3566",
+        "type": "csa.ModuleShape",
         "x": 69.84375,
         "y": 98,
         "width": 50,
@@ -16,10 +16,17 @@ var csa_graph = [
           "shapeType": "DRAW2D_MODEL_FAM"
         },
         "cssClass": "csa_ModuleShape",
+        "bgColor": "#DBDDDE",
+        "color": "#D7D7D7",
+        "stroke": 1,
+        "radius": 1,
+        "dasharray": null,
+        "name": "Module",
+        "entities": [],
         "ports": [
           {
-            "type": "draw2d.InputPort",
             "id": "8ff43070-6e9a-48d6-a5e9-f4c20b160120",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -36,8 +43,8 @@ var csa_graph = [
             "locator": "draw2d.layout.locator.InputPortLocator"
           },
           {
-            "type": "draw2d.OutputPort",
             "id": "7211dc4d-5984-4a23-a70f-28ad88298aaa",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -53,18 +60,11 @@ var csa_graph = [
             "port": "draw2d.OutputPort",
             "locator": "draw2d.layout.locator.OutputPortLocator"
           }
-        ],
-        "bgColor": "#DBDDDE",
-        "color": "#D7D7D7",
-        "stroke": 1,
-        "radius": 1,
-        "dasharray": null,
-        "name": "Module",
-        "entities": []
+        ]
       },
       {
-        "type": "csa.ModuleShape",
         "id": "17e43124-7dd6-4480-936c-bea6da3b33e7",
+        "type": "csa.ModuleShape",
         "x": 176.84375,
         "y": 90,
         "width": 50,
@@ -75,10 +75,17 @@ var csa_graph = [
           "shapeType": "DRAW2D_MODEL_FAM"
         },
         "cssClass": "csa_ModuleShape",
+        "bgColor": "#DBDDDE",
+        "color": "#000000",
+        "stroke": 0,
+        "radius": 0,
+        "dasharray": null,
+        "name": "Module",
+        "entities": [],
         "ports": [
           {
-            "type": "draw2d.HybridPort",
             "id": "12b9b20d-5085-4432-8fc3-f6415a239a71",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -95,8 +102,8 @@ var csa_graph = [
             "locator": "draw2d.layout.locator.InputPortLocator"
           },
           {
-            "type": "draw2d.HybridPort",
             "id": "7d0e2aaf-5386-439f-ba5c-5af9324197ac",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -113,8 +120,8 @@ var csa_graph = [
             "locator": "draw2d.layout.locator.OutputPortLocator"
           },
           {
-            "type": "draw2d.HybridPort",
             "id": "54d84876-b393-4ab5-8000-94087b6a95d0",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -131,8 +138,8 @@ var csa_graph = [
             "locator": "draw2d.layout.locator.TopLocator"
           },
           {
-            "type": "draw2d.HybridPort",
             "id": "229817e9-d930-4afd-bbfd-e386d9abb020",
+            "type": "draw2d.HybridPort",
             "width": 10,
             "height": 10,
             "alpha": 1,
@@ -148,14 +155,7 @@ var csa_graph = [
             "port": "draw2d.HybridPort",
             "locator": "draw2d.layout.locator.BottomLocator"
           }
-        ],
-        "bgColor": "#DBDDDE",
-        "color": "#000000",
-        "stroke": 0,
-        "radius": 0,
-        "dasharray": null,
-        "name": "Module",
-        "entities": []
+        ]
       },
       {
         "type": "csa.Edge",
