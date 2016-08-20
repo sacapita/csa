@@ -16,7 +16,7 @@ CSA.Middleware = Class.extend({
 				self.displayThumnails(canvas);
 				writer.marshal(canvas, null, function(json){
     			self.displayJSON(json);
-					self.updateGraph(json);
+					//self.updateGraph(json);
 				});
     	}
 			counter++;
@@ -65,7 +65,7 @@ CSA.Middleware = Class.extend({
 				});
 			});
 		});
-	},
+	},/*
 	updateGraph:function(json){
 		var self = this;
     //ajax to backend
@@ -82,7 +82,7 @@ CSA.Middleware = Class.extend({
 				console.log(err);
 			}
 		});
-	},
+	},*/
 	renderDroppedModel:function(model){
 		console.log(model + "render");
 		$.ajax({

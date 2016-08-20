@@ -39,6 +39,7 @@ function routes(){
     //sessionId = Common.Guid.newGuid();
     sessionId = Common.Guid.parse("cd46e14a-97ca-40e3-81be-ae1c18e7e114");
     console.log("sessionId for this session: " + sessionId.toString());
+    console.log("-----------------------------------------");
 
     d2dGraph = new D2DGraph();
     cg = new CommandGenerator(sessionId);
@@ -64,7 +65,6 @@ function routes(){
 
   router.get( '/app/project', function( req, res ) {
     let url = host + ":" + backendPort + "/projects/" + sessionId + "/latest";
-    console.log(url);
     request({
       url: url,
       method: "GET",
@@ -75,14 +75,14 @@ function routes(){
       } else {
         let draw2d = new Draw2D();
         let deserializedProject = draw2d.deserialize(resBody);
-        draw2d.toJSON();
+        //draw2d.toJSON();
         res.send(deserializedProject);
       }
     });
   });
 
   // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt to store them
-  router.post('/update/graph', function (req, res) {
+  /*router.post('/update/graph', function (req, res) {
     var jsGraph = req.body.graph;
     var d2d = d2dGraph.serialize(JSON.stringify(jsGraph));
 
@@ -90,12 +90,12 @@ function routes(){
     sendCommands("/api/commands", commands);
     //console.log("-------> sendCommands is commented <-------- in " + __filename);
     res.send(JSON.stringify(commands));
-  });
+  });*/
 
   // Called when a thumbnail is dropped onto the canvas to add a model
   router.post('/update/graph/model', function(req, res) {
     let model = req.body.model;
-    console.log(model + " in backend");
+    console.log(model + " dropped on the canvas");
     let modelQuery = null; // TODO
     let result = getQuery(modelQuery);
 
@@ -106,24 +106,21 @@ function routes(){
     res.send({status: 200, message: "OK", data: deserializedProject});
   });
 
-  // TODO: DREPRECATED use /graph/incremental instead ??
+  // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt to store them
   router.post('/graph/incremental', function(req, res){
     var type = req.body.type;
     var elemId = req.body.elemId;
     var updates = req.body.updates;
-    var commands: Commands.Command[] = [];
-    console.log("incremental");
+    var commands: Object[] = [];
 
     // Split multiple items of the request as multiple commands to form one transaction
     for(let key in updates){
-        console.log("create command");
         var cmd = cg.incrementalCommand(type, elemId, key, updates[key]);
-        console.log(cmd);
         commands.push(cmd);
     }
 
     // Send commands array to the command handler
-    //sendCommands("/api/commands", commands);
+    sendCommands("/projects/" + sessionId.toString(), {"commands": commands});
 
     res.send({status: 200, message: "OK"});
   });

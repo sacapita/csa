@@ -4,13 +4,13 @@ CSA.EventParser = Class.extend({
 
 	init:function(port)
 	{
-		// The port on which the server is listening
+		// The port on which the application server is listening
 		this.port = port;
 	},
 
 	/**
      * Parse a given event and send to backend to create an incremental command
-	 * @param event, the event occured on the View/Canvas
+	 * @param event, the event that occured on the View/Canvas
 	 */
 	parse:function(event){
 		console.log(event);

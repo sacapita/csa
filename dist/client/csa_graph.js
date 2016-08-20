@@ -65,8 +65,8 @@ var csa_graph = [
       {
         "id": "17e43124-7dd6-4480-936c-bea6da3b33e7",
         "type": "csa.ModuleShape",
-        "x": 176.84375,
-        "y": 90,
+        "x": "195.84375",
+        "y": "89",
         "width": 50,
         "height": 50,
         "alpha": 1,
