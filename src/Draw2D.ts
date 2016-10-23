@@ -14,13 +14,13 @@ import {D2DEdgeElement} from "./D2DEdgeElement"
  * Draw2D Graph object
  */
 export class Draw2D {
-  private  Elements : Common.Dictionary<D2DAbstractElement>;
+  public Elements : D2DAbstractElement[];
 
   constructor() {
-      this.Elements = {};
+      this.Elements = [];
   }
 
-  get elements(): Common.Dictionary<D2DAbstractElement> {
+  get elements(): D2DAbstractElement[] {
       return this.Elements;
   }
 

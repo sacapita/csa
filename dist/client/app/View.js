@@ -26,6 +26,7 @@ CSA.View = draw2d.Canvas.extend({
      **/
 	addModel: function(model)
 	{
+    //console.log(model);
 		this.models.add(model);
 	},
 

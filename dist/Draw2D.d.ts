@@ -1,9 +1,9 @@
 import * as Common from "cubitt-common";
 import { D2DAbstractElement } from "./D2DAbstractElement";
 export declare class Draw2D {
-    private Elements;
+    Elements: D2DAbstractElement[];
     constructor();
-    elements: Common.Dictionary<D2DAbstractElement>;
+    elements: D2DAbstractElement[];
     deserialize(jsonObject: Object): Draw2D;
     private addModel(id, type, properties?);
     private addNode(id, type, modelId, properties?);

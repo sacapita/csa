@@ -14,6 +14,8 @@ import path = require('path');
 import {Graph as D2DGraph} from "./Graph";
 import {CommandGenerator} from "./CommandGenerator";
 import {Draw2D} from "./Draw2D";
+import {D2DAbstractElement} from "./D2DAbstractElement"
+import {D2DModelElement} from "./D2DModelElement"
 
 let app = express();
 let router = express.Router();
@@ -64,6 +66,7 @@ function routes(){
   });
 
   router.get( '/app/project', function( req, res ) {
+    let self = this;
     let url = host + ":" + backendPort + "/projects/" + sessionId + "/latest";
     request({
       url: url,
@@ -75,8 +78,14 @@ function routes(){
       } else {
         let draw2d = new Draw2D();
         let deserializedProject = draw2d.deserialize(resBody);
-        //draw2d.toJSON();
-        res.send(deserializedProject);
+
+        let output = [];
+        for(let e in deserializedProject.Elements){
+          if(deserializedProject.Elements[e] instanceof D2DModelElement){
+            output.push(deserializedProject.Elements[e]);
+          }
+        }
+        res.send(output);
       }
     });
   });
@@ -132,7 +141,7 @@ function getQuery(query): string{
   return response;
 }
 
-//Path with starting /
+//Path with starting slash
 function sendCommands(path: string, body: Object, method = "POST"): void{
 
   // AJAX to command handler of cubitt

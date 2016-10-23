@@ -4,9 +4,12 @@ var D2DModelElement_1 = require("./D2DModelElement");
 var D2DNodeElement_1 = require("./D2DNodeElement");
 var D2DConnectorElement_1 = require("./D2DConnectorElement");
 var D2DEdgeElement_1 = require("./D2DEdgeElement");
+/**
+ * Draw2D Graph object
+ */
 var Draw2D = (function () {
     function Draw2D() {
-        this.Elements = [];
+        this.Elements = {};
     }
     Object.defineProperty(Draw2D.prototype, "elements", {
         get: function () {
@@ -89,6 +92,11 @@ var Draw2D = (function () {
         var model = this.getElement(modelId);
         model.AddElement(edge);
     };
+    /**
+     * Returns an element given an GUID
+     *
+     * @param id GUID representing an element identifier
+     */
     Draw2D.prototype.getElement = function (id) {
         var elem = this.Elements[id.toString()];
         if (elem == undefined) {
@@ -96,6 +104,9 @@ var Draw2D = (function () {
         }
         return elem;
     };
+    /**
+     * @inheritdoc
+     */
     Draw2D.prototype.hasElement = function (id) {
         return this.Elements[id.toString()] !== undefined;
     };
@@ -108,6 +119,11 @@ var Draw2D = (function () {
         }
         return project;
     };
+    /**
+     * Creates a Property dictionary from JSON
+     *
+     * @param jsonProperties JSON object that contains the properties
+     */
     Draw2D.prototype.propertiesFromJSON = function (jsonProperties) {
         var properties = {};
         for (var propertyKey in jsonProperties) {

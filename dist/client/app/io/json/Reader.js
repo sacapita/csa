@@ -7,34 +7,6 @@
  * Read a JSON data and import them into the canvas. The JSON must be generated with the
  * {@link draw2d.io.json.Writer}.
  *
- *      // Load a standard draw2d JSON object into the canvas
- *      //
- *      var jsonDocument =
- *          [
-  *           {
- *              "type": "draw2d.shape.basic.Oval",
- *              "id": "5b4c74 b0-96d1-1aa3-7eca-bbeaed5fffd7",
- *              "x": 237,
- *              "y": 236,
- *              "width": 93,
- *              "height": 38
- *            },
- *            {
- *              "type": "draw2d.shape.basic.Rectangle",
- *              "id": "354fa3b9-a834-0221-2009-abc2d6bd852a",
- *              "x": 225,
- *              "y": 97,
- *              "width": 201,
- *              "height": 82,
- *              "radius": 2
- *            }
- *          ];
- *      // unmarshal the JSON document into the canvas
- *      // (load)
- *      var reader = new draw2d.io.json.Reader();
- *      reader.unmarshal(canvas, jsonDocument);
- *
- *
  * @extends draw2d.io.Reader
  */
 csa.io.json.Reader = draw2d.io.Reader.extend({
@@ -63,6 +35,7 @@ csa.io.json.Reader = draw2d.io.Reader.extend({
         var node=null;
         $.each(json, $.proxy(function(i, model){
             var m = new csa.Model({id: model.id, type: model.type});
+
             canvas.addModel(m);
 
             $.each(model.elements, $.proxy(function(i, element){

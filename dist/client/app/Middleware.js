@@ -1,9 +1,11 @@
 CSA.Middleware = Class.extend({
 	port: null,
+  canvas: null,
 
 	init:function(canvas, port)
 	{
 		this.port = port;
+    this.canvas = canvas;
   	var self = this;
     this.getProject();
 		counter = 0;
@@ -27,12 +29,15 @@ CSA.Middleware = Class.extend({
 		}, 500);
 	},
   getProject:function(){
+    var self = this;
     $.ajax({
 			method: "GET",
 			url: "http://185.3.208.201:" + this.port + "/app/project",
 			type: "json",
 			success: function(res){
 				$("#deserialize").text(JSON.stringify(res, null, 2));
+        var reader = new csa.io.json.Reader();
+  			reader.unmarshal(self.canvas, res);
 			},
 			error: function(err){
 				console.log(err);
