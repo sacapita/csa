@@ -29,12 +29,12 @@
 	margin: 0px;
 	padding-top: 10px;
 	padding-left: 20px;
-	height: 64px;
+	height: 54px;
 	overflow: hidden !important;
 	z-index: 1000 !important;
 	border: 0 none;
 	border-bottom: 1px solid #d6d6d6;
-	background-color: #c2185b !important;
+	background-color: #ccc !important;
 }
 
 #toolbar_hint {
@@ -46,15 +46,10 @@
 }
 
 .palette_node_element {
-	border: 1px solid gray;
-	background-color: #f3f3f3;
-	padding: 10px;
 	cursor: move;
-	width: 80px;
 	margin: 30px;
-	display: inline-block;;
+	display: inline-block;
 	text-align: center;
-	border-radius: 5px;
 }
 
 #side-nav {

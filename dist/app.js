@@ -69,14 +69,22 @@ function routes() {
         res.send({ status: 200, message: "OK", data: deserializedProject });
     });
     router.post('/graph/incremental', function (req, res) {
-        var type = req.body.type;
+        var commandType = req.body.commandType;
+        var elementType = req.body.elementType;
         var elemId = req.body.elemId;
+        var modelId = req.body.modelId;
         var updates = req.body.updates;
         var commands = [];
-        for (var key in updates) {
-            var cmd = cg.incrementalCommand(type, elemId, key, updates[key]);
-            commands.push(cmd);
+        if (commandType == "add") {
+            commands.push(cg.createAddCommand(elementType, elemId, modelId, updates));
         }
+        else if (commandType == "setproperty") {
+            for (var key in updates) {
+                var cmd = cg.createISetPropertyCommand(elementType, elemId, key, updates[key]);
+                commands.push(cmd);
+            }
+        }
+        console.log(commands);
         sendCommands("/projects/" + sessionId.toString(), { "commands": commands });
         res.send({ status: 200, message: "OK" });
     });
@@ -104,7 +112,7 @@ function sendCommands(path, body, method) {
         }
         else {
             ant = resBody;
-            console.log(response.statusCode, resBody);
+            console.log(response.statusCode, resBody, response.statusMessage);
         }
     });
 }

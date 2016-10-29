@@ -50,7 +50,22 @@ export class CommandGenerator {
     return commands;
   }
 
-  public incrementalCommand(type: string, elemId: string, key: string, value: any) : Commands.Command {
+  public createAddCommand(type: string, elemId: string, modelId: string, properties: Object[]) : Commands.Command{
+    let command: Commands.Command;
+    let elementType : ElementType = <ElementType> ElementType[type];
+
+    switch(elementType){
+        case ElementType.Node:
+            command = new Commands.AddNodeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId), "csa.ModuleShape", properties, Common.Guid.parse(modelId));
+            break;
+        default:
+            throw new Error("CREATE COMMAND ERROR: ElementType does not matching any supported ElementTypes for creation");
+    }
+
+    return command;
+  }
+
+  public createISetPropertyCommand(type: string, elemId: string, key: string, value: any) : Commands.Command {
     let command: Commands.Command;
     let elementType : ElementType = <ElementType> ElementType[type];
 
@@ -103,7 +118,7 @@ export class CommandGenerator {
       }*/
     ]
   }
-
+/*
   public buildState(): Object[] {
     return [
       {
@@ -601,5 +616,5 @@ export class CommandGenerator {
         "endConnectorId":Common.Guid.parse("0d5c190e-320d-47f7-b998-f5e3d99ba985").toString()
       }
     ];
-  }
+  }*/
 }

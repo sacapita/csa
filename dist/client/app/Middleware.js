@@ -8,20 +8,16 @@ CSA.Middleware = Class.extend({
     this.canvas = canvas;
   	var self = this;
     this.getProject();
-		counter = 0;
 		var eventParser = new CSA.EventParser(port);
   	canvas.getCommandStack().addEventListener(function(e){
-			// Events are fired twice for some unknown reason
-			if(e.isPostChangeEvent() && counter % 2 == 0){
+			if(e.isPostChangeEvent()){
 				eventParser.parse(e);
 				var writer = new csa.io.json.Writer();
 				self.displayThumnails(canvas);
 				writer.marshal(canvas, null, function(json){
     			self.displayJSON(json);
-					//self.updateGraph(json);
 				});
     	}
-			counter++;
   	});
 		// FIXME: Does not show SVG without setTimeout
 		setTimeout(function(){

@@ -31,7 +31,8 @@ body { background-color: #ccc; }
 
 /* palette notation styles */
 
-.FAM_module {width: 150px !important; height: 40px; background: white !important; border-radius: 0 !important;}
+.FAM_module {width: 50px; height: 50px; background-color: #dbddde;border: 1px solid #d7d7d7;	padding: 2px;}
+.CLASS_module { background-color: #ffffff; border: 2px solid #8C8C8C; height: 36px; width: 88px; padding-top: 6px;}
 
 .SRMA_package {
     width: 150px !important;
@@ -48,7 +49,7 @@ body { background-color: #ccc; }
 }
 
 .packagemiddle {
-	width: 150px !important; 
+	width: 150px !important;
 	height: 65px !important;
 	background-color: #fff !important;
 	border: 1px solid black !important;

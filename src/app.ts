@@ -90,17 +90,6 @@ function routes(){
     });
   });
 
-  // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt to store them
-  /*router.post('/update/graph', function (req, res) {
-    var jsGraph = req.body.graph;
-    var d2d = d2dGraph.serialize(JSON.stringify(jsGraph));
-
-    let commands = cg.processGraph(d2d);
-    sendCommands("/api/commands", commands);
-    //console.log("-------> sendCommands is commented <-------- in " + __filename);
-    res.send(JSON.stringify(commands));
-  });*/
-
   // Called when a thumbnail is dropped onto the canvas to add a model
   router.post('/update/graph/model', function(req, res) {
     let model = req.body.model;
@@ -117,17 +106,24 @@ function routes(){
 
   // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt to store them
   router.post('/graph/incremental', function(req, res){
-    var type = req.body.type;
+    var commandType = req.body.commandType;
+    var elementType = req.body.elementType;
     var elemId = req.body.elemId;
+    var modelId = req.body.modelId;
     var updates = req.body.updates;
     var commands: Object[] = [];
 
     // Split multiple items of the request as multiple commands to form one transaction
-    for(let key in updates){
-        var cmd = cg.incrementalCommand(type, elemId, key, updates[key]);
-        commands.push(cmd);
+    if(commandType == "add"){
+      commands.push(cg.createAddCommand(elementType, elemId, modelId, updates));
     }
-
+    else if(commandType == "setproperty"){
+      for(let key in updates){
+          var cmd = cg.createISetPropertyCommand(elementType, elemId, key, updates[key]);
+          commands.push(cmd);
+      }
+    }
+console.log(commands);
     // Send commands array to the command handler
     sendCommands("/projects/" + sessionId.toString(), {"commands": commands});
 
@@ -161,7 +157,7 @@ function sendCommands(path: string, body: Object, method = "POST"): void{
           console.log(error);
       } else {
           ant = resBody;
-          console.log(response.statusCode, resBody);
+          console.log(response.statusCode, resBody, response.statusMessage);
       }
   });
 }
