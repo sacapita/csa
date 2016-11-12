@@ -45,7 +45,9 @@ function routes(){
 
     d2dGraph = new D2DGraph();
     cg = new CommandGenerator(sessionId);
-    sendCommands("/projects", {"id" : sessionId});
+
+    //Setup database table for the sessionID
+    // sendCommands("/projects", {"id" : sessionId});
 
     /*
     let removedModelsCommands = cg.removeState();
@@ -55,12 +57,12 @@ function routes(){
       sendCommands("/projects/" + sessionId, {commands: removedModelsCommands}, "POST");
     }, 1000);*/
 
-    /*
-    let cmds = cg.buildState();
-    setTimeout(function() {
-      console.log(cmds);
-      sendCommands("/projects/" + sessionId, {commands: cmds}, "POST");
-    }, 4000);*/
+    //
+    // let cmds = cg.buildState();
+    // setTimeout(function() {
+    //   console.log(cmds);
+    //   sendCommands("/projects/" + sessionId, {"commands": cmds});
+    // }, 4000);
 
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
   });
@@ -125,7 +127,7 @@ function routes(){
     }
 console.log(commands);
     // Send commands array to the command handler
-    sendCommands("/projects/" + sessionId.toString(), {"commands": commands});
+    sendCommands("/projects/" + sessionId, {"commands": commands});
 
     res.send({status: 200, message: "OK"});
   });

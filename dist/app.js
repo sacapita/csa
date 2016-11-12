@@ -32,7 +32,6 @@ function routes() {
         console.log("-----------------------------------------");
         d2dGraph = new Graph_1.Graph();
         cg = new CommandGenerator_1.CommandGenerator(sessionId);
-        sendCommands("/projects", { "id": sessionId });
         res.sendFile(path.join(__dirname, 'client', 'index.html'));
     });
     router.get('/app/project', function (req, res) {
@@ -85,7 +84,7 @@ function routes() {
             }
         }
         console.log(commands);
-        sendCommands("/projects/" + sessionId.toString(), { "commands": commands });
+        sendCommands("/projects/" + sessionId, { "commands": commands });
         res.send({ status: 200, message: "OK" });
     });
 }

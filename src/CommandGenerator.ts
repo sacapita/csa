@@ -118,7 +118,7 @@ export class CommandGenerator {
       }*/
     ]
   }
-/*
+
   public buildState(): Object[] {
     return [
       {
@@ -616,5 +616,5 @@ export class CommandGenerator {
         "endConnectorId":Common.Guid.parse("0d5c190e-320d-47f7-b998-f5e3d99ba985").toString()
       }
     ];
-  }*/
+  }
 }

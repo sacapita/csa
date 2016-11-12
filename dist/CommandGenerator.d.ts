@@ -10,4 +10,5 @@ export declare class CommandGenerator {
     createISetPropertyCommand(type: string, elemId: string, key: string, value: any): Commands.Command;
     getModelElements(model: any, graph: Graph): AbstractElement[];
     removeState(): Object[];
+    buildState(): Object[];
 }

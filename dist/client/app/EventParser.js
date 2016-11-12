@@ -40,7 +40,8 @@ CSA.EventParser = Class.extend({
           cssClass: props.cssClass,
           alpha: props.alpha,
           bgColor: props.bgColor.hashString,
-          stroke: props.stroke
+          stroke: props.stroke,
+					userData: { shapeType: "DRAW2D_MODEL_FAM" }
         };
 				break;
 			case "Move Shape":

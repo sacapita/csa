@@ -123,7 +123,7 @@ CSA.View = draw2d.Canvas.extend({
 		var figures = new draw2d.util.ArrayList();
 
 		this.figures.each(function(i, figure){
-			if(figure.userData.shapeType !== null && figure.userData.shapeType == shapeType){
+			if(figure.userData != null && figure.userData.shapeType !== null && figure.userData.shapeType == shapeType){
 				figures.push(figure);
 			}
 		});
