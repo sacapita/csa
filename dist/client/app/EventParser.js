@@ -41,8 +41,14 @@ CSA.EventParser = Class.extend({
           alpha: props.alpha,
           bgColor: props.bgColor.hashString,
           stroke: props.stroke,
-					userData: { shapeType: "DRAW2D_MODEL_FAM" }
+					userData: { shapeType: command.figure.userData.shapeType }
         };
+				break;
+			case "Delete Shape":
+				console.log("Remove Shape");
+					commandType = "delete";
+					elementType = this.commandTypes.Node;
+					elemId = command.figure.id;
 				break;
 			case "Move Shape":
 				console.log("Move Shape");

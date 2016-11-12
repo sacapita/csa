@@ -106,7 +106,7 @@ function routes(){
     res.send({status: 200, message: "OK", data: deserializedProject});
   });
 
-  // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt to store them
+  // Called when a change is made to the Draw2D commandstack, propagate changes to cubitt backend to store them
   router.post('/graph/incremental', function(req, res){
     var commandType = req.body.commandType;
     var elementType = req.body.elementType;
@@ -119,13 +119,16 @@ function routes(){
     if(commandType == "add"){
       commands.push(cg.createAddCommand(elementType, elemId, modelId, updates));
     }
+    else if (commandType == "delete"){
+      commands.push(cg.createDeleteCommand(elementType, elemId));
+    }
     else if(commandType == "setproperty"){
       for(let key in updates){
           var cmd = cg.createISetPropertyCommand(elementType, elemId, key, updates[key]);
           commands.push(cmd);
       }
     }
-console.log(commands);
+    console.log(commands);
     // Send commands array to the command handler
     sendCommands("/projects/" + sessionId, {"commands": commands});
 

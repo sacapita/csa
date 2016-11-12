@@ -7,6 +7,7 @@ export declare class CommandGenerator {
     constructor(sessionId: Common.Guid);
     processGraph(graph: Graph): Commands.Command[];
     createAddCommand(type: string, elemId: string, modelId: string, properties: Object[]): Commands.Command;
+    createDeleteCommand(type: string, elemId: string): Commands.Command;
     createISetPropertyCommand(type: string, elemId: string, key: string, value: any): Commands.Command;
     getModelElements(model: any, graph: Graph): AbstractElement[];
     removeState(): Object[];

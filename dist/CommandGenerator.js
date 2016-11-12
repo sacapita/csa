@@ -45,6 +45,18 @@ var CommandGenerator = (function () {
         }
         return command;
     };
+    CommandGenerator.prototype.createDeleteCommand = function (type, elemId) {
+        var command;
+        var elementType = ElementType_1.ElementType[type];
+        switch (elementType) {
+            case ElementType_1.ElementType.Node:
+                command = new Commands.DeleteNodeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId));
+                break;
+            default:
+                throw new Error("CREATE COMMAND ERROR: ElementType does not matching any existing ElementTypes");
+        }
+        return command;
+    };
     CommandGenerator.prototype.createISetPropertyCommand = function (type, elemId, key, value) {
         var command;
         var elementType = ElementType_1.ElementType[type];

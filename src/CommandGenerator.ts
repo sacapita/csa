@@ -65,6 +65,21 @@ export class CommandGenerator {
     return command;
   }
 
+  public createDeleteCommand(type: string, elemId: string) : Commands.Command {
+      let command: Commands.Command;
+      let elementType : ElementType = <ElementType> ElementType[type];
+
+      switch(elementType){
+          case ElementType.Node:
+              command = new Commands.DeleteNodeCommand(Common.Guid.newGuid(), Common.Guid.newGuid(), this.sessionId, Common.Guid.parse(elemId));
+              break;
+          default:
+              throw new Error("CREATE COMMAND ERROR: ElementType does not matching any existing ElementTypes");
+      }
+
+      return command;
+  }
+
   public createISetPropertyCommand(type: string, elemId: string, key: string, value: any) : Commands.Command {
     let command: Commands.Command;
     let elementType : ElementType = <ElementType> ElementType[type];

@@ -5,12 +5,12 @@ csa.TableShape = draw2d.shape.layout.VerticalLayout.extend({
 
     init : function(attr, shapeType)
     {
-    	this._super($.extend({bgColor:"#dbddde", color:"#d7d7d7", stroke:1, radius:3},attr));
+    	this._super($.extend({bgColor:"#ffffff", color:"#000000", stroke:1, radius:3},attr));
 
 		// Extend Draw2D shapes the ugly way
 
         if(shapeType !== undefined){
-           // this value is passed onDrop, but not when read from the document.js
+           // this value is passed onDrop
             var csaElement = new CSAElement(this, shapeType);
         }
 

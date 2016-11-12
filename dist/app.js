@@ -77,6 +77,9 @@ function routes() {
         if (commandType == "add") {
             commands.push(cg.createAddCommand(elementType, elemId, modelId, updates));
         }
+        else if (commandType == "delete") {
+            commands.push(cg.createDeleteCommand(elementType, elemId));
+        }
         else if (commandType == "setproperty") {
             for (var key in updates) {
                 var cmd = cg.createISetPropertyCommand(elementType, elemId, key, updates[key]);
