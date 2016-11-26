@@ -59,11 +59,13 @@ function routes(){
 
     // Run this code block when starting from an empty database
 	// Do a POST request to http://185.3.208.201:8080/projects with { "id" : "cd46e14a-97ca-40e3-81be-ae1c18e7e114" }
-    // let cmds = cg.buildState();
-    // setTimeout(function() {
-    //   console.log(cmds);
-    //   sendCommands("/projects/" + sessionId, {"commands": cmds});
-    // }, 4000);
+	//sendCommands("/projects", {commands: { "id" : "cd46e14a-97ca-40e3-81be-ae1c18e7e114" }}, "POST");
+	
+    /*let cmds = cg.buildState();
+    setTimeout(function() {
+      console.log(cmds);
+       sendCommands("/projects/" + sessionId, {"commands": cmds});
+     }, 4000);*/
 
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
   });
@@ -80,6 +82,7 @@ function routes(){
         res.send("An error occured while GET: " + url);
       } else {
         let draw2d = new Draw2D();
+		console.log(resBody);
         let deserializedProject = draw2d.deserialize(resBody);
 
         let output = [];

@@ -47,6 +47,7 @@ function routes() {
             }
             else {
                 var draw2d = new Draw2D_1.Draw2D();
+                console.log(resBody);
                 var deserializedProject = draw2d.deserialize(resBody);
                 var output = [];
                 for (var e in deserializedProject.Elements) {

@@ -1,13 +1,6 @@
 # csa
 Continuous Software Architecting
 
-Issues:
-- modelId is passed from the server to the client and vice versa, this ID can be modified by the client.
-- GUIDs are assigned to elements after adding them to the canvas (done by Draw2D UUID method), there can be duplicates and will result in error when converting the json model to a Graph model object!
-- the nodes must precede the connections in order to create the Graph object correctly (the connectors of the node are queried to get the ID of that element, the name GUID is not unique)
-- a connector can either be an input or output port (issue of Draw2D)
-- assign a source model to a newly created edge, this is done by looking at the source connector and then the name of the model of the parent source node. The problem is that different connectors point to a different parent object (for example to the Label of the node, and others to the node itself which is the correct one.)
-
 FEATURES:
 - DONE - unmarchal/marchal/D2DGraph meerdere modellen ondersteunen 
 - DONE - graph met daarin models versturen naar backend
@@ -15,4 +8,5 @@ FEATURES:
 - DONE - separate Canvas/View for every thumbnail to show the previes with element of that modelType only
 - DONE - GET project or models from the backend and unmarchallen to canvas (deserialize)
 - DONE - incremental update to backend, track elements that changed and what properties changed. The backend expectes incremental updates
+- PARTIALLY DONE - drag model thumbnail to the canvas to display it there.
 - TODO - update to new versions of cubitt packages (commands, common and graph?)
