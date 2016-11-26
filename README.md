@@ -9,7 +9,9 @@ The backend of the application is created by other developers and can be found h
   Startup the application by following https://cubitt.readme.io/docs/installation.  After the vertx cluster is started create a project in which the models are stored by clicking the "Start handlers button". By creating a project the query and command handlers are started. When restarting the vertx cluster at a later point in time you need to restart the handlers again (see https://github.com/sacapita/csa/issues/1). After the project is created sample models can be added by clicking the "Add models" button.
 
 ## Add new model elements
+  ```html
   <div data-shape="csa.ModuleShape" class="palette_node_element draw2d_droppable FAM_module" id="DRAW2D_MODEL_FAM">module</div>
+  ```
   The id attribute contains the model name to which this element belong.
   When this element is dragged to the canvas, this name is read and the element is added to the userData: {shapeType: "DRAW2D_MODEL_FAM"}.
   userData is a property provided by Draw2D and is used by CSA to know to which model the element belongs.
