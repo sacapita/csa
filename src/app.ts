@@ -23,7 +23,7 @@ let host = "http://185.3.208.201";
 let appPort = 12345;
 let backendPort = 8080;
 let graph = null;
-let sessionId: Common.Guid;
+let sessionId: Common.Guid = Common.Guid.parse("cd46e14a-97ca-40e3-81be-ae1c18e7e114");
 let cg = null; // CommandGenerator
 let d2dGraph;
 
@@ -38,38 +38,45 @@ app.listen(appPort, function () {
 
 function routes(){
   router.get( '/', function( req, res ) {
-    //sessionId = Common.Guid.newGuid();
-    sessionId = Common.Guid.parse("cd46e14a-97ca-40e3-81be-ae1c18e7e114");
     console.log("sessionId for this session: " + sessionId.toString());
     console.log("-----------------------------------------");
 
     d2dGraph = new D2DGraph();
-    cg = new CommandGenerator(sessionId);
-
-    //Setup database table for the sessionID
-    // sendCommands("/projects", {"id" : sessionId});
-
-    /*
-    let removedModelsCommands = cg.removeState();
-    setTimeout(function() {
-      console.log("delete models");
-      console.log(removedModelsCommands);
-      sendCommands("/projects/" + sessionId, {commands: removedModelsCommands}, "POST");
-    }, 1000);*/
-
-    // Run this code block when starting from an empty database
-	// Do a POST request to http://185.3.208.201:8080/projects with { "id" : "cd46e14a-97ca-40e3-81be-ae1c18e7e114" }
-	//sendCommands("/projects", {commands: { "id" : "cd46e14a-97ca-40e3-81be-ae1c18e7e114" }}, "POST");
-	
-    /*let cmds = cg.buildState();
-    setTimeout(function() {
-      console.log(cmds);
-       sendCommands("/projects/" + sessionId, {"commands": cmds});
-     }, 4000);*/
 
     res.sendFile( path.join( __dirname, 'client', 'index.html' ));
   });
 
+  router.get( '/app/addmodels', function( req, res )  {
+    cg = new CommandGenerator(sessionId);
+	let cmds = cg.buildState();
+	sendCommands("/projects/" + sessionId, {"commands": cmds});
+    
+	setTimeout(function() {
+	   res.redirect("/");
+    }, 4000);
+  });
+  
+  router.get( '/app/removemodels', function( req, res )  {
+    cg = new CommandGenerator(sessionId);
+	let removedModelsCommands = cg.removeState();
+    sendCommands("/projects/" + sessionId, {commands: removedModelsCommands}, "POST");
+	
+    setTimeout(function() {
+		res.redirect("/");
+    }, 1500);
+  });
+  
+  //Start query and command handlers
+  router.get( '/app/starthandlers', function( req, res )  {
+	// Do a POST request to http://185.3.208.201:8080/projects with { "id" : "cd46e14a-97ca-40e3-81be-ae1c18e7e114" }
+	console.log("sessionId: " + sessionId);
+	sendCommands("/projects", {"id" : sessionId});
+	setTimeout(function() {
+		res.redirect("/");
+    }, 1500);
+	
+  });
+  
   router.get( '/app/project', function( req, res ) {
     let self = this;
     let url = host + ":" + backendPort + "/projects/" + sessionId + "/latest";
@@ -82,16 +89,19 @@ function routes(){
         res.send("An error occured while GET: " + url);
       } else {
         let draw2d = new Draw2D();
-		console.log(resBody);
-        let deserializedProject = draw2d.deserialize(resBody);
+		if(typeof resBody !== 'undefined'){
+			let deserializedProject = draw2d.deserialize(resBody);
 
-        let output = [];
-        for(let e in deserializedProject.Elements){
-          if(deserializedProject.Elements[e] instanceof D2DModelElement){
-            output.push(deserializedProject.Elements[e]);
-          }
-        }
-        res.send(output);
+			let output = [];
+			for(let e in deserializedProject.Elements){
+			  if(deserializedProject.Elements[e] instanceof D2DModelElement){
+				output.push(deserializedProject.Elements[e]);
+			  }
+			}
+			res.send(output);
+		}else{
+			res.send(null);
+		}
       }
     });
   });

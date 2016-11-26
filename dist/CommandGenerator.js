@@ -88,7 +88,22 @@ var CommandGenerator = (function () {
         return elements;
     };
     CommandGenerator.prototype.removeState = function () {
-        return [];
+        return [
+            {
+                "id": Common.Guid.newGuid().toString(),
+                "requestId": Common.Guid.newGuid().toString(),
+                "sessionId": this.sessionId,
+                "type": "DeleteModelCommand",
+                "elementId": Common.Guid.parse("98ab320d-dc64-42c3-bd86-709616e0d0f4").toString(),
+            },
+            {
+                "id": Common.Guid.newGuid().toString(),
+                "requestId": Common.Guid.newGuid().toString(),
+                "sessionId": this.sessionId,
+                "type": "DeleteModelCommand",
+                "elementId": Common.Guid.parse("f8ab7db5-714e-43ab-ba37-87e3fbc63f95").toString(),
+            }
+        ];
     };
     CommandGenerator.prototype.buildState = function () {
         return [

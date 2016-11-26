@@ -14,7 +14,7 @@ var host = "http://185.3.208.201";
 var appPort = 12345;
 var backendPort = 8080;
 var graph = null;
-var sessionId;
+var sessionId = Common.Guid.parse("cd46e14a-97ca-40e3-81be-ae1c18e7e114");
 var cg = null;
 var d2dGraph;
 router.use(bodyParser.json());
@@ -27,12 +27,33 @@ app.listen(appPort, function () {
 });
 function routes() {
     router.get('/', function (req, res) {
-        sessionId = Common.Guid.parse("cd46e14a-97ca-40e3-81be-ae1c18e7e114");
         console.log("sessionId for this session: " + sessionId.toString());
         console.log("-----------------------------------------");
         d2dGraph = new Graph_1.Graph();
-        cg = new CommandGenerator_1.CommandGenerator(sessionId);
         res.sendFile(path.join(__dirname, 'client', 'index.html'));
+    });
+    router.get('/app/addmodels', function (req, res) {
+        cg = new CommandGenerator_1.CommandGenerator(sessionId);
+        var cmds = cg.buildState();
+        sendCommands("/projects/" + sessionId, { "commands": cmds });
+        setTimeout(function () {
+            res.redirect("/");
+        }, 4000);
+    });
+    router.get('/app/removemodels', function (req, res) {
+        cg = new CommandGenerator_1.CommandGenerator(sessionId);
+        var removedModelsCommands = cg.removeState();
+        sendCommands("/projects/" + sessionId, { commands: removedModelsCommands }, "POST");
+        setTimeout(function () {
+            res.redirect("/");
+        }, 1500);
+    });
+    router.get('/app/starthandlers', function (req, res) {
+        console.log("sessionId: " + sessionId);
+        sendCommands("/projects", { "id": sessionId });
+        setTimeout(function () {
+            res.redirect("/");
+        }, 1500);
     });
     router.get('/app/project', function (req, res) {
         var self = this;
@@ -47,15 +68,19 @@ function routes() {
             }
             else {
                 var draw2d = new Draw2D_1.Draw2D();
-                console.log(resBody);
-                var deserializedProject = draw2d.deserialize(resBody);
-                var output = [];
-                for (var e in deserializedProject.Elements) {
-                    if (deserializedProject.Elements[e] instanceof D2DModelElement_1.D2DModelElement) {
-                        output.push(deserializedProject.Elements[e]);
+                if (typeof resBody !== 'undefined') {
+                    var deserializedProject = draw2d.deserialize(resBody);
+                    var output = [];
+                    for (var e in deserializedProject.Elements) {
+                        if (deserializedProject.Elements[e] instanceof D2DModelElement_1.D2DModelElement) {
+                            output.push(deserializedProject.Elements[e]);
+                        }
                     }
+                    res.send(output);
                 }
-                res.send(output);
+                else {
+                    res.send(null);
+                }
             }
         });
     });
