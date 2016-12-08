@@ -7,6 +7,7 @@ The backend of the application is created by other developers and can be found h
 
 ## Application startup
   Startup the application by following https://cubitt.readme.io/docs/installation.  After the vertx cluster is started create a project in which the models are stored by clicking the "Start handlers button". By creating a project the query and command handlers are started. When restarting the vertx cluster at a later point in time you need to restart the handlers again (see https://github.com/sacapita/csa/issues/1). After the project is created sample models can be added by clicking the "Add models" button.
+  Run the CSA application with: node app.js in the dist folder.
 
 ## Add new model elements
   ```html
